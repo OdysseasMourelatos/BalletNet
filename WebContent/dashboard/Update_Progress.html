@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard - Ballet Net</title>
+
+    <link rel="icon" type="image/png" href="../photos/BalletArts.png">
+
+    <!-- Bootstrap 5.3 CSS & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/background_style.css">
+</head>
+
+<body>
+
+    <!-- Responsive Navbar με User Session Info -->
+    <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
+        <div class="container-fluid px-4 px-lg-5 d-flex justify-content-between align-items-center">
+            <a class="navbar-brand fs-2 fw-bold d-flex align-items-center text-ballet m-0" href="../index.html">
+                <img src="../photos/BalletArts.png" alt="Ballet Arts Logo" height="52" class="me-3">
+                Ballet Net
+            </a>
+
+            <!-- Identity / Session Header (Όπως στο UniPath) -->
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-none d-md-block text-end">
+                    <span class="d-block fw-bold text-dark lh-sm">Ελένη Κυριακίδου</span>
+                    <span class="badge bg-ballet px-2 py-1" style="font-size: 0.75rem;">RAD Certified Instructor</span>
+                </div>
+                <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold" style="width: 44px; height: 44px; font-size: 1.1rem;">
+                    ΕΚ
+                </div>
+                <a href="../index.html" class="btn btn-outline-danger btn-sm rounded-pill px-3 fw-semibold ms-2" title="Αποσύνδεση">
+                    <i class="bi bi-box-arrow-right me-1"></i> Έξοδος
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mb-5">
+        <div class="row g-4">
+
+            <!-- Αριστερή Στήλη: Mini Profile Card & Επιλογή Τμήματος -->
+            <div class="col-lg-3">
+                <div class="card p-4 border-0 shadow-sm rounded-4 bg-white text-center mb-4">
+                    <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center mx-auto mb-3 fw-bold" style="width: 80px; height: 80px; font-size: 2rem;">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <h5 class="fw-bold mb-1">Ελένη Κυριακίδου</h5>
+                    <p class="text-muted small mb-3">eleni.kyr@balletarts.gr</p>
+                    
+                    <hr class="text-secondary my-2">
+                    
+                    <div class="text-start mt-3 small">
+                        <div class="mb-2">
+                            <span class="text-muted d-block">Ειδικότητα:</span>
+                            <span class="fw-semibold text-dark">RAD Classical Ballet</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-muted d-block">Ανάθεση Αιθουσών:</span>
+                            <span class="fw-semibold text-dark">Room 1 (Studio A)</span>
+                        </div>
+                        <div>
+                            <span class="text-muted d-block">Ενεργά Τμήματα:</span>
+                            <span class="fw-semibold text-dark">2 Τμήματα (28 Μαθητές)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Επιλογέας Τμήματος -->
+                <div class="card p-3 border-0 shadow-sm rounded-4 bg-white">
+                    <label for="classSelect" class="form-label fw-bold text-dark small mb-2">
+                        <i class="bi bi-collection-play me-1 text-ballet"></i> Επιλογή Τμήματος:
+                    </label>
+                    <select class="form-select rounded-3" id="classSelect">
+                        <option value="1" selected>Intermediate Foundation (RAD)</option>
+                        <option value="2">Grade 3 Ballet (RAD)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Δεξιά Στήλη: Τα 2 Tabs του Use Case Diagram -->
+            <div class="col-lg-9">
+                <div class="bg-white p-4 p-md-5 shadow-sm rounded-4">
+
+                    <!-- Tab Navigation -->
+                    <ul class="nav nav-tabs custom-tabs mb-4" id="teacherTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="class-progress-tab" data-bs-toggle="tab" data-bs-target="#class-progress" type="button" role="tab" aria-controls="class-progress" aria-selected="true">
+                                <i class="bi bi-journal-check me-2"></i>1. Πρόοδος Ύλης Τμήματος
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="student-eval-tab" data-bs-toggle="tab" data-bs-target="#student-eval" type="button" role="tab" aria-controls="student-eval" aria-selected="false">
+                                <i class="bi bi-people-fill me-2"></i>2. Ατομική Αξιολόγηση Μαθητών
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="teacherTabContent">
+
+                        <!-- TAB 1: Update Class Progress -->
+                        <div class="tab-pane fade show active" id="class-progress" role="tabpanel" aria-labelledby="class-progress-tab">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div>
+                                    <h4 class="fw-bold mb-1 text-ballet">Διδακτέα Ύλη: Intermediate Foundation</h4>
+                                    <p class="text-muted small mb-0">Ενημερώστε το ποσοστό κάλυψης ανά ενότητα της επίσημης ύλης RAD.</p>
+                                </div>
+                                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill">
+                                    Συνολική Κάλυψη: <strong class="text-ballet ms-1">62%</strong>
+                                </span>
+                            </div>
+
+                            <form id="formClassProgress" onsubmit="event.preventDefault(); alert('Η πρόοδος της ύλης αποθηκεύτηκε επιτυχώς!');">
+                                <!-- Ενότητα 1 -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <label for="barreRange" class="form-label fw-semibold mb-0">1. Barre Work (Ασκήσεις Μπάρας - Pliés, Battements)</label>
+                                        <span class="fw-bold text-ballet" id="valBarre">75%</span>
+                                    </div>
+                                    <input type="range" class="form-range syllabus-slider" min="0" max="100" value="75" id="barreRange" oninput="document.getElementById('valBarre').innerText = this.value + '%'">
+                                </div>
+
+                                <!-- Ενότητα 2 -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <label for="centreRange" class="form-label fw-semibold mb-0">2. Port de Bras & Centre Practice (Κέντρο & Ισορροπίες)</label>
+                                        <span class="fw-bold text-ballet" id="valCentre">60%</span>
+                                    </div>
+                                    <input type="range" class="form-range syllabus-slider" min="0" max="100" value="60" id="centreRange" oninput="document.getElementById('valCentre').innerText = this.value + '%'">
+                                </div>
+
+                                <!-- Ενότητα 3 -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <label for="allegroRange" class="form-label fw-semibold mb-0">3. Allegro & Pirouettes (Άλματα, Στροφές & Enchaînements)</label>
+                                        <span class="fw-bold text-ballet" id="valAllegro">50%</span>
+                                    </div>
+                                    <input type="range" class="form-range syllabus-slider" min="0" max="100" value="50" id="allegroRange" oninput="document.getElementById('valAllegro').innerText = this.value + '%'">
+                                </div>
+
+                                <!-- Ενότητα 4 -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <label for="pointeRange" class="form-label fw-semibold mb-0">4. Pointe Work (Εισαγωγή στις Πουέντ)</label>
+                                        <span class="fw-bold text-ballet" id="valPointe">40%</span>
+                                    </div>
+                                    <input type="range" class="form-range syllabus-slider" min="0" max="100" value="40" id="pointeRange" oninput="document.getElementById('valPointe').innerText = this.value + '%'">
+                                </div>
+
+                                <!-- Σημειώσεις Μαθήματος -->
+                                <div class="mb-4">
+                                    <label for="classNotes" class="form-label fw-semibold">Ημερολόγιο Διδασκαλίας / Παρατηρήσεις Τμήματος</label>
+                                    <textarea class="form-control rounded-3" id="classNotes" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold">
+                                    <i class="bi bi-cloud-arrow-up me-1"></i> Αποθήκευση Προόδου Ύλης
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- TAB 2: Evaluate Personal Student Progress -->
+                        <div class="tab-pane fade" id="student-eval" role="tabpanel" aria-labelledby="student-eval-tab">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div>
+                                    <h4 class="fw-bold mb-1 text-ballet">Αξιολόγηση Μαθητών & Ετοιμότητα Εξετάσεων</h4>
+                                    <p class="text-muted small mb-0">Ορίστε ποιες μαθήτριες πληρούν τα κριτήρια για τις εξετάσεις RAD.</p>
+                                </div>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle border">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Μαθήτρια</th>
+                                            <th>Παρουσίες</th>
+                                            <th>Τεχνική Επάρκεια</th>
+                                            <th>Ετοιμότητα Εξετάσεων (Exam Ready)</th>
+                                            <th class="text-center">Ενέργεια</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="fw-bold">Μαρία Γεωργίου</div>
+                                                <span class="text-muted small">ID: #ST-104</span>
+                                            </td>
+                                            <td><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">92%</span></td>
+                                            <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">Προχωρημένη</span></td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="readySwitch1" checked>
+                                                    <label class="form-check-label fw-semibold text-success" for="readySwitch1">Exam Ready</label>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-outline-secondary btn-sm rounded-pill" onclick="alert('Προβολή φακέλου προόδου μαθήτριας');">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <div class="fw-bold">Ιωάννα Παπαδοπούλου</div>
+                                                <span class="text-muted small">ID: #ST-108</span>
+                                            </td>
+                                            <td><span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-2 py-1">78%</span></td>
+                                            <td><span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1">Υπό Εξέλιξη</span></td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="readySwitch2">
+                                                    <label class="form-check-label text-muted" for="readySwitch2">Pending Review</label>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-outline-secondary btn-sm rounded-pill" onclick="alert('Προβολή φακέλου προόδου μαθήτριας');">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <div class="fw-bold">Χριστίνα Οικονόμου</div>
+                                                <span class="text-muted small">ID: #ST-112</span>
+                                            </td>
+                                            <td><span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">96%</span></td>
+                                            <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle px-2 py-1">Προχωρημένη</span></td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" role="switch" id="readySwitch3" checked>
+                                                    <label class="form-check-label fw-semibold text-success" for="readySwitch3">Exam Ready</label>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <button class="btn btn-outline-secondary btn-sm rounded-pill" onclick="alert('Προβολή φακέλου προόδου μαθήτριας');">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="mt-4">
+                                <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold" onclick="alert('Η ατομική αξιολόγηση και η λίστα ετοιμότητας εξετάσεων ενημερώθηκαν!');">
+                                    <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση Αξιολόγησης
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
