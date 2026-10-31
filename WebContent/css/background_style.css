@@ -1,0 +1,155 @@
+/* Εισαγωγή Γραμματοσειρών από Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+/* Βασικό Φόντο και Γραμματοσειρές Κειμένου */
+body {
+    background-image: url('../photos/purple_waves.jpg'); 
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f8f9fa;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p, a, table, input, select, button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Γραμματοσειρά Τίτλων */
+h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title { 
+    font-family: 'Playfair Display', serif; 
+}
+
+/* Χρώματα & Ταυτότητα Ballet Net (Branding) */
+.text-ballet { 
+    color: #8B5A83 !important; 
+}
+
+.bg-ballet { 
+    background-color: #8B5A83 !important; 
+    color: #ffffff; 
+}
+
+/* Κουμπιά Ballet Net */
+.btn-ballet {
+    background-color: #8B5A83;
+    color: #ffffff;
+    border: 2px solid #8B5A83;
+    transition: all 0.3s ease;
+}
+
+.btn-ballet:hover, 
+.btn-ballet:focus {
+    background-color: #ffffff;
+    color: #8B5A83;
+    border-color: #8B5A83;
+}
+
+.btn-outline-ballet {
+    color: #8B5A83;
+    border: 2px solid #8B5A83;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-ballet:hover, 
+.btn-outline-ballet:focus {
+    background-color: #8B5A83;
+    color: #ffffff;
+}
+
+/* Links Μενού Πλοήγησης */
+.text-link {
+    text-decoration: none;
+    color: #6c757d; 
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.text-link:hover { 
+    color: #8B5A83;
+    text-decoration: underline; 
+}
+
+/* Εφέ για Κάρτες */
+.card { 
+    transition: transform 0.2s ease, box-shadow 0.2s ease; 
+}
+
+.feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none !important;
+    background-color: #ffffff;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: #8B5A83;
+}
+
+/* Tabs (Διαχείριση Αιθουσών Γραμματείας & Καρτέλες Δασκάλας) */
+.custom-tabs .nav-link {
+    color: #6c757d;
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.custom-tabs .nav-link:hover {
+    color: #8B5A83;
+    text-decoration: underline;
+}
+
+.custom-tabs .nav-link.active {
+    color: #8B5A83;
+    background-color: transparent;
+    border-bottom: 3px solid #8B5A83;
+    font-weight: 700;
+}
+
+/* Στοιχεία Εξετάσεων (RAD / ISTD) & Αξιολόγησης */
+.exam-alert-card {
+    border-left: 5px solid #8B5A83 !important;
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(139, 90, 131, 0.12);
+}
+
+.badge-exam-ready {
+    background-color: #198754;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+}
+
+.badge-exam-pending {
+    background-color: #ffc107;
+    color: #212529;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 50rem;
+    font-size: 0.85rem;
+}
+
+.badge-rad {
+    background-color: #8B5A83;
+    color: #ffffff;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* Sliders Προόδου Ύλης */
+.syllabus-slider {
+    accent-color: #8B5A83;
+}
