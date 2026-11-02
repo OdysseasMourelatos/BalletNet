@@ -1147,6 +1147,208 @@
             document.getElementById('chipExamsCount').innerText = document.querySelectorAll('#examTableBody tr').length;
         }
 
+        // =====================================================================
+        // 3. MANAGE SCHEDULE: Conflict Check (checkAvailability) & Add Session
+        // =====================================================================
+        let sessionCounter = 106;
+
+        function addNewScheduleSession() {
+            const day = document.getElementById('sessionDay').value;
+            const time = document.getElementById('sessionTime').value;
+            const room = document.getElementById('sessionRoom').value;
+            const [groupName, groupBody] = document.getElementById('sessionGroup').value.split('|');
+            const teacher = document.getElementById('sessionTeacher').value;
+            const isSub = document.getElementById('sessionIsSub').checked;
+
+            // Check Availability (Εναλλακτική Ροή 5.1: Αίθουσα ήδη κατειλημμένη)
+            const existingRows = document.querySelectorAll('#scheduleTableBody tr');
+            for (const row of existingRows) {
+                if (row.getAttribute('data-room') === room &&
+                    row.getAttribute('data-day') === day &&
+                    row.getAttribute('data-time') === time) {
+
+                    bootstrap.Modal.getInstance(document.getElementById('addSessionModal')).hide();
+                    const conflictBox = document.getElementById('scheduleConflictAlert');
+                    document.getElementById('scheduleConflictText').innerHTML =
+                        `<strong>Conflict Αίθουσας (${room}):</strong> Η αίθουσα είναι ήδη κατειλημμένη την <strong>${day} (${time})</strong>! Η αποθήκευση ακυρώθηκε.`;
+                    conflictBox.classList.replace('d-none', 'd-flex');
+                    return;
+                }
+            }
+
+            // Hide conflict if open
+            document.getElementById('scheduleConflictAlert').classList.replace('d-flex', 'd-none');
+
+            const tbody = document.getElementById('scheduleTableBody');
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-room', room);
+            tr.setAttribute('data-day', day);
+            tr.setAttribute('data-time', time);
+
+            const roomBadgeClass = room === 'Room 1' ? 'room-badge-1' : 'room-badge-2';
+            const roomLabel = room === 'Room 1' ? 'Room 1 (Studio A)' : 'Room 2 (Studio B)';
+            const bodyBadgeClass = groupBody === 'RAD' ? 'bg-ballet' : 'bg-secondary';
+
+            const statusBadge = isSub
+                ? `<span class="badge rounded-pill sub-badge px-3 py-2"><i class="bi bi-arrow-repeat me-1"></i>Αναπλήρωση (isSubstitution)</span>`
+                : `<span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2"><i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα</span>`;
+
+            tr.innerHTML = `
+                <td class="ps-3 text-muted small fw-semibold">#SES-${sessionCounter++}</td>
+                <td>
+                    <div class="fw-bold">${day}</div>
+                    <span class="text-muted small"><i class="bi bi-clock me-1"></i>${time}</span>
+                </td>
+                <td><span class="badge rounded-pill ${roomBadgeClass} px-3 py-2">${roomLabel}</span></td>
+                <td>
+                    <div class="fw-semibold">${groupName}</div>
+                    <span class="badge ${bodyBadgeClass}" style="font-size: 0.7rem;">${groupBody}</span>
+                </td>
+                <td>${teacher}${isSub ? ' (Αναπλ.)' : ''}</td>
+                <td>${statusBadge}</td>
+                <td class="text-center">
+                    <button class="btn btn-outline-ballet btn-sm rounded-circle me-1" onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm rounded-circle" onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+            updateHeaderCounters();
+            filterByRoom();
+
+            bootstrap.Modal.getInstance(document.getElementById('addSessionModal')).hide();
+            showBanner('scheduleSuccessAlert', `Η ώρα διδασκαλίας (${day}, ${time} - ${room}) αποθηκεύτηκε σε < 2 δευτερόλεπτα και εστάλη ειδοποίηση!`);
+        }
+
+        function openSubstitutionQuickModal(btn) {
+            const row = btn.closest('tr');
+            const teacherCell = row.children[4];
+            const statusCell = row.children[5];
+
+            if (statusCell.innerText.includes('Αναπλήρωση')) {
+                teacherCell.innerText = teacherCell.innerText.replace(' (Αναπλ.)', '');
+                statusCell.innerHTML = `<span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2"><i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα</span>`;
+                showBanner('scheduleSuccessAlert', 'Η ώρα επανήλθε σε Τακτικό Μάθημα και ενημερώθηκε το ημερολόγιο των μαθητών.');
+            } else {
+                teacherCell.innerText = 'Άννα Δεληγιάννη (Αναπλ.)';
+                statusCell.innerHTML = `<span class="badge rounded-pill sub-badge px-3 py-2"><i class="bi bi-arrow-repeat me-1"></i>Αναπλήρωση (isSubstitution)</span>`;
+                showBanner('scheduleSuccessAlert', 'Ορίστηκε Αναπλήρωση (isSubstitution = true) και εστάλη αυτόματη ειδοποίηση στους μαθητές και τη νέα δασκάλα!');
+            }
+        }
+
+        function deleteScheduleRow(btn) {
+            btn.closest('tr').remove();
+            updateHeaderCounters();
+            showBanner('scheduleSuccessAlert', 'Η ώρα διδασκαλίας αφαιρέθηκε από το ωρολόγιο πρόγραμμα.');
+        }
+
+        function triggerBroadcastNotification() {
+            showBanner('scheduleSuccessAlert', 'Εστάλη Push Notification υπενθύμισης ωρολογίου προγράμματος σε όλες τις δασκάλες και τους μαθητές!');
+        }
+
+        // =====================================================================
+        // 4. MANAGE EXAM SESSIONS: Add Exam, Check Availability & Toggle Status
+        // =====================================================================
+        let examCounter = 204;
+
+        function addNewExamSession() {
+            const body = document.getElementById('examBodyInput').value;
+            const group = document.getElementById('examGroupInput').value;
+            const dateRaw = document.getElementById('examDateInput').value;
+            const time = document.getElementById('examTimeInput').value;
+            const room = document.getElementById('examRoomInput').value;
+
+            // Check Exam Room Conflict (checkExamAvailability)
+            const existingExams = document.querySelectorAll('#examTableBody tr');
+            for (const row of existingExams) {
+                if (row.getAttribute('data-room') === room &&
+                    row.getAttribute('data-date') === dateRaw &&
+                    row.getAttribute('data-time') === time) {
+                    bootstrap.Modal.getInstance(document.getElementById('addExamModal')).hide();
+                    document.getElementById('examConflictAlert').classList.replace('d-none', 'd-flex');
+                    return;
+                }
+            }
+
+            document.getElementById('examConflictAlert').classList.replace('d-flex', 'd-none');
+
+            const [yyyy, mm, dd] = dateRaw.split('-');
+            const formattedDate = `${dd}/${mm}/${yyyy}`;
+            const roomBadgeClass = room === 'Room 1' ? 'room-badge-1' : 'room-badge-2';
+            const roomLabel = room === 'Room 1' ? 'Room 1 (Studio A)' : 'Room 2 (Studio B)';
+            const bodyBadgeClass = body === 'RAD' ? 'bg-ballet' : 'bg-secondary';
+
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-room', room);
+            tr.setAttribute('data-date', dateRaw);
+            tr.setAttribute('data-time', time);
+
+            tr.innerHTML = `
+                <td class="ps-3 text-muted small fw-semibold">#EX-${examCounter++}</td>
+                <td><span class="badge ${bodyBadgeClass} px-2 py-1">${body}</span></td>
+                <td class="fw-bold">${group}</td>
+                <td>
+                    <div class="fw-semibold">${formattedDate}</div>
+                    <span class="text-muted small"><i class="bi bi-clock me-1"></i>${time}</span>
+                </td>
+                <td><span class="badge rounded-pill ${roomBadgeClass} px-3 py-2">${roomLabel}</span></td>
+                <td>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill px-3 py-1">
+                        <i class="bi bi-people-fill me-1"></i>Ενεργή Λίστα
+                    </span>
+                </td>
+                <td>
+                    <span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+                        Προγραμματισμένη
+                    </span>
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-outline-ballet btn-sm rounded-circle me-1" onclick="toggleExamStatus(this)" title="Αλλαγή Κατάστασης">
+                        <i class="bi bi-check2-square"></i>
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm rounded-circle" onclick="deleteExamRow(this)" title="Ακύρωση Εξέτασης">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            `;
+
+            document.getElementById('examTableBody').appendChild(tr);
+            updateHeaderCounters();
+            filterByRoom();
+
+            bootstrap.Modal.getInstance(document.getElementById('addExamModal')).hide();
+            showBanner('examSuccessAlert', `Η εξέταση ${body} (${group}) στις ${formattedDate} προγραμματίστηκε επιτυχώς!`);
+        }
+
+        function toggleExamStatus(btn) {
+            const row = btn.closest('tr');
+            const statusCell = row.children[6];
+            if (statusCell.innerText.includes('Προγραμματισμένη') || statusCell.innerText.includes('Αναμονή')) {
+                statusCell.innerHTML = `<span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2"><i class="bi bi-check-all me-1"></i>Ολοκληρωμένη</span>`;
+            } else {
+                statusCell.innerHTML = `<span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">Προγραμματισμένη</span>`;
+            }
+            showBanner('examSuccessAlert', 'Η κατάσταση της εξεταστικής συνεδρίας (status) ενημερώθηκε!');
+        }
+
+        function deleteExamRow(btn) {
+            btn.closest('tr').remove();
+            updateHeaderCounters();
+            showBanner('examSuccessAlert', 'Η εξεταστική συνεδρία αφαιρέθηκε.');
+        }
+
+        function showBanner(id, message) {
+            const box = document.getElementById(id);
+            if (!box) return;
+            const span = box.querySelector('span');
+            if (span && message) span.innerText = message;
+            box.classList.replace('d-none', 'd-flex');
+            setTimeout(() => box.classList.replace('d-flex', 'd-none'), 4000);
+        }
     </script>
 </body>
 
