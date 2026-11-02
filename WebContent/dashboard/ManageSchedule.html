@@ -1081,7 +1081,72 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Interactive JS logic will be added in the next commits
+        // =====================================================================
+        // 1. LIVE COUNTDOWN WIDGET (Exact visual & functional behavior as image)
+        // =====================================================================
+        const TOTAL_TICKS = 44;
+        let remainingSeconds = (9 * 86400) + (3 * 3600) + (11 * 60) + 28; // 09:03:11:28
+        let currentPercentage = 21;
+
+        function renderCountdownTicks(percent) {
+            const container = document.getElementById('countdownTicksContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const filledCount = Math.round((percent / 100) * TOTAL_TICKS);
+            for (let i = 0; i < TOTAL_TICKS; i++) {
+                const tick = document.createElement('div');
+                tick.className = 'countdown-tick' + (i < filledCount ? ' filled' : '');
+                container.appendChild(tick);
+            }
+            document.getElementById('countdownPercentBadge').innerText = percent + '%';
+        }
+
+        function updateTimerDisplay() {
+            if (remainingSeconds > 0) remainingSeconds--;
+            const d = Math.floor(remainingSeconds / 86400);
+            const h = Math.floor((remainingSeconds % 86400) / 3600);
+            const m = Math.floor((remainingSeconds % 3600) / 60);
+            const s = remainingSeconds % 60;
+
+            document.getElementById('cdDays').innerText = String(d).padStart(2, '0');
+            document.getElementById('cdHours').innerText = String(h).padStart(2, '0');
+            document.getElementById('cdMinutes').innerText = String(m).padStart(2, '0');
+            document.getElementById('cdSeconds').innerText = String(s).padStart(2, '0');
+        }
+
+        function applyCustomCountdown() {
+            const daysVal = parseInt(document.getElementById('cdDaysInput').value) || 9;
+            const pctVal = Math.min(100, Math.max(1, parseInt(document.getElementById('cdPctInput').value) || 21));
+            remainingSeconds = (daysVal * 86400) + (3 * 3600) + (11 * 60) + 28;
+            currentPercentage = pctVal;
+            renderCountdownTicks(currentPercentage);
+            updateTimerDisplay();
+        }
+
+        renderCountdownTicks(currentPercentage);
+        setInterval(updateTimerDisplay, 1000);
+
+        // =====================================================================
+        // 2. STUDIO ROOM FILTER (Filters both Schedule and Exam tables)
+        // =====================================================================
+        function filterByRoom() {
+            const selectedRoom = document.getElementById('studioRoomSelect').value;
+            const allRows = document.querySelectorAll('#scheduleTableBody tr, #examTableBody tr');
+            allRows.forEach(row => {
+                const rowRoom = row.getAttribute('data-room');
+                if (selectedRoom === 'ALL' || rowRoom === selectedRoom) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function updateHeaderCounters() {
+            document.getElementById('chipSessionsCount').innerText = document.querySelectorAll('#scheduleTableBody tr').length;
+            document.getElementById('chipExamsCount').innerText = document.querySelectorAll('#examTableBody tr').length;
+        }
+
     </script>
 </body>
 
