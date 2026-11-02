@@ -27,6 +27,8 @@
             --ballet: #8B5A83;
             --ballet-dark: #6f4468;
             --ballet-soft: #f6eff5;
+            --countdown-accent: #ff5757;
+            --countdown-bg: #18181c;
         }
 
         /* Fallbacks */
@@ -87,7 +89,7 @@
             color: #212529;
         }
 
-        /* ---------- Tabs (pill style) ---------- */
+        /* ---------- Tabs (pill style - exact match with Update_Progress.html) ---------- */
         .pill-tabs .nav-link {
             color: #6c757d;
             font-weight: 600;
@@ -118,12 +120,154 @@
         .profile-trigger:hover {
             background-color: rgba(139, 90, 131, 0.08);
         }
+
+        /* ---------- Exam Period Countdown Widget (Exact match to reference image) ---------- */
+        .exam-countdown-card {
+            background: linear-gradient(145deg, #1d1d22 0%, #141418 100%);
+            border-radius: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            color: #ffffff;
+            padding: 1.5rem 1.75rem 1.5rem 2.1rem;
+            box-shadow: 0 12px 28px rgba(20, 20, 24, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        /* Left vertical accent bar */
+        .exam-countdown-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 8px;
+            background: linear-gradient(180deg, #ff5757 0%, #c8649b 100%);
+        }
+
+        .countdown-pct-badge {
+            background: rgba(255, 87, 87, 0.18);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 87, 87, 0.35);
+            font-weight: 700;
+            font-size: 0.85rem;
+            padding: 0.3rem 0.85rem;
+            border-radius: 50rem;
+            letter-spacing: 0.02em;
+        }
+
+        .countdown-date-range {
+            color: #9ca3af;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .countdown-digits-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.45rem;
+            margin-top: 1.1rem;
+            margin-bottom: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 54px;
+        }
+
+        .countdown-num {
+            font-size: 2.15rem;
+            font-weight: 600;
+            line-height: 1.05;
+            color: #ffffff;
+            letter-spacing: 0.03em;
+        }
+
+        .countdown-lbl {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #8e95a2;
+            letter-spacing: 0.1em;
+            margin-top: 0.25rem;
+        }
+
+        .countdown-sep {
+            font-size: 1.75rem;
+            color: #6b7280;
+            font-weight: 500;
+            transform: translateY(-4px);
+        }
+
+        /* Segmented vertical tick progress bar */
+        .countdown-ticks {
+            display: grid;
+            grid-template-columns: repeat(44, 1fr);
+            gap: 4px;
+            margin-top: 0.35rem;
+        }
+
+        .countdown-tick {
+            height: 22px;
+            border-radius: 3px;
+            background-color: #2e2e36;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .countdown-tick.filled {
+            background: linear-gradient(180deg, #ff5757 0%, #e04462 100%);
+            box-shadow: 0 0 6px rgba(255, 87, 87, 0.35);
+        }
+
+        @media (max-width: 768px) {
+            .countdown-ticks {
+                grid-template-columns: repeat(24, 1fr);
+            }
+
+            .countdown-num {
+                font-size: 1.65rem;
+            }
+
+            .countdown-unit {
+                min-width: 42px;
+            }
+        }
+
+        /* ---------- Studio Room Filter Pills ---------- */
+        .room-filter-btn {
+            border-radius: 50rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 0.35rem 1rem;
+        }
+
+        .sub-badge {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffe69c;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .room-badge-1 {
+            background-color: var(--ballet-soft);
+            color: var(--ballet);
+            border: 1px solid rgba(139, 90, 131, 0.25);
+        }
+
+        .room-badge-2 {
+            background-color: #eef6ff;
+            color: #1d4ed8;
+            border: 1px solid rgba(29, 78, 216, 0.2);
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- Responsive Navbar -->
+    <!-- Responsive Navbar (Ενιαίο Design με Update_Progress.html) -->
     <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
         <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center flex-nowrap">
             <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="../index.html">
@@ -207,7 +351,7 @@
     <div class="container mb-5">
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
 
-            <!-- Profile band -->
+            <!-- Profile band: καλωσόρισμα + στατιστικά + φίλτρο αίθουσας -->
             <div class="profile-band p-4 p-md-4">
                 <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-4">
 
@@ -237,7 +381,7 @@
                             <i class="bi bi-funnel me-1 text-ballet"></i>Προβολή αίθουσας
                         </label>
                         <select class="form-select rounded-pill fw-semibold border-secondary-subtle"
-                            id="studioRoomSelect">
+                            id="studioRoomSelect" onchange="filterByRoom()">
                             <option value="ALL" selected>Όλες οι αίθουσες (Room 1 & Room 2)</option>
                             <option value="Room 1">Room 1 (Studio A - Classical)</option>
                             <option value="Room 2">Room 2 (Studio B - Contemporary/ISTD)</option>
@@ -248,7 +392,7 @@
 
             <div class="card-body p-4 p-md-5">
 
-                <!-- Pill Tabs -->
+                <!-- Pill Tabs (Ίδιο στυλ κουμπιών με το Update_Progress.html της Δασκάλας) -->
                 <ul class="nav nav-pills pill-tabs gap-2 mb-4" id="secretaryTab" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="manage-schedule-tab" data-bs-toggle="tab"
@@ -267,15 +411,335 @@
                 </ul>
 
                 <div class="tab-content" id="secretaryTabContent">
+
+                    <!-- ================================================================= -->
+                    <!-- TAB 1: MANAGE SCHEDULE (Ωρολόγιο Πρόγραμμα & Αναπληρώσεις)        -->
+                    <!-- ================================================================= -->
                     <div class="tab-pane fade show active" id="manage-schedule" role="tabpanel"
                         aria-labelledby="manage-schedule-tab">
-                        <!-- Manage Schedule Content -->
-                    </div>
-                    <div class="tab-pane fade" id="manage-exams" role="tabpanel" aria-labelledby="manage-exams-tab">
-                        <!-- Manage Exam Sessions Content -->
-                    </div>
-                </div>
 
+                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                            <div>
+                                <h4 class="fw-bold mb-1 text-ballet">Εβδομαδιαίο Ωρολόγιο Πρόγραμμα Σχολής</h4>
+                                <p class="text-muted small mb-0">Διαχειριστείτε τις ώρες διδασκαλίας ανά αίθουσα και
+                                    ορίστε αναπληρώσεις με αυτόματο έλεγχο διαθεσιμότητας.</p>
+                            </div>
+                            <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm"
+                                data-bs-toggle="modal" data-bs-target="#addSessionModal">
+                                <i class="bi bi-plus-circle me-1"></i> + Προσθήκη Ώρας / Αναπλήρωσης
+                            </button>
+                        </div>
+
+                        <!-- Conflict Alert (Εναλλακτική Ροή 5.1: Αίθουσα ήδη κατειλημμένη) -->
+                        <div id="scheduleConflictAlert"
+                            class="alert alert-danger d-none align-items-center justify-content-between rounded-3 py-2 px-3 mb-3 border-0 shadow-sm"
+                            role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                                <span id="scheduleConflictText"><strong>Conflict Αίθουσας:</strong> Η επιλεγμένη αίθουσα
+                                    είναι ήδη κατειλημμένη τη συγκεκριμένη ημέρα και ώρα!</span>
+                            </div>
+                            <button type="button" class="btn-close"
+                                onclick="this.parentElement.classList.replace('d-flex', 'd-none')"></button>
+                        </div>
+
+                        <!-- Success Alert (Βασική Ροή: Επιβεβαίωση & Ειδοποίηση) -->
+                        <div id="scheduleSuccessAlert"
+                            class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mb-3 border-0 shadow-sm"
+                            role="alert">
+                            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                            <span id="scheduleSuccessText">Το ωρολόγιο πρόγραμμα ενημερώθηκε επιτυχώς και εστάλησαν
+                                αυτόματες ειδοποιήσεις στις δασκάλες και τους μαθητές!</span>
+                        </div>
+
+                        <!-- Timetable Table -->
+                        <div class="table-responsive border rounded-3 mb-4">
+                            <table class="table table-hover align-middle mb-0" id="scheduleTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-3">Κωδικός</th>
+                                        <th>Ημέρα & Ώρα</th>
+                                        <th>Αίθουσα</th>
+                                        <th>Τμήμα (CourseGroup)</th>
+                                        <th>Διδάσκουσα (Teacher)</th>
+                                        <th>Κατάσταση / Τύπος</th>
+                                        <th class="text-center">Ενέργειες</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scheduleTableBody">
+                                    <tr data-room="Room 1" data-day="Δευτέρα" data-time="17:00 - 18:30">
+                                        <td class="ps-3 text-muted small fw-semibold">#SES-101</td>
+                                        <td>
+                                            <div class="fw-bold">Δευτέρα</div>
+                                            <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 -
+                                                18:30</span>
+                                        </td>
+                                        <td><span class="badge rounded-pill room-badge-1 px-3 py-2">Room 1 (Studio
+                                                A)</span></td>
+                                        <td>
+                                            <div class="fw-semibold">Intermediate Foundation</div>
+                                            <span class="badge bg-ballet" style="font-size: 0.7rem;">RAD</span>
+                                        </td>
+                                        <td>Ελένη Κυριακίδου</td>
+                                        <td>
+                                            <span
+                                                class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                                <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                                onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                                onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-room="Room 2" data-day="Δευτέρα" data-time="17:00 - 18:30">
+                                        <td class="ps-3 text-muted small fw-semibold">#SES-102</td>
+                                        <td>
+                                            <div class="fw-bold">Δευτέρα</div>
+                                            <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 -
+                                                18:30</span>
+                                        </td>
+                                        <td><span class="badge rounded-pill room-badge-2 px-3 py-2">Room 2 (Studio
+                                                B)</span></td>
+                                        <td>
+                                            <div class="fw-semibold">Contemporary Level 2</div>
+                                            <span class="badge bg-secondary" style="font-size: 0.7rem;">ISTD</span>
+                                        </td>
+                                        <td>Μαρία Καλλέργη</td>
+                                        <td>
+                                            <span
+                                                class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                                <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                                onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                                onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-room="Room 1" data-day="Τετάρτη" data-time="18:30 - 20:00">
+                                        <td class="ps-3 text-muted small fw-semibold">#SES-103</td>
+                                        <td>
+                                            <div class="fw-bold">Τετάρτη</div>
+                                            <span class="text-muted small"><i class="bi bi-clock me-1"></i>18:30 -
+                                                20:00</span>
+                                        </td>
+                                        <td><span class="badge rounded-pill room-badge-1 px-3 py-2">Room 1 (Studio
+                                                A)</span></td>
+                                        <td>
+                                            <div class="fw-semibold">Grade 3 Ballet</div>
+                                            <span class="badge bg-ballet" style="font-size: 0.7rem;">RAD</span>
+                                        </td>
+                                        <td>Άννα Δεληγιάννη (Αναπλ.)</td>
+                                        <td>
+                                            <span class="badge rounded-pill sub-badge px-3 py-2">
+                                                <i class="bi bi-arrow-repeat me-1"></i>Αναπλήρωση (isSubstitution)
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                                onclick="openSubstitutionQuickModal(this)"
+                                                title="Τροποποίηση Αναπλήρωσης">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                                onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-room="Room 1" data-day="Παρασκευή" data-time="17:00 - 18:30">
+                                        <td class="ps-3 text-muted small fw-semibold">#SES-104</td>
+                                        <td>
+                                            <div class="fw-bold">Παρασκευή</div>
+                                            <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 -
+                                                18:30</span>
+                                        </td>
+                                        <td><span class="badge rounded-pill room-badge-1 px-3 py-2">Room 1 (Studio
+                                                A)</span></td>
+                                        <td>
+                                            <div class="fw-semibold">Intermediate Foundation</div>
+                                            <span class="badge bg-ballet" style="font-size: 0.7rem;">RAD</span>
+                                        </td>
+                                        <td>Ελένη Κυριακίδου</td>
+                                        <td>
+                                            <span
+                                                class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                                <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                                onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                                onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr data-room="Room 2" data-day="Σάββατο" data-time="11:00 - 12:30">
+                                        <td class="ps-3 text-muted small fw-semibold">#SES-105</td>
+                                        <td>
+                                            <div class="fw-bold">Σάββατο</div>
+                                            <span class="text-muted small"><i class="bi bi-clock me-1"></i>11:00 -
+                                                12:30</span>
+                                        </td>
+                                        <td><span class="badge rounded-pill room-badge-2 px-3 py-2">Room 2 (Studio
+                                                B)</span></td>
+                                        <td>
+                                            <div class="fw-semibold">Grade 4 Modern Theatre</div>
+                                            <span class="badge bg-secondary" style="font-size: 0.7rem;">ISTD</span>
+                                        </td>
+                                        <td>Μαρία Καλλέργη</td>
+                                        <td>
+                                            <span
+                                                class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                                <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                                onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                                <i class="bi bi-arrow-repeat"></i>
+                                            </button>
+                                            <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                                onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div
+                            class="d-flex flex-wrap justify-content-between align-items-center bg-light p-3 rounded-3 border">
+                            <div class="small text-muted">
+                                <i class="bi bi-info-circle text-ballet me-1"></i>
+                                Κάθε αλλαγή συγχρονίζεται σε πραγματικό χρόνο με το προσωπικό ημερολόγιο των μαθητών
+                                (<strong>View Personal Schedule</strong>).
+                            </div>
+                            <button type="button"
+                                class="btn btn-outline-ballet btn-sm rounded-pill px-3 fw-semibold mt-2 mt-sm-0"
+                                onclick="triggerBroadcastNotification()">
+                                <i class="bi bi-bell me-1"></i> Αποστολή Υπενθύμισης Προγράμματος
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- ================================================================= -->
+                    <!-- TAB 2: MANAGE EXAM SESSIONS (Εξεταστικές Περίοδοι + Countdown)    -->
+                    <!-- ================================================================= -->
+                    <div class="tab-pane fade" id="manage-exams" role="tabpanel" aria-labelledby="manage-exams-tab">
+                        <!-- Exam Sessions Content will be added in next commit -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    Προσθήκη Νέας Ώρας / Αναπλήρωσης (ScheduledSession) -->
+    <!-- ================================================================= -->
+    <div class="modal fade" id="addSessionModal" tabindex="-1" aria-labelledby="addSessionModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold text-ballet" id="addSessionModalLabel">Προσθήκη Ώρας / Αναπλήρωσης
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="addSessionForm" onsubmit="event.preventDefault(); addNewScheduleSession();">
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="sessionDay" class="form-label small fw-semibold text-muted">Ημέρα
+                                    (day)</label>
+                                <select class="form-select rounded-3" id="sessionDay" required>
+                                    <option value="Δευτέρα">Δευτέρα</option>
+                                    <option value="Τρίτη">Τρίτη</option>
+                                    <option value="Τετάρτη">Τετάρτη</option>
+                                    <option value="Πέμπτη">Πέμπτη</option>
+                                    <option value="Παρασκευή">Παρασκευή</option>
+                                    <option value="Σάββατο">Σάββατο</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="sessionTime" class="form-label small fw-semibold text-muted">Ώρα
+                                    (time)</label>
+                                <select class="form-select rounded-3" id="sessionTime" required>
+                                    <option value="16:00 - 17:00">16:00 - 17:00</option>
+                                    <option value="17:00 - 18:30" selected>17:00 - 18:30</option>
+                                    <option value="18:30 - 20:00">18:30 - 20:00</option>
+                                    <option value="20:00 - 21:30">20:00 - 21:30</option>
+                                    <option value="11:00 - 12:30">11:00 - 12:30</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sessionRoom" class="form-label small fw-semibold text-muted">Αίθουσα
+                                (checkAvailability)</label>
+                            <select class="form-select rounded-3" id="sessionRoom" required>
+                                <option value="Room 1">Room 1 (Studio A)</option>
+                                <option value="Room 2">Room 2 (Studio B)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sessionGroup" class="form-label small fw-semibold text-muted">Τμήμα
+                                (CourseGroup)</label>
+                            <select class="form-select rounded-3" id="sessionGroup" required>
+                                <option value="Intermediate Foundation|RAD">Intermediate Foundation (RAD)</option>
+                                <option value="Grade 3 Ballet|RAD">Grade 3 Ballet (RAD)</option>
+                                <option value="Contemporary Level 2|ISTD">Contemporary Level 2 (ISTD)</option>
+                                <option value="Grade 4 Modern Theatre|ISTD">Grade 4 Modern Theatre (ISTD)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sessionTeacher" class="form-label small fw-semibold text-muted">Διδάσκουσα
+                                (Teacher)</label>
+                            <select class="form-select rounded-3" id="sessionTeacher" required>
+                                <option value="Ελένη Κυριακίδου">Ελένη Κυριακίδου</option>
+                                <option value="Μαρία Καλλέργη">Μαρία Καλλέργη</option>
+                                <option value="Άννα Δεληγιάννη">Άννα Δεληγιάννη</option>
+                            </select>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" role="switch" id="sessionIsSub" checked>
+                            <label class="form-check-label fw-semibold" for="sessionIsSub">
+                                Ορισμός ως Αναπλήρωση (<code>isSubstitution = true</code>)
+                            </label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-ballet rounded-pill fw-semibold py-2">
+                                <i class="bi bi-shield-check me-1"></i> Έλεγχος Διαθεσιμότητας & Αποθήκευση
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
