@@ -128,9 +128,9 @@
                         <div class="mb-4">
                             <label for="userRoleSelect" class="form-label fw-semibold text-dark">Ρόλος Χρήστη</label>
                             <select class="form-select form-select-lg rounded-3" id="userRoleSelect" required>
-                                <option value="secretary" selected>Γραμματεία (Operations & Scheduling)</option>
-                                <option value="teacher">Διδακτικό Προσωπικό (Curriculum & Evaluation)</option>
-                                <option value="student">Μαθητής / Κηδεμόνας (Personal Portal)</option>
+                                <option value="secretary" selected>Γραμματεία (Secretary)</option>
+                                <option value="teacher">Διδακτικό Προσωπικό (Teacher)</option>
+                                <option value="student">Μαθητής / Κηδεμόνας (Student)</option>
                             </select>
                         </div>
 
@@ -150,11 +150,11 @@
         function goToRole() {
             const role = document.getElementById('userRoleSelect').value;
             if (role === 'secretary') {
-                window.location.href = 'dashboard/Manage_Schedule.html';
+                window.location.href = 'dashboard/secretary_dashboard.html';
             } else if (role === 'teacher') {
-                window.location.href = 'dashboard/Update_Progress.html';
+                window.location.href = 'dashboard/teacher_dashboard.html';
             } else if (role === 'student') {
-                window.location.href = 'dashboard/Personal_Schedule.html';
+                window.location.href = 'dashboard/student_schedule.html';
             }
         }
 
