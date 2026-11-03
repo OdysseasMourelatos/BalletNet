@@ -51,7 +51,7 @@
         </div>
     </nav>
 
-    <!-- Profile Offcanvas (πλήρη στοιχεία προφίλ, χωρίς να πιάνει μόνιμα χώρο) -->
+    <!-- Profile Offcanvas -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="profileOffcanvas" aria-labelledby="profileOffcanvasLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title fw-bold text-ballet" id="profileOffcanvasLabel">Το προφίλ μου</h5>
@@ -244,7 +244,7 @@
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="progress attendance-bar"><div class="progress-bar bg-success" style="width: 92%"></div></div>
-                                                <span class="small fw-semibold text-success">92%</span>
+                                                <span class="small fw-semibold text-success">23/25 (92%)</span>
                                             </div>
                                         </td>
                                         <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">Προχωρημένη</span></td>
@@ -255,7 +255,7 @@
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Μαρία Γεωργίου', '#ST-104', '92%', 'Προχωρημένη', 'Εξαιρετική τοποθέτηση κορμού, έτοιμη για την εξέταση.')" title="Προβολή καρτέλας">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Μαρία Γεωργίου', '#ST-104', '23 από 25 μαθήματα (92%)', 'Προχωρημένη', 'Εξαιρετική τοποθέτηση κορμού, έτοιμη για την εξέταση.')" title="Προβολή καρτέλας">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                         </td>
@@ -274,7 +274,7 @@
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="progress attendance-bar"><div class="progress-bar bg-warning" style="width: 78%"></div></div>
-                                                <span class="small fw-semibold text-warning-emphasis">78%</span>
+                                                <span class="small fw-semibold text-warning-emphasis">18/23 (78%)</span>
                                             </div>
                                         </td>
                                         <td><span class="badge rounded-pill bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2">Υπό εξέλιξη</span></td>
@@ -285,7 +285,7 @@
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Ιωάννα Παπαδοπούλου', '#ST-108', '78%', 'Υπό εξέλιξη', 'Χρειάζεται επιπλέον ενδυνάμωση στα άλματα και περισσότερες παρουσίες.')" title="Προβολή καρτέλας">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Ιωάννα Παπαδοπούλου', '#ST-108', '18 από 23 μαθήματα (78%)', 'Υπό εξέλιξη', 'Χρειάζεται επιπλέον ενδυνάμωση στα άλματα και περισσότερες παρουσίες.')" title="Προβολή καρτέλας">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                         </td>
@@ -304,7 +304,7 @@
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="progress attendance-bar"><div class="progress-bar bg-success" style="width: 96%"></div></div>
-                                                <span class="small fw-semibold text-success">96%</span>
+                                                <span class="small fw-semibold text-success">24/25 (96%)</span>
                                             </div>
                                         </td>
                                         <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">Προχωρημένη</span></td>
@@ -315,7 +315,7 @@
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Χριστίνα Οικονόμου', '#ST-112', '96%', 'Προχωρημένη', 'Άψογη τεχνική σε pirouettes και pointe work.')" title="Προβολή καρτέλας">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Χριστίνα Οικονόμου', '#ST-112', '24 από 25 μαθήματα (96%)', 'Προχωρημένη', 'Άψογη τεχνική σε pirouettes και pointe work.')" title="Προβολή καρτέλας">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                         </td>
@@ -362,12 +362,16 @@
 
                     <ul class="list-group list-group-flush small mb-3">
                         <li class="list-group-item d-flex justify-content-between px-0">
-                            <span class="text-muted">Ποσοστό παρουσιών:</span>
-                            <strong id="modalStudentAttendance">92%</strong>
+                            <span class="text-muted">Παρουσίες μαθήτριας:</span>
+                            <strong id="modalStudentAttendance">23 από 25 μαθήματα (92%)</strong>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between px-0">
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <span class="text-muted">Τεχνική επάρκεια:</span>
-                            <strong id="modalStudentLevel">Προχωρημένη</strong>
+                            <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect">
+                                <option value="Αρχάρια">Αρχάρια</option>
+                                <option value="Υπό εξέλιξη">Υπό εξέλιξη</option>
+                                <option value="Προχωρημένη">Προχωρημένη</option>
+                            </select>
                         </li>
                     </ul>
 
@@ -444,7 +448,13 @@
             document.getElementById('modalStudentName').innerText = name;
             document.getElementById('modalStudentId').innerText = 'ID: ' + id;
             document.getElementById('modalStudentAttendance').innerText = attendance;
-            document.getElementById('modalStudentLevel').innerText = level;
+            
+            // Ενημέρωση του dropdown με την τιμή level
+            const levelSelect = document.getElementById('modalStudentLevelSelect');
+            if (levelSelect) {
+                levelSelect.value = level;
+            }
+            
             document.getElementById('modalStudentNotes').value = notes;
             bootstrap.Modal.getOrCreateInstance(document.getElementById('studentDetailModal')).show();
         }
