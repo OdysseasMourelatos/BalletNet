@@ -305,19 +305,18 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
    Secretary Dashboard
    ========================================================= */
 
-/* ---------- Exam Period Countdown Widget ---------- */
+/* ---------- Exam Period Countdown Widget (Light / White Version) ---------- */
 .exam-countdown-card {
-    background: linear-gradient(145deg, #1d1d22 0%, #141418 100%);
+    background: #ffffff;
     border-radius: 1.25rem;
     position: relative;
     overflow: hidden;
-    color: #ffffff;
+    color: #212529;
     padding: 1.5rem 1.75rem 1.5rem 2.1rem;
-    box-shadow: 0 12px 28px rgba(20, 20, 24, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(139, 90, 131, 0.15);
 }
 
-/* Left vertical accent bar */
 .exam-countdown-card::before {
     content: "";
     position: absolute;
@@ -329,9 +328,9 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
 }
 
 .countdown-pct-badge {
-    background: rgba(255, 87, 87, 0.18);
-    color: #ff6b6b;
-    border: 1px solid rgba(255, 87, 87, 0.35);
+    background: rgba(255, 87, 87, 0.12);
+    color: #e04462;
+    border: 1px solid rgba(255, 87, 87, 0.25);
     font-weight: 700;
     font-size: 0.85rem;
     padding: 0.3rem 0.85rem;
@@ -340,7 +339,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
 }
 
 .countdown-date-range {
-    color: #9ca3af;
+    color: #6c757d;
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -365,7 +364,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
     font-size: 2.15rem;
     font-weight: 600;
     line-height: 1.05;
-    color: #ffffff;
+    color: #212529;
     letter-spacing: 0.03em;
 }
 
@@ -373,19 +372,18 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
     font-family: 'Montserrat', sans-serif;
     font-size: 0.68rem;
     font-weight: 600;
-    color: #8e95a2;
+    color: #6c757d;
     letter-spacing: 0.1em;
     margin-top: 0.25rem;
 }
 
 .countdown-sep {
     font-size: 1.75rem;
-    color: #6b7280;
+    color: #6c757d;
     font-weight: 500;
     transform: translateY(-4px);
 }
 
-/* Segmented vertical tick progress bar */
 .countdown-ticks {
     display: grid;
     grid-template-columns: repeat(44, 1fr);
@@ -396,7 +394,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
 .countdown-tick {
     height: 22px;
     border-radius: 3px;
-    background-color: #2e2e36;
+    background-color: #e9ecef;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -409,11 +407,9 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
     .countdown-ticks {
         grid-template-columns: repeat(24, 1fr);
     }
-
     .countdown-num {
         font-size: 1.65rem;
     }
-
     .countdown-unit {
         min-width: 42px;
     }
