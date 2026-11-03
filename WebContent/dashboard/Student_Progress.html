@@ -15,7 +15,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="../css/background_style.css">
@@ -110,7 +110,7 @@
     <main class="container mb-5">
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
 
-            <!-- Profile band -->
+            <!-- Profile band: Καθαρό όνομα & Παρουσίες σε αριθμό/ποσοστό -->
             <div class="profile-band p-4 p-md-4">
                 <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-4">
                     <div class="d-flex align-items-center gap-3 flex-grow-1">
@@ -118,12 +118,12 @@
                             ΜΓ
                         </div>
                         <div>
-                            <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;">Μαρία Γεωργίου — ST-104</h4>
+                            <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;">Μαρία Γεωργίου</h4>
                             <div class="d-flex flex-wrap gap-2 mt-2">
                                 <span class="stat-chip"><i class="bi bi-mortarboard me-1 text-ballet"></i>Τμήμα: <strong>Intermediate Foundation (RAD)</strong></span>
                                 <span class="stat-chip"><i class="bi bi-calendar-week me-1 text-ballet"></i><strong>3</strong> μαθήματα / εβδομάδα</span>
                                 <span class="stat-chip"><i class="bi bi-clock me-1 text-ballet"></i><strong>4,5</strong> ώρες</span>
-                                <span class="stat-chip"><i class="bi bi-check2-circle me-1 text-ballet"></i>Παρουσίες: <strong>92%</strong></span>
+                                <span class="stat-chip"><i class="bi bi-check2-circle me-1 text-ballet"></i>Παρουσίες: <strong>23/25 (92%)</strong></span>
                             </div>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
                     </div>
                 </section>
 
-                <!-- Personal Progress Section -->
+                <!-- Personal Progress Section (23/25 Παρουσίες) -->
                 <section class="mb-5">
                     <h4 class="fw-bold mb-3 text-ballet">Η Προσωπική μου Πρόοδος</h4>
                     <div class="bg-light border rounded-3 p-4">
@@ -224,7 +224,7 @@
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <span class="text-muted small d-block">Παρουσίες</span>
-                                <strong class="fs-5 text-success">92%</strong>
+                                <strong class="fs-5 text-success">23 / 25 (92%)</strong>
                             </div>
                             <div class="col-sm-6 col-md-3">
                                 <span class="text-muted small d-block">Διδάσκουσα</span>
@@ -242,7 +242,7 @@
                     </div>
                 </section>
 
-                <!-- Upcoming Exams & Status Section («extend») -->
+                <!-- Upcoming Exams & Status Section («extend») με Live Countdown Widget -->
                 <section>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="fw-bold mb-0 text-ballet">Επερχόμενες Εξετάσεις &amp; Κατάσταση</h4>
@@ -271,17 +271,70 @@
                             </p>
                         </div>
 
-                        <!-- Ready state -->
+                        <!-- Ready state με Countdown Widget & Πλήρη Στοιχεία Εξέτασης -->
                         <div id="examReady" class="exam-alert-card border rounded-3 p-4">
-                            <span class="badge bg-ballet mb-3 px-3 py-2 rounded-pill">Exam Ready</span>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-ballet px-3 py-2 rounded-pill">Exam Ready</span>
+                                <span class="text-muted small fw-semibold">Κωδ. Εξέτασης: <strong>#EX-201</strong></span>
+                            </div>
+
+                            <!-- Live Digital Countdown Widget (Light/White Theme) -->
+                            <div class="exam-countdown-card mb-4">
+                                <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                                    <div>
+                                        <div class="d-flex align-items-center gap-2 mb-1">
+                                            <span style="font-size: 1.3rem;">📚</span>
+                                            <h5 class="fw-bold mb-0 text-dark">
+                                                Εαρινή Εξεταστική RAD — Αντίστροφη Μέτρηση
+                                            </h5>
+                                        </div>
+                                        <div class="countdown-date-range">
+                                            18 Μαΐου 2026 &rarr; 30 Μαΐου 2026
+                                        </div>
+                                    </div>
+                                    <span class="countdown-pct-badge" id="studentCountdownBadge">21%</span>
+                                </div>
+
+                                <!-- Timer Digits -->
+                                <div class="countdown-digits-row">
+                                    <div class="countdown-unit">
+                                        <span class="countdown-num" id="sCdDays">09</span>
+                                        <span class="countdown-lbl">D</span>
+                                    </div>
+                                    <span class="countdown-sep">:</span>
+                                    <div class="countdown-unit">
+                                        <span class="countdown-num" id="sCdHours">03</span>
+                                        <span class="countdown-lbl">HR</span>
+                                    </div>
+                                    <span class="countdown-sep">:</span>
+                                    <div class="countdown-unit">
+                                        <span class="countdown-num" id="sCdMinutes">11</span>
+                                        <span class="countdown-lbl">MIN</span>
+                                    </div>
+                                    <span class="countdown-sep">:</span>
+                                    <div class="countdown-unit">
+                                        <span class="countdown-num" id="sCdSeconds">28</span>
+                                        <span class="countdown-lbl">S</span>
+                                    </div>
+                                </div>
+
+                                <!-- Segmented Tick Bar -->
+                                <div class="countdown-ticks" id="studentTicksContainer" aria-label="Πρόοδος προετοιμασίας εξεταστικής περιόδου"></div>
+                            </div>
+
                             <h4 class="fw-bold mb-1">Εαρινή Εξεταστική RAD</h4>
                             <p class="text-muted small mb-3">Συγχαρητήρια! Έχεις κριθεί έτοιμη να συμμετάσχεις στην εξεταστική περίοδο.</p>
 
                             <div class="row g-2 mb-3 small">
-                                <div class="col-sm-6"><strong>Ημερομηνία:</strong> 18 Μαΐου 2026</div>
+                                <div class="col-sm-6"><strong>Ημερομηνία &amp; Ώρα:</strong> 18 Μαΐου 2026 (10:00 – 12:00)</div>
                                 <div class="col-sm-6"><strong>Επίπεδο:</strong> Intermediate Foundation</div>
                                 <div class="col-sm-6"><strong>Αίθουσα:</strong> Room 1 (Studio A)</div>
-                                <div class="col-sm-6"><strong>Ενδεικτικό Παράβολο:</strong> 120 €</div>
+                                <div class="col-sm-6"><strong>Κωδικός Υποψηφίας:</strong> #RAD-104</div>
+                            </div>
+
+                            <div class="p-2 bg-white rounded-2 border mb-3 small text-muted">
+                                <i class="bi bi-info-circle me-1 text-ballet"></i>
+                                <strong>Οδηγίες:</strong> Προσέλευση 30' νωρίτερα με επίσημο ballet uniform και μαλλιά σε αυστηρό κότσο.
                             </div>
 
                             <button type="button" id="confirmExam" class="btn btn-ballet rounded-pill px-4 fw-semibold">
@@ -302,6 +355,7 @@
     <script>
         'use strict';
 
+        // 1. Διαχείριση Καταστάσεων Εξέτασης (Demo Switch)
         const demo = document.getElementById('examDemo');
         const confirmButton = document.getElementById('confirmExam');
 
@@ -324,6 +378,41 @@
         });
 
         renderExam();
+
+        // 2. Live Countdown Widget για τη Μαθήτρια
+        const TOTAL_TICKS = 44;
+        let remainingSeconds = (9 * 86400) + (3 * 3600) + (11 * 60) + 28;
+
+        function renderStudentTicks(percent) {
+            const container = document.getElementById('studentTicksContainer');
+            if (!container) return;
+            container.innerHTML = '';
+            const filledCount = Math.round((percent / 100) * TOTAL_TICKS);
+            for (let i = 0; i < TOTAL_TICKS; i++) {
+                const tick = document.createElement('div');
+                tick.className = 'countdown-tick' + (i < filledCount ? ' filled' : '');
+                container.appendChild(tick);
+            }
+        }
+
+        function updateStudentTimer() {
+            if (remainingSeconds > 0) remainingSeconds--;
+            const d = Math.floor(remainingSeconds / 86400);
+            const h = Math.floor((remainingSeconds % 86400) / 3600);
+            const m = Math.floor((remainingSeconds % 3600) / 60);
+            const s = remainingSeconds % 60;
+
+            const elD = document.getElementById('sCdDays');
+            if (elD) {
+                elD.innerText = String(d).padStart(2, '0');
+                document.getElementById('sCdHours').innerText = String(h).padStart(2, '0');
+                document.getElementById('sCdMinutes').innerText = String(m).padStart(2, '0');
+                document.getElementById('sCdSeconds').innerText = String(s).padStart(2, '0');
+            }
+        }
+
+        renderStudentTicks(21);
+        setInterval(updateStudentTimer, 1000);
     </script>
 </body>
 
