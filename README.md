@@ -8,7 +8,7 @@ The project currently features a fully functional reference implementation (pilo
 
 ## 🌐 Live Pilot Deployment
 
-- **Production URL:** [https://ism.dmst.aueb.gr/ismgroup1/BalletNet/index.html](https://ism.dmst.aueb.gr/ismgroup1/BalletNet/index.html)
+- **Production URL:** [https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html](https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html)
 - **Evaluation Mechanism:** To provide zero-friction academic inspection without credential friction, the system implements an **Interactive Role-Switching Hub** on the landing page (`index.html`), directly modeling Role-Based Access Control (RBAC).
 
 ---
