@@ -23,7 +23,7 @@
 
 <body>
     
-    <!-- Responsive Navbar (Ενιαίο Design) -->
+    <!-- Responsive Navbar -->
     <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
         <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center flex-nowrap">
             <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="index.html">
@@ -33,7 +33,7 @@
 
             <div>
                 <button type="button" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Είσοδος
+                    <i class="bi bi-box-arrow-in-right me-1"></i> <span data-el="Είσοδος" data-en="Login">Είσοδος</span>
                 </button>
             </div>
         </div>
@@ -106,7 +106,7 @@
             <!-- Single Call-To-Action (Είσοδος) -->
             <div class="mt-5 pt-4 border-top text-center">
                 <button type="button" class="btn btn-ballet btn-lg px-5 rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <i class="bi bi-box-arrow-in-right me-2"></i> Είσοδος στο Σύστημα
+                    <i class="bi bi-box-arrow-in-right me-2"></i> <span data-el="Είσοδος στο Σύστημα" data-en="Enter System">Είσοδος στο Σύστημα</span>
                 </button>
             </div>
 
@@ -118,15 +118,17 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow">
                 <div class="modal-header border-0 pb-0">
-                    <h4 class="modal-title fw-bold text-ballet" id="loginModalLabel">Είσοδος στο Ballet Net</h4>
+                    <h4 class="modal-title fw-bold text-ballet" id="loginModalLabel" data-el="Είσοδος στο Ballet Net" data-en="Login to Ballet Net">Είσοδος στο Ballet Net</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body p-4 pt-2">
-                    <p class="text-muted small mb-4">Επιλέξτε ρόλο για να περιηγηθείτε στις λειτουργίες της πλατφόρμας:</p>
+                    <p class="text-muted small mb-4" data-el="Επιλέξτε ρόλο για να περιηγηθείτε στις λειτουργίες της πλατφόρμας:" data-en="Select a role to navigate the platform features:">
+                        Επιλέξτε ρόλο για να περιηγηθείτε στις λειτουργίες της πλατφόρμας:
+                    </p>
                     
                     <form id="roleSelectForm" onsubmit="event.preventDefault(); goToRole();">
                         <div class="mb-4">
-                            <label for="userRoleSelect" class="form-label fw-semibold text-dark">Ρόλος Χρήστη</label>
+                            <label for="userRoleSelect" class="form-label fw-semibold text-dark" data-el="Ρόλος Χρήστη" data-en="User Role">Ρόλος Χρήστη</label>
                             <select class="form-select form-select-lg rounded-3" id="userRoleSelect" required>
                                 <option value="secretary" selected>Γραμματεία (Secretary)</option>
                                 <option value="teacher">Διδακτικό Προσωπικό (Teacher)</option>
@@ -135,7 +137,7 @@
                         </div>
 
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-ballet btn-lg rounded-pill fw-semibold">
+                            <button type="submit" class="btn btn-ballet btn-lg rounded-pill fw-semibold" data-el="Είσοδος" data-en="Login">
                                 Είσοδος
                             </button>
                         </div>
