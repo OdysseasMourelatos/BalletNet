@@ -123,7 +123,7 @@
                                 <span class="stat-chip"><i
                                         class="bi bi-door-open me-1 text-ballet"></i><strong>2</strong> Αίθουσες (Studio A & B)</span>
                                 <span class="stat-chip"><i class="bi bi-calendar-week me-1 text-ballet"></i><strong
-                                        id="chipSessionsCount">5</strong> Ενεργές ώρες</span>
+                                        id="chipSessionsCount">6</strong> Ενεργές ώρες</span>
                                 <span class="stat-chip"><i class="bi bi-patch-check me-1 text-ballet"></i><strong>3</strong> Εξεταστικές συνεδρίες</span>
                             </div>
                         </div>
@@ -269,8 +269,37 @@
                                     </td>
                                 </tr>
 
-                                <tr data-room="Room 1" data-day="Τετάρτη" data-time="18:30 - 20:00">
+                                <tr data-room="Room 1" data-day="Τετάρτη" data-time="17:00 - 18:30">
                                     <td class="ps-3 text-muted small fw-semibold">#SES-103</td>
+                                    <td>
+                                        <div class="fw-bold">Τετάρτη</div>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 - 18:30</span>
+                                    </td>
+                                    <td><span class="badge rounded-pill room-badge-1 px-3 py-2">Room 1 (Studio A)</span></td>
+                                    <td>
+                                        <div class="fw-semibold">Intermediate Foundation</div>
+                                        <span class="badge bg-ballet" style="font-size: 0.7rem;">RAD</span>
+                                    </td>
+                                    <td>Ελένη Κυριακίδου</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                            <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                            onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                            onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr data-room="Room 1" data-day="Τετάρτη" data-time="18:30 - 20:00">
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-104</td>
                                     <td>
                                         <div class="fw-bold">Τετάρτη</div>
                                         <span class="text-muted small"><i class="bi bi-clock me-1"></i>18:30 - 20:00</span>
@@ -299,7 +328,7 @@
                                 </tr>
 
                                 <tr data-room="Room 1" data-day="Παρασκευή" data-time="17:00 - 18:30">
-                                    <td class="ps-3 text-muted small fw-semibold">#SES-104</td>
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-105</td>
                                     <td>
                                         <div class="fw-bold">Παρασκευή</div>
                                         <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 - 18:30</span>
@@ -328,7 +357,7 @@
                                 </tr>
 
                                 <tr data-room="Room 2" data-day="Σάββατο" data-time="11:00 - 12:30">
-                                    <td class="ps-3 text-muted small fw-semibold">#SES-105</td>
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-106</td>
                                     <td>
                                         <div class="fw-bold">Σάββατο</div>
                                         <span class="text-muted small"><i class="bi bi-clock me-1"></i>11:00 - 12:30</span>
@@ -479,7 +508,7 @@
         }
 
         // Conflict Detection (checkAvailability) & Προσθήκη Ώρας
-        let sessionCounter = 106;
+        let sessionCounter = 107;
 
         function addNewScheduleSession() {
             const day = document.getElementById('sessionDay').value;
