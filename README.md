@@ -1,62 +1,53 @@
 # Ballet Net — Dance Studio Management Platform
 
-**Ballet Net** is an enterprise-grade, multi-tenant ready **Vertical SaaS platform** engineered to digitize and optimize daily academic and administrative operations in dance education. Designed in compliance with rigorous international curriculum frameworks (such as the **Royal Academy of Dance - RAD** and the **Imperial Society of Teachers of Dancing - ISTD**), the system streamlines curriculum tracking, studio room allocation, conflict detection, and certification examination workflows.
+**Ballet Net** is a **Vertical SaaS platform** for digitizing the daily academic and administrative operations of dance schools. It is designed around standardized international curricula (such as the **Royal Academy of Dance – RAD** and the **Imperial Society of Teachers of Dancing – ISTD**) and covers curriculum tracking, studio scheduling with conflict detection, and certification exam coordination.
 
-The project currently features a fully functional reference implementation (pilot instance) based on real-world domain data from the **Ballet Arts** dance academy in Glyfada.
+The project includes a pilot instance based on real-world domain data from the **Ballet Arts** dance school in Glyfada, Athens.
 
----
-
-## 🌐 Live Pilot Deployment
-
-- **Production URL:** [https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html](https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html)
-- **Evaluation Mechanism:** To provide zero-friction academic inspection without credential friction, the system implements an **Interactive Role-Switching Hub** on the landing page (`index.html`), directly modeling Role-Based Access Control (RBAC).
+> **Status (1st deliverable):** this release contains the design documentation and a **static front-end prototype** (HTML/CSS/JavaScript). The Java backend (Servlets/JSP, Active Record, JDBC) shown in the architecture diagrams is the design target of the 2nd deliverable and is not yet implemented in this repository.
 
 ---
 
-## 🏛️ System Architecture
+## 🌐 Pilot Deployment
 
-The platform strictly follows the **3-Tier Layered Architectural Pattern (MVC)**:
-
-1. **Presentation Layer (Web / UI):**
-   - Responsive, accessible interfaces developed with **HTML5**, **CSS3**, and **Bootstrap 5.3**.
-   - Modular view structure separating administrative management from student progress tracking.
-2. **Business Logic & Service Layer (Java Backend):**
-   - Dedicated service components handling conflict resolution, timetable overlaps, and exam eligibility evaluations.
-   - Core MVC routing utilizing **Java Servlets**.
-3. **Data Persistence Layer:**
-   - Fully normalized (3NF) relational database schema on **MySQL / MariaDB**.
-   - Encapsulated Data Access Objects (DAO) ensuring data integrity and transaction control.
+- **Prototype URL:** [https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html](https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html)
+- **Role switching instead of login:** for easy academic inspection, the landing page (`index.html`) provides a role selector (Secretary / Teacher / Student) that opens the corresponding screens without credentials. Full authentication with Role-Based Access Control (RBAC) is planned for the 2nd deliverable.
 
 ---
 
-## 🎯 Key Modules & Use Cases
+## 🏛️ Target Architecture (design)
 
-### 1. Operations & Scheduling Engine (`Manage_Schedule.html`)
-- Multi-studio timeline visualization (`Room 1` / `Room 2`).
-- Real-time slot management with awareness for instructor availability, substitution handling, and room capacity constraints.
+The platform is designed as a 3-tier layered system following **MVC Model 2**:
 
-### 2. Examination Session Coordination (`Manage_Exams.html`)
-- Administrative scheduling of official certification sessions (RAD / ISTD).
-- Management of examination venues, fee tracking, registration cutoff dates, and candidate confirmation.
+1. **Presentation Layer:** JSP pages (HTML5, CSS3, Bootstrap 5.3). In this release, the screens exist as static HTML pages.
+2. **Application Layer:** Java Servlets as controllers and nine domain classes (`User`, `Secretary`, `Teacher`, `Student`, `CourseGroup`, `ScheduledSession`, `Syllabus`, `StudentProgress`, `ExamSession`) implementing the business logic, including room and teacher conflict detection.
+3. **Database Layer:** relational schema on **MySQL**, accessed through the **Active Record** pattern with a central `DatabaseConnection` class (JDBC). The schema is in [`sql/sqlschema.sql`](sql/sqlschema.sql).
 
-### 3. Curriculum Tracking & Evaluation Module (`Update_Progress.html`)
-- **Group Syllabus Tracking:** Dynamic milestone progress indicators for standardized syllabus sections (*Barre Work, Center Practice, Allegro, Pointe Work*).
-- **Daily Journaling:** Shared instructional log visible across administrative staff and enrolled students.
-- **Individual Assessment:** Direct interface for instructors to assess student competence and toggle certification readiness (`Exam Ready` flag).
-
-### 4. Personalized Student Portal (`Personal_Schedule.html` & `Student_Progress.html`)
-- **My Schedule:** Dedicated view of weekly assigned sessions, assigned rooms, and faculty contacts.
-- **Syllabus & Personal Progress:** Individual grade progression metrics.
-- **Conditional Examination Notification (`«extend»`):** Contextually unhides official exam details and payment parameters only when verified as eligible by the instructor.
+UML and architecture diagrams are in the [`Diagrams`](Diagrams) folder.
 
 ---
 
-## 🔄 Architectural Scope Refactoring
+## 🎯 Prototype Screens and Use Cases
 
-Reflecting advanced software engineering principles, this release underwent strategic architectural refactoring compared to initial exploratory prototypes:
-- **Pruning Non-Core Subsystems:** De-scoped social media publishing workflows (UGC pipelines) to focus strictly on operational core efficiency and pedagogical consistency.
-- **Precondition Security:** Excluded generic authentication from the Use Case Diagram, treating authentication and authorization as architectural preconditions enforced via RBAC.
-- **Interface Decoupling:** Split aggregated student dashboards into two focused, single-responsibility views.
+| Role | Screen (`WebContent/dashboard/`) | Use case |
+|---|---|---|
+| Secretary | `manage_schedule.html` | Manage Schedule: weekly timetable per studio (Room 1 / Room 2), substitution flag, room conflict check (demo logic) |
+| Secretary | `manage_exam_sessions.html` | Manage Exam Sessions: schedule RAD/ISTD exams, exam status, eligible candidates |
+| Teacher | `update_class_progress.html` | Update Class Progress: syllabus coverage sliders (Barre, Centre, Allegro, Pointe) and a teaching log |
+| Teacher | `update_student_progress.html` | Update Personal Student Progress: individual assessment, comments and the `Exam Ready` flag |
+| Student | `view_student_schedule.html` | View Personal Schedule |
+| Student | `view_student_progress.html` | View Syllabus & Personal Progress, with the conditional extension View Upcoming Exams & Status (shown only for `Exam Ready` students) |
+
+Authentication is treated as a precondition of the system (RBAC) and not as a standalone use case. Account creation and class enrollment are performed by the Secretary at administrative level.
+
+---
+
+## 🔄 Scope Refactoring
+
+Compared to earlier exploratory work, the scope was refined:
+- Social media content workflows (UGC) were removed to focus on operational efficiency and educational consistency.
+- Authentication was excluded from the Use Case Diagram and is treated as an RBAC precondition.
+- The student portal is split into two single-purpose views (schedule, and syllabus & progress).
 
 ---
 
