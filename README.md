@@ -4,14 +4,14 @@
 
 The project includes a pilot instance based on real-world domain data from the **Ballet Arts** dance school in Glyfada, Athens.
 
-> **Status (1st deliverable):** this release contains the design documentation and a **static front-end prototype** (HTML/CSS/JavaScript). The Java backend (Servlets/JSP, Active Record, JDBC) shown in the architecture diagrams is the design target of the 2nd deliverable and is not yet implemented in this repository.
+> **Status (1st deliverable):** this release contains the design documentation and a **static front-end prototype** (HTML/CSS/JavaScript). The Java backend (Servlets/JSP, Active Record, JDBC) shown in the architecture diagrams is the design target and is not yet implemented in this repository.
 
 ---
 
 ## 🌐 Pilot Deployment
 
 - **Prototype URL:** [https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html](https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html)
-- **Role switching instead of login:** for easy academic inspection, the landing page (`index.html`) provides a role selector (Secretary / Teacher / Student) that opens the corresponding screens without credentials. Full authentication with Role-Based Access Control (RBAC) is planned for the 2nd deliverable.
+- **Role switching instead of login:** for easy academic inspection, the landing page (`index.html`) provides a role selector (Secretary / Teacher / Student) that opens the corresponding screens without credentials. Authentication and Role-Based Access Control (RBAC) are part of the architectural design and will be implemented together with the backend.
 
 ---
 
