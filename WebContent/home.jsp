@@ -21,9 +21,11 @@
             </a>
 
             <div>
-                <button type="button" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> <span data-el="Είσοδος" data-en="Login">Είσοδος</span>
-                </button>
+                <a href="login_form.jsp">
+                    <button type="button" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> <span data-el="Είσοδος" data-en="Login">Είσοδος</span>
+                    </button>
+                </a>
             </div>
         </div>
     </nav>
@@ -94,9 +96,11 @@
 
             <!-- Single Call-To-Action (Είσοδος) -->
             <div class="mt-5 pt-4 border-top text-center">
-                <button type="button" class="btn btn-ballet btn-lg px-5 rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <i class="bi bi-box-arrow-in-right me-2"></i> <span data-el="Είσοδος στο Σύστημα" data-en="Enter System">Είσοδος στο Σύστημα</span>
-                </button>
+                <a href="login_form.jsp">
+                    <button type="button" class="btn btn-ballet btn-lg px-5 rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> <span data-el="Είσοδος στο Σύστημα" data-en="Enter System">Είσοδος στο Σύστημα</span>
+                    </button>
+                </a>
             </div>
 
         </div>
