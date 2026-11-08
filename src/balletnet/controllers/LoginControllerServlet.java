@@ -15,7 +15,7 @@ public class LoginControllerServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.sendRedirect("login_form.jsp");
+        response.sendRedirect(APP_BASE + "/login_form.jsp");
     }
 
     @Override
@@ -46,7 +46,7 @@ public class LoginControllerServlet extends HttpServlet {
             }
         
         } catch (Exception e) {
-            request.setAttribute("message", e.getMessage());
+            request.setAttribute("message", "auth_failed");
             RequestDispatcher dispatcher = request.getRequestDispatcher(APP_BASE + "/login_form.jsp");
             dispatcher.forward(request, response);
         }
