@@ -516,3 +516,80 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
     .error-card { animation: none; }
     .error-card .btn:hover { transform: none; }
 }
+
+/* =========================================================
+   Login Page
+   ========================================================= */
+
+.auth-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-top: 4px solid var(--ballet) !important;
+    box-shadow: 0 12px 40px rgba(139, 90, 131, 0.15);
+    animation: errorFadeUp 0.6s ease both;
+}
+
+.auth-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--ballet-soft);
+    color: var(--ballet);
+    box-shadow: 0 0 0 8px rgba(139, 90, 131, 0.08);
+}
+
+.auth-title {
+    font-family: 'Playfair Display', 'Noto Serif Display', serif;
+    font-size: 2rem;
+    color: var(--ballet-dark);
+}
+
+.auth-divider {
+    width: 60px;
+    height: 3px;
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(90deg, #d9b8d3, var(--ballet));
+}
+
+/* Inputs */
+.auth-input .input-group-text {
+    background: var(--ballet-soft);
+    color: var(--ballet);
+    border-color: #dee2e6;
+}
+
+.auth-input .form-control:focus {
+    border-color: var(--ballet);
+    box-shadow: 0 0 0 0.2rem rgba(139, 90, 131, 0.2);
+}
+
+.btn-toggle-pass {
+    background: #fff;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+    border-left: 0;
+}
+
+.btn-toggle-pass:hover {
+    color: var(--ballet);
+    background: var(--ballet-soft);
+}
+
+.auth-help {
+    background: rgba(246, 239, 245, 0.7);
+    border: 1px solid rgba(139, 90, 131, 0.15);
+}
+
+.auth-card .btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.25s ease;
+}
+
+.auth-card .btn-ballet:hover {
+    transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .auth-card { animation: none; }
+    .auth-card .btn-ballet:hover { transform: none; }
+}

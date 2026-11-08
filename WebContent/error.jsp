@@ -1,29 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isErrorPage="true" %>
 
-<%!
-    // Απλό HTML escape (χωρίς εξάρτηση από JSTL)
-    private static String esc(String s) {
-        if (s == null) return "";
-        return s.replace("&", "&amp;")
-                .replace("<", "&lt;")
-                .replace(">", "&gt;")
-                .replace("\"", "&quot;")
-                .replace("'", "&#39;");
-    }
-%>
-<%
-    // Τεχνικό μήνυμα (υποστηρίζει Tomcat 9 - javax και Tomcat 10+ - jakarta)
-    String errorDetails = null;
-    if (exception != null) {
-        errorDetails = exception.getMessage() != null ? exception.getMessage() : exception.toString();
-    } else {
-        Object msg = request.getAttribute("javax.servlet.error.message");
-        if (msg == null) msg = request.getAttribute("jakarta.servlet.error.message");
-        if (msg != null) errorDetails = msg.toString();
-    }
-%>
-
 <!DOCTYPE html>
 <html lang="el">
 
