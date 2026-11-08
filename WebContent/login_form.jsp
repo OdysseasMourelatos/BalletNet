@@ -113,15 +113,40 @@
                         </a>
                     </div>
                     <div class="collapse" id="demoAccounts">
-                        <div class="auth-help rounded-3 p-3 mt-3 small">
-                            <ul class="list-unstyled mb-0">
-                                <li><strong>Γραμματεία: </strong> <code>salexiou</code> / <code>1111</code></li>
-                                <li><strong>Δασκάλα: </strong> <code>ekyriakidou</code> / <code>2222</code></li>
-                                <li><strong>Μαθήτρια: </strong> <code>mgeorgiou</code> / <code>3333</code></li>
-                            </ul>
+                        <div class="auth-help rounded-3 p-3 mt-3 small text-start">
+                            
+                            <!-- Γραμματεία -->
+                            <div class="mb-2 pb-2 border-bottom border-secondary-subtle">
+                                <span class="badge bg-secondary-subtle text-secondary me-1">Secretary</span>
+                                <strong data-el="Γραμματεία:" data-en="Secretariat:">Γραμματεία:</strong>
+                                <div class="mt-1 ps-2">
+                                    <div>• <code>salexiou</code> / <code>1111</code></div>
+                                    <div>• <code>nkostopoulou</code> / <code>1112</code></div>
+                                </div>
+                            </div>
+
+                            <!-- Δασκάλες -->
+                            <div class="mb-2 pb-2 border-bottom border-secondary-subtle">
+                                <span class="badge bg-primary-subtle text-primary me-1">Teacher</span>
+                                <strong data-el="Δασκάλες:" data-en="Teachers:">Δασκάλες:</strong>
+                                <div class="mt-1 ps-2">
+                                    <div>• <code>ekyriakidou</code> / <code>2222</code></span></div>
+                                    <div>• <code>ddimitriou</code> / <code>2223</code></div>
+                                </div>
+                            </div>
+
+                            <!-- Μαθήτριες -->
+                            <div>
+                                <span class="badge bg-success-subtle text-success me-1">Student</span>
+                                <strong data-el="Μαθήτριες:" data-en="Students:">Μαθήτριες:</strong>
+                                <div class="mt-1 ps-2">
+                                    <div>• <code>mgeorgiou</code> / <code>3333</code></div>
+                                    <div>• <code>ipapadopoulou</code> / <code>3334</code></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

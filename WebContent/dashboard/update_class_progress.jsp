@@ -19,6 +19,7 @@ if (!(user instanceof Teacher)) {
 	<jsp:forward page="../login_form.jsp"/>
 <%
 }
+Teacher teacher = (Teacher) user;
 %>
 
 <!DOCTYPE html>
@@ -43,11 +44,11 @@ if (!(user instanceof Teacher)) {
                 <!-- Profile Trigger -->
                 <button type="button" class="profile-trigger d-flex align-items-center" data-bs-toggle="offcanvas" data-bs-target="#profileOffcanvas" aria-controls="profileOffcanvas" title="Προβολή προφίλ">
                     <div class="d-none d-md-block text-end me-2">
-                        <span class="d-block fw-bold text-dark lh-sm">Ελένη Κυριακίδου</span>
+                        <span class="d-block fw-bold text-dark lh-sm"><%= teacher.getFirstName() + " " + teacher.getLastName()%></span>
                         <span class="badge bg-ballet px-2 py-1" style="font-size: 0.75rem;">RAD Certified Instructor</span>
                     </div>
                     <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm" style="width: 44px; height: 44px; font-size: 1.1rem;">
-                        ΕΚ
+                        <%= teacher.getFirstName().charAt(0) + "" + teacher.getLastName().charAt(0)%>
                     </div>
                 </button>
 
@@ -67,9 +68,9 @@ if (!(user instanceof Teacher)) {
         </div>
         <div class="offcanvas-body">
             <div class="text-center mb-4">
-                <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center mx-auto mb-3 fw-bold avatar-lg">ΕΚ</div>
-                <h5 class="fw-bold mb-1">Ελένη Κυριακίδου</h5>
-                <p class="text-muted small mb-0">eleni.kyr@balletarts.gr</p>
+                <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center mx-auto mb-3 fw-bold avatar-lg"><%= teacher.getFirstName().charAt(0) + "" + teacher.getLastName().charAt(0)%></div>
+                <h5 class="fw-bold mb-1"><%= teacher.getFirstName() + " " + teacher.getLastName()%></h5>
+                <p class="text-muted small mb-0"><%= teacher.getEmail()%></p>
             </div>
 
             <ul class="list-group list-group-flush small">
@@ -77,7 +78,7 @@ if (!(user instanceof Teacher)) {
                     <i class="bi bi-award text-ballet fs-5 me-3"></i>
                     <div>
                         <span class="text-muted d-block">Ειδικότητα</span>
-                        <span class="fw-semibold">RAD Classical Ballet</span>
+                        <span class="fw-semibold"><%= teacher.getSpecialization()%></span>
                     </div>
                 </li>
                 <li class="list-group-item px-0 d-flex align-items-center">
@@ -108,10 +109,10 @@ if (!(user instanceof Teacher)) {
 
                     <div class="d-flex align-items-center gap-3 flex-grow-1">
                         <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0 avatar-lg">
-                            ΕΚ
+                            <%= teacher.getFirstName().charAt(0) + "" + teacher.getLastName().charAt(0)%>
                         </div>
                         <div>
-                            <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;">Ελένη Κυριακίδου</h4>
+                            <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;"><%= teacher.getFirstName() + " " + teacher.getLastName()%></h4>
                             <div class="d-flex flex-wrap gap-2 mt-2">
                                 <span class="stat-chip"><i class="bi bi-door-open me-1 text-ballet"></i><strong>Room 1</strong> (Studio A)</span>
                                 <span class="stat-chip"><i class="bi bi-collection me-1 text-ballet"></i><strong>2</strong> τμήματα</span>

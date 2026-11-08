@@ -20,10 +20,9 @@ public class UserDAO {
 	 */
 	public List<User> getUsers() {
 
-		List<User> users = new ArrayList<User>();
-		
-
         // Mock users according to Ballet Net entity constructor
+        List<User> users = new ArrayList<User>();
+
         users.add(new Secretary(
             "U01", 
             "salexiou", 
@@ -34,9 +33,18 @@ public class UserDAO {
             "SEC-01" // secretaryID
         ));
 
-        // 2. Teacher instance
-        users.add(new Teacher(
+        users.add(new Secretary(
             "U02", 
+            "nkostopoulou", 
+            "1112", 
+            "Νίκη", 
+            "Κωστοπούλου", 
+            "niki.kost@balletarts.gr", 
+            "SEC-02" // secretaryID
+        ));
+
+        users.add(new Teacher(
+            "U03", 
             "ekyriakidou", 
             "2222", 
             "Ελένη", 
@@ -46,9 +54,19 @@ public class UserDAO {
             "RAD Classical Ballet" // specialization
         ));
 
-        // 3. Student instance
+        users.add(new Teacher(
+            "U04", 
+            "ddimitriou", 
+            "2223", 
+            "Δέσποινα", 
+            "Δημητρίου", 
+            "despina.dim@balletarts.gr", 
+            "TEA-02", // teacherID
+            "Vaganova & Contemporary Ballet" // specialization
+        ));
+
         users.add(new Student(
-            "U03", 
+            "U05", 
             "mgeorgiou", 
             "3333", 
             "Μαρία", 
@@ -58,8 +76,19 @@ public class UserDAO {
             17 // age (Integer)
         ));
 
+        users.add(new Student(
+            "U06", 
+            "ipapadopoulou", 
+            "3334", 
+            "Ιωάννα", 
+            "Παπαδοπούλου", 
+            "ioanna.pap@balletarts.gr", 
+            "STU-02", // studentID
+            16 // age (Integer)
+        ));
+
         return users;
-    } //End of getUsers
+    } // End of getUsers
 
     /**
 	 * This method is used to authenticate a user.     
