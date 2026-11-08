@@ -2,6 +2,18 @@
 <%-- Unhandled JSP exceptions are forwarded internally to the common error page. --%>
 <%@ page errorPage="error.jsp" %>
 
+<%!
+    // Απλό HTML escape για το μήνυμα σφάλματος
+    private static String esc(String s) {
+        if (s == null) return "";
+        return s.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#39;");
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="el">
 
