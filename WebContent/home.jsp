@@ -15,16 +15,14 @@
     <!-- Responsive Navbar -->
     <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
         <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center flex-nowrap">
-            <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="index.jsp">
+            <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="home.jsp">
                 <img src="photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
                 Ballet Net
             </a>
 
             <div>
-                <a href="login_form.jsp">
-                    <button type="button" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        <i class="bi bi-box-arrow-in-right me-1"></i> <span data-el="Είσοδος" data-en="Login">Είσοδος</span>
-                    </button>
+                <a href="login_form.jsp" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> <span data-el="Είσοδος" data-en="Login">Είσοδος</span>
                 </a>
             </div>
         </div>
@@ -96,10 +94,8 @@
 
             <!-- Single Call-To-Action (Είσοδος) -->
             <div class="mt-5 pt-4 border-top text-center">
-                <a href="login_form.jsp">
-                    <button type="button" class="btn btn-ballet btn-lg px-5 rounded-pill shadow-sm" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        <i class="bi bi-box-arrow-in-right me-2"></i> <span data-el="Είσοδος στο Σύστημα" data-en="Enter System">Είσοδος στο Σύστημα</span>
-                    </button>
+                <a href="login_form.jsp" class="btn btn-ballet btn-lg px-5 rounded-pill shadow-sm fw-semibold">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> <span data-el="Είσοδος στο Σύστημα" data-en="Enter System">Είσοδος στο Σύστημα</span>
                 </a>
             </div>
 

@@ -95,7 +95,6 @@
                         </div>
                     </form>
 
-                    <!-- Demo accounts (αφαίρεσέ το στην τελική παράδοση ή άλλαξε τα στοιχεία) -->
                     <div class="mt-4 text-center">
                         <a class="small text-muted text-decoration-none error-details-toggle collapsed"
                            data-bs-toggle="collapse" href="#demoAccounts" role="button"
@@ -130,7 +129,7 @@
             toggleBtn.querySelector('i').className = show ? 'bi bi-eye-slash' : 'bi bi-eye';
         });
 
-        // Γλώσσα (ίδια λογική με την αρχική σελίδα)
+        // Γλώσσα
         const language = navigator.language || navigator.userLanguage;
         const selectedLanguage = language.startsWith("el") ? "el" : "en";
         document.documentElement.lang = selectedLanguage;
