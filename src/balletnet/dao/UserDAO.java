@@ -5,7 +5,6 @@ import java.util.List;
 
 import balletnet.models.*;
 
-
 /**
  * UserService provides all the necessary methods related to users.
  * In future lesson we will change the code in order to provide data from a Database.
@@ -25,38 +24,42 @@ public class UserDAO {
 		
 
         // Mock users according to Ballet Net entity constructor
-        users.add(new User(
-            "SEC-01", 
+        users.add(new Secretary(
+            "U01", 
             "salexiou", 
             "1111", 
             "Σοφία", 
             "Αλεξίου", 
             "secretariat@balletarts.gr", 
-            Role.SECRETARY
+            "SEC-01" // secretaryID
         ));
 
-        users.add(new User(
-            "TEA-01", 
+        // 2. Teacher instance
+        users.add(new Teacher(
+            "U02", 
             "ekyriakidou", 
             "2222", 
             "Ελένη", 
             "Κυριακίδου", 
             "eleni.kyr@balletarts.gr", 
-            Role.TEACHER
+            "TEA-01", // teacherID
+            "RAD Classical Ballet" // specialization
         ));
 
-        users.add(new User(
-            "STU-01", 
+        // 3. Student instance
+        users.add(new Student(
+            "U03", 
             "mgeorgiou", 
             "3333", 
             "Μαρία", 
             "Γεωργίου", 
             "maria.georgiou@balletarts.gr", 
-            Role.STUDENT
+            "STU-01", // studentID
+            17 // age (Integer)
         ));
-		return users;
 
-	} //End of getUsers
+        return users;
+    } //End of getUsers
 
     /**
 	 * This method is used to authenticate a user.     
