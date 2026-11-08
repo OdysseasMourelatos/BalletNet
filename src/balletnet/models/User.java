@@ -7,7 +7,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
-    private Enum role;
+    private Role role;
 
     /**
      * Full constuctor
@@ -20,7 +20,7 @@ public class User {
      * @param email
      * @param role
      */
-    public User(String userID, String username, String password, String firstName, String lastName, String email, Enum role) {
+    public User(String userID, String username, String password, String firstName, String lastName, String email, Role role) {
         this.userID = userID;
         this.username = username;
         this.password = password;
@@ -78,11 +78,11 @@ public class User {
         this.email = email;
     }
 
-    public Enum getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(Enum role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }
