@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Schedule - Ballet Net</title>
+
+    <link rel="icon" type="image/png" href="../photos/BalletArts.png">
+
+    <!-- Bootstrap 5.3 CSS & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/background_style.css">
+</head>
+
+<body>
+
+    <!-- Responsive Navbar -->
+    <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
+        <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center flex-nowrap">
+            <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="../index.html">
+                <img src="../photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
+                Ballet Net
+            </a>
+
+            <div class="d-flex align-items-center gap-2">
+                <!-- Profile Trigger -->
+                <button type="button" class="profile-trigger d-flex align-items-center" data-bs-toggle="offcanvas"
+                    data-bs-target="#profileOffcanvas" aria-controls="profileOffcanvas" title="Προβολή προφίλ">
+                    <div class="d-none d-md-block text-end me-2">
+                        <span class="d-block fw-bold text-dark lh-sm">Σοφία Αλεξίου</span>
+                        <span class="badge bg-ballet px-2 py-1" style="font-size: 0.75rem;">Secretary & Operations</span>
+                    </div>
+                    <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                        style="width: 44px; height: 44px; font-size: 1.1rem;">
+                        ΣΑ
+                    </div>
+                </button>
+
+                <!-- Κουμπί Εξόδου -->
+                <a href="../index.html" class="btn btn-outline-danger rounded-pill px-3 py-1 fw-semibold ms-1"
+                    title="Αποσύνδεση">
+                    <i class="bi bi-box-arrow-right me-md-1"></i> <span class="d-none d-sm-inline">Έξοδος</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="profileOffcanvas" aria-labelledby="profileOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-bold text-ballet" id="profileOffcanvasLabel">Προφίλ Γραμματείας</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="text-center mb-4">
+                <div
+                    class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center mx-auto mb-3 fw-bold avatar-lg">
+                    ΣΑ</div>
+                <h5 class="fw-bold mb-1">Σοφία Αλεξίου</h5>
+                <p class="text-muted small mb-0">secretariat@balletarts.gr</p>
+            </div>
+
+            <ul class="list-group list-group-flush small">
+                <li class="list-group-item px-0 d-flex align-items-center">
+                    <i class="bi bi-building-gear text-ballet fs-5 me-3"></i>
+                    <div>
+                        <span class="text-muted d-block">Ρόλος Συστήματος</span>
+                        <span class="fw-semibold">Διοικητική Οργάνωση & Πρόγραμμα</span>
+                    </div>
+                </li>
+                <li class="list-group-item px-0 d-flex align-items-center">
+                    <i class="bi bi-door-open text-ballet fs-5 me-3"></i>
+                    <div>
+                        <span class="text-muted d-block">Εποπτεία Αιθουσών</span>
+                        <span class="fw-semibold">Room 1 (Studio A), Room 2 (Studio B)</span>
+                    </div>
+                </li>
+                <li class="list-group-item px-0 d-flex align-items-center">
+                    <i class="bi bi-award text-ballet fs-5 me-3"></i>
+                    <div>
+                        <span class="text-muted d-block">Εξεταστικοί Φορείς</span>
+                        <span class="fw-semibold">RAD & ISTD Certified Center</span>
+                    </div>
+                </li>
+                <li class="list-group-item px-0 d-flex align-items-center">
+                    <i class="bi bi-shield-check text-ballet fs-5 me-3"></i>
+                    <div>
+                        <span class="text-muted d-block">Κωδικός Γραμματείας</span>
+                        <span class="fw-semibold">#SEC-01</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <div class="container mb-5">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+
+            <!-- Profile band -->
+            <div class="profile-band p-4 p-md-4">
+                <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-4">
+
+                    <div class="d-flex align-items-center gap-3 flex-grow-1">
+                        <div
+                            class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0 avatar-lg">
+                            ΣΑ
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;">Σοφία Αλεξίου</h4>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <span class="stat-chip"><i
+                                        class="bi bi-door-open me-1 text-ballet"></i><strong>2</strong> Αίθουσες (Studio A & B)</span>
+                                <span class="stat-chip"><i class="bi bi-calendar-week me-1 text-ballet"></i><strong
+                                        id="chipSessionsCount">6</strong> Ενεργές ώρες</span>
+                                <span class="stat-chip"><i class="bi bi-patch-check me-1 text-ballet"></i><strong>3</strong> Εξεταστικές συνεδρίες</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Επιλογή / Φίλτρο Αίθουσας -->
+                    <div class="flex-shrink-0" style="min-width: 260px;">
+                        <label for="studioRoomSelect" class="form-label small fw-semibold text-muted mb-1">
+                            <i class="bi bi-funnel me-1 text-ballet"></i>Προβολή αίθουσας
+                        </label>
+                        <select class="form-select rounded-pill fw-semibold border-secondary-subtle"
+                            id="studioRoomSelect" onchange="filterByRoom()">
+                            <option value="ALL" selected>Όλες οι αίθουσες (Room 1 & Room 2)</option>
+                            <option value="Room 1">Room 1 (Studio A - Classical)</option>
+                            <option value="Room 2">Room 2 (Studio B - Contemporary/ISTD)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4 p-md-5">
+
+                <!-- Navigation Pills ανάμεσα στις 2 σελίδες της Γραμματείας -->
+                <ul class="nav nav-pills pill-tabs gap-2 mb-4" id="secretaryNav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="manage_schedule.html">
+                            <i class="bi bi-calendar3 me-2"></i>Διαχείριση ωρολογίου προγράμματος (Manage Schedule)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="manage_exam_sessions.html">
+                            <i class="bi bi-award-fill me-2"></i>Διαχείριση εξεταστικών περιόδων (Manage Exam Sessions)
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- ΠΕΡΙΕΧΟΜΕΝΟ: MANAGE SCHEDULE -->
+                <div>
+                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+                        <div>
+                            <h4 class="fw-bold mb-1 text-ballet">Εβδομαδιαίο Ωρολόγιο Πρόγραμμα Σχολής</h4>
+                            <p class="text-muted small mb-0">Διαχειριστείτε τις ώρες διδασκαλίας ανά αίθουσα και
+                                ορίστε αναπληρώσεις με αυτόματο έλεγχο διαθεσιμότητας.</p>
+                        </div>
+                        <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm"
+                            data-bs-toggle="modal" data-bs-target="#addSessionModal">
+                            <i class="bi bi-plus-circle me-1"></i> + Προσθήκη Ώρας / Αναπλήρωσης
+                        </button>
+                    </div>
+
+                    <!-- Conflict Alert -->
+                    <div id="scheduleConflictAlert"
+                        class="alert alert-danger d-none align-items-center justify-content-between rounded-3 py-2 px-3 mb-3 border-0 shadow-sm"
+                        role="alert">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                            <span id="scheduleConflictText"><strong>Conflict Αίθουσας:</strong> Η επιλεγμένη αίθουσα
+                                είναι ήδη κατειλημμένη τη συγκεκριμένη ημέρα και ώρα!</span>
+                        </div>
+                        <button type="button" class="btn-close"
+                            onclick="this.parentElement.classList.replace('d-flex', 'd-none')"></button>
+                    </div>
+
+                    <!-- Success Alert -->
+                    <div id="scheduleSuccessAlert"
+                        class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mb-3 border-0 shadow-sm"
+                        role="alert">
+                        <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                        <span id="scheduleSuccessText">Το ωρολόγιο πρόγραμμα ενημερώθηκε επιτυχώς και εστάλησαν
+                            αυτόματες ειδοποιήσεις στις δασκάλες και τους μαθητές!</span>
+                    </div>
+
+                    <!-- Timetable Table -->
+                    <div class="table-responsive border rounded-3 mb-4">
+                        <table class="table table-hover align-middle mb-0" id="scheduleTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="ps-3">Κωδικός</th>
+                                    <th>Ημέρα & Ώρα</th>
+                                    <th>Αίθουσα</th>
+                                    <th>Τμήμα (CourseGroup)</th>
+                                    <th>Διδάσκουσα (Teacher)</th>
+                                    <th>Κατάσταση / Τύπος</th>
+                                    <th class="text-center">Ενέργειες</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleTableBody">
+                                <tr data-room="Room 1" data-day="Δευτέρα" data-time="17:00 - 18:30">
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-101</td>
+                                    <td>
+                                        <div class="fw-bold">Δευτέρα</div>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 - 18:30</span>
+                                    </td>
+                                    <td><span class="badge rounded-pill room-badge-1 px-3 py-2">Room 1 (Studio A)</span></td>
+                                    <td>
+                                        <div class="fw-semibold">Intermediate Foundation</div>
+                                        <span class="badge bg-ballet" style="font-size: 0.7rem;">RAD</span>
+                                    </td>
+                                    <td>Ελένη Κυριακίδου</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                            <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                            onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                            onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr data-room="Room 2" data-day="Δευτέρα" data-time="17:00 - 18:30">
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-102</td>
+                                    <td>
+                                        <div class="fw-bold">Δευτέρα</div>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 - 18:30</span>
+                                    </td>
+                                    <td><span class="badge rounded-pill room-badge-2 px-3 py-2">Room 2 (Studio B)</span></td>
+                                    <td>
+                                        <div class="fw-semibold">Contemporary Level 2</div>
+                                        <span class="badge bg-secondary" style="font-size: 0.7rem;">ISTD</span>
+                                    </td>
+                                    <td>Μαρία Καλλέργη</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                            <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                            onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                            onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr data-room="Room 1" data-day="Τετάρτη" data-time="17:00 - 18:30">
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-103</td>
+                                    <td>
+                                        <div class="fw-bold">Τετάρτη</div>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 - 18:30</span>
+                                    </td>
+                                    <td><span class="badge rounded-pill room-badge-1 px-3 py-2">Room 1 (Studio A)</span></td>
+                                    <td>
+                                        <div class="fw-semibold">Intermediate Foundation</div>
+                                        <span class="badge bg-ballet" style="font-size: 0.7rem;">RAD</span>
+                                    </td>
+                                    <td>Ελένη Κυριακίδου</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                            <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                            onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                            onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr data-room="Room 1" data-day="Τετάρτη" data-time="18:30 - 20:00">
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-104</td>
+                                    <td>
+                                        <div class="fw-bold">Τετάρτη</div>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>18:30 - 20:00</span>
+                                    </td>
+                                    <td><span class="badge rounded-pill room-badge-1 px-3 py-2">Room 1 (Studio A)</span></td>
+                                    <td>
+                                        <div class="fw-semibold">Grade 3 Ballet</div>
+                                        <span class="badge bg-ballet" style="font-size: 0.7rem;">RAD</span>
+                                    </td>
+                                    <td>Άννα Δεληγιάννη (Αναπλ.)</td>
+                                    <td>
+                                        <span class="badge rounded-pill sub-badge px-3 py-2">
+                                            <i class="bi bi-arrow-repeat me-1"></i>Αναπλήρωση (isSubstitution)
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                            onclick="openSubstitutionQuickModal(this)" title="Τροποποίηση Αναπλήρωσης">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                            onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr data-room="Room 1" data-day="Παρασκευή" data-time="17:00 - 18:30">
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-105</td>
+                                    <td>
+                                        <div class="fw-bold">Παρασκευή</div>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>17:00 - 18:30</span>
+                                    </td>
+                                    <td><span class="badge rounded-pill room-badge-1 px-3 py-2">Room 1 (Studio A)</span></td>
+                                    <td>
+                                        <div class="fw-semibold">Intermediate Foundation</div>
+                                        <span class="badge bg-ballet" style="font-size: 0.7rem;">RAD</span>
+                                    </td>
+                                    <td>Ελένη Κυριακίδου</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                            <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                            onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                            onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                                <tr data-room="Room 2" data-day="Σάββατο" data-time="11:00 - 12:30">
+                                    <td class="ps-3 text-muted small fw-semibold">#SES-106</td>
+                                    <td>
+                                        <div class="fw-bold">Σάββατο</div>
+                                        <span class="text-muted small"><i class="bi bi-clock me-1"></i>11:00 - 12:30</span>
+                                    </td>
+                                    <td><span class="badge rounded-pill room-badge-2 px-3 py-2">Room 2 (Studio B)</span></td>
+                                    <td>
+                                        <div class="fw-semibold">Grade 4 Modern Theatre</div>
+                                        <span class="badge bg-secondary" style="font-size: 0.7rem;">ISTD</span>
+                                    </td>
+                                    <td>Μαρία Καλλέργη</td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                                            <i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle me-1"
+                                            onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                                            <i class="bi bi-arrow-repeat"></i>
+                                        </button>
+                                        <button class="btn btn-outline-danger btn-sm rounded-circle"
+                                            onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-flex flex-wrap justify-content-between align-items-center bg-light p-3 rounded-3 border">
+                        <div class="small text-muted">
+                            <i class="bi bi-info-circle text-ballet me-1"></i>
+                            Κάθε αλλαγή συγχρονίζεται σε πραγματικό χρόνο με το προσωπικό ημερολόγιο των μαθητών
+                            (<strong>View Personal Schedule</strong>).
+                        </div>
+                        <button type="button"
+                            class="btn btn-outline-ballet btn-sm rounded-pill px-3 fw-semibold mt-2 mt-sm-0"
+                            onclick="triggerBroadcastNotification()">
+                            <i class="bi bi-bell me-1"></i> Αποστολή Υπενθύμισης Προγράμματος
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Προσθήκη Νέας Ώρας / Αναπλήρωσης (ScheduledSession) -->
+    <div class="modal fade" id="addSessionModal" tabindex="-1" aria-labelledby="addSessionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold text-ballet" id="addSessionModalLabel">Προσθήκη Ώρας / Αναπλήρωσης</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="addSessionForm" onsubmit="event.preventDefault(); addNewScheduleSession();">
+                        <div class="row g-3 mb-3">
+                            <div class="col-sm-6">
+                                <label for="sessionDay" class="form-label small fw-semibold text-muted">Ημέρα (day)</label>
+                                <select class="form-select rounded-3" id="sessionDay" required>
+                                    <option value="Δευτέρα">Δευτέρα</option>
+                                    <option value="Τρίτη">Τρίτη</option>
+                                    <option value="Τετάρτη">Τετάρτη</option>
+                                    <option value="Πέμπτη">Πέμπτη</option>
+                                    <option value="Παρασκευή">Παρασκευή</option>
+                                    <option value="Σάββατο">Σάββατο</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="sessionTime" class="form-label small fw-semibold text-muted">Ώρα (time)</label>
+                                <select class="form-select rounded-3" id="sessionTime" required>
+                                    <option value="16:00 - 17:00">16:00 - 17:00</option>
+                                    <option value="17:00 - 18:30" selected>17:00 - 18:30</option>
+                                    <option value="18:30 - 20:00">18:30 - 20:00</option>
+                                    <option value="20:00 - 21:30">20:00 - 21:30</option>
+                                    <option value="11:00 - 12:30">11:00 - 12:30</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sessionRoom" class="form-label small fw-semibold text-muted">Αίθουσα (checkAvailability)</label>
+                            <select class="form-select rounded-3" id="sessionRoom" required>
+                                <option value="Room 1">Room 1 (Studio A)</option>
+                                <option value="Room 2">Room 2 (Studio B)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sessionGroup" class="form-label small fw-semibold text-muted">Τμήμα (CourseGroup)</label>
+                            <select class="form-select rounded-3" id="sessionGroup" required>
+                                <option value="Intermediate Foundation|RAD">Intermediate Foundation (RAD)</option>
+                                <option value="Grade 3 Ballet|RAD">Grade 3 Ballet (RAD)</option>
+                                <option value="Contemporary Level 2|ISTD">Contemporary Level 2 (ISTD)</option>
+                                <option value="Grade 4 Modern Theatre|ISTD">Grade 4 Modern Theatre (ISTD)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sessionTeacher" class="form-label small fw-semibold text-muted">Διδάσκουσα (Teacher)</label>
+                            <select class="form-select rounded-3" id="sessionTeacher" required>
+                                <option value="Ελένη Κυριακίδου">Ελένη Κυριακίδου</option>
+                                <option value="Μαρία Καλλέργη">Μαρία Καλλέργη</option>
+                                <option value="Άννα Δεληγιάννη">Άννα Δεληγιάννη</option>
+                            </select>
+                        </div>
+
+                        <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" role="switch" id="sessionIsSub" checked>
+                            <label class="form-check-label fw-semibold" for="sessionIsSub">
+                                Ορισμός ως Αναπλήρωση (<code>isSubstitution = true</code>)
+                            </label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-ballet rounded-pill fw-semibold py-2">
+                                <i class="bi bi-shield-check me-1"></i> Έλεγχος Διαθεσιμότητας & Αποθήκευση
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Φίλτρο ανά Αίθουσα
+        function filterByRoom() {
+            const selectedRoom = document.getElementById('studioRoomSelect').value;
+            const allRows = document.querySelectorAll('#scheduleTableBody tr');
+            allRows.forEach(row => {
+                const rowRoom = row.getAttribute('data-room');
+                if (selectedRoom === 'ALL' || rowRoom === selectedRoom) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function updateHeaderCounters() {
+            document.getElementById('chipSessionsCount').innerText = document.querySelectorAll('#scheduleTableBody tr').length;
+        }
+
+        // Conflict Detection (checkAvailability) & Προσθήκη Ώρας
+        let sessionCounter = 107;
+
+        function addNewScheduleSession() {
+            const day = document.getElementById('sessionDay').value;
+            const time = document.getElementById('sessionTime').value;
+            const room = document.getElementById('sessionRoom').value;
+            const [groupName, groupBody] = document.getElementById('sessionGroup').value.split('|');
+            const teacher = document.getElementById('sessionTeacher').value;
+            const isSub = document.getElementById('sessionIsSub').checked;
+
+            const existingRows = document.querySelectorAll('#scheduleTableBody tr');
+            for (const row of existingRows) {
+                if (row.getAttribute('data-room') === room &&
+                    row.getAttribute('data-day') === day &&
+                    row.getAttribute('data-time') === time) {
+
+                    bootstrap.Modal.getInstance(document.getElementById('addSessionModal')).hide();
+                    const conflictBox = document.getElementById('scheduleConflictAlert');
+                    document.getElementById('scheduleConflictText').innerHTML =
+                        `<strong>Conflict Αίθουσας (${room}):</strong> Η αίθουσα είναι ήδη κατειλημμένη την <strong>${day} (${time})</strong>! Η αποθήκευση ακυρώθηκε.`;
+                    conflictBox.classList.replace('d-none', 'd-flex');
+                    return;
+                }
+            }
+
+            document.getElementById('scheduleConflictAlert').classList.replace('d-flex', 'd-none');
+
+            const tbody = document.getElementById('scheduleTableBody');
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-room', room);
+            tr.setAttribute('data-day', day);
+            tr.setAttribute('data-time', time);
+
+            const roomBadgeClass = room === 'Room 1' ? 'room-badge-1' : 'room-badge-2';
+            const roomLabel = room === 'Room 1' ? 'Room 1 (Studio A)' : 'Room 2 (Studio B)';
+            const bodyBadgeClass = groupBody === 'RAD' ? 'bg-ballet' : 'bg-secondary';
+
+            const statusBadge = isSub
+                ? `<span class="badge rounded-pill sub-badge px-3 py-2"><i class="bi bi-arrow-repeat me-1"></i>Αναπλήρωση (isSubstitution)</span>`
+                : `<span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2"><i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα</span>`;
+
+            tr.innerHTML = `
+                <td class="ps-3 text-muted small fw-semibold">#SES-${sessionCounter++}</td>
+                <td>
+                    <div class="fw-bold">${day}</div>
+                    <span class="text-muted small"><i class="bi bi-clock me-1"></i>${time}</span>
+                </td>
+                <td><span class="badge rounded-pill ${roomBadgeClass} px-3 py-2">${roomLabel}</span></td>
+                <td>
+                    <div class="fw-semibold">${groupName}</div>
+                    <span class="badge ${bodyBadgeClass}" style="font-size: 0.7rem;">${groupBody}</span>
+                </td>
+                <td>${teacher}${isSub ? ' (Αναπλ.)' : ''}</td>
+                <td>${statusBadge}</td>
+                <td class="text-center">
+                    <button class="btn btn-outline-ballet btn-sm rounded-circle me-1" onclick="openSubstitutionQuickModal(this)" title="Ορισμός Αναπλήρωσης">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm rounded-circle" onclick="deleteScheduleRow(this)" title="Διαγραφή Ώρας">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            `;
+
+            tbody.appendChild(tr);
+            updateHeaderCounters();
+            filterByRoom();
+
+            bootstrap.Modal.getInstance(document.getElementById('addSessionModal')).hide();
+            showBanner('scheduleSuccessAlert', `Η ώρα διδασκαλίας (${day}, ${time} - ${room}) αποθηκεύτηκε επιτυχώς!`);
+        }
+
+        function openSubstitutionQuickModal(btn) {
+            const row = btn.closest('tr');
+            const teacherCell = row.children[4];
+            const statusCell = row.children[5];
+
+            if (statusCell.innerText.includes('Αναπλήρωση')) {
+                teacherCell.innerText = teacherCell.innerText.replace(' (Αναπλ.)', '');
+                statusCell.innerHTML = `<span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-3 py-2"><i class="bi bi-check2-circle me-1"></i>Τακτικό Μάθημα</span>`;
+                showBanner('scheduleSuccessAlert', 'Η ώρα επανήλθε σε Τακτικό Μάθημα.');
+            } else {
+                teacherCell.innerText = 'Άννα Δεληγιάννη (Αναπλ.)';
+                statusCell.innerHTML = `<span class="badge rounded-pill sub-badge px-3 py-2"><i class="bi bi-arrow-repeat me-1"></i>Αναπλήρωση (isSubstitution)</span>`;
+                showBanner('scheduleSuccessAlert', 'Ορίστηκε Αναπλήρωση (isSubstitution = true) και εστάλη αυτόματη ειδοποίηση!');
+            }
+        }
+
+        function deleteScheduleRow(btn) {
+            btn.closest('tr').remove();
+            updateHeaderCounters();
+            showBanner('scheduleSuccessAlert', 'Η ώρα διδασκαλίας αφαιρέθηκε από το ωρολόγιο πρόγραμμα.');
+        }
+
+        function triggerBroadcastNotification() {
+            showBanner('scheduleSuccessAlert', 'Εστάλη Push Notification υπενθύμισης ωρολογίου προγράμματος σε όλες τις δασκάλες και τους μαθητές!');
+        }
+
+        function showBanner(id, message) {
+            const box = document.getElementById(id);
+            if (!box) return;
+            const span = box.querySelector('span');
+            if (span && message) span.innerText = message;
+            box.classList.replace('d-none', 'd-flex');
+            setTimeout(() => box.classList.replace('d-flex', 'd-none'), 4000);
+        }
+    </script>
+</body>
+
+</html>

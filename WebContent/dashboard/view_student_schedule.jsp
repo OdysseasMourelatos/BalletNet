@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Student Schedule - Ballet Net</title>
+
+    <link rel="icon" type="image/png" href="../photos/BalletArts.png">
+
+    <!-- Bootstrap 5.3 CSS & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="../css/background_style.css">
+</head>
+
+<body>
+
+    <!-- Responsive Navbar -->
+    <nav class="navbar d-print-none navbar-light bg-light mb-4 shadow-sm py-2">
+        <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center flex-nowrap">
+            <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="../index.html">
+                <img src="../photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
+                Ballet Net
+            </a>
+
+            <div class="d-flex align-items-center gap-2">
+                <!-- Profile Trigger -->
+                <button type="button" class="profile-trigger d-flex align-items-center" data-bs-toggle="offcanvas"
+                    data-bs-target="#profileOffcanvas" aria-controls="profileOffcanvas" title="Προβολή προφίλ">
+                    <div class="d-none d-md-block text-end me-2">
+                        <span class="d-block fw-bold text-dark lh-sm">Μαρία Γεωργίου</span>
+                        <span class="badge bg-ballet px-2 py-1" style="font-size: 0.75rem;">Μαθήτρια · RAD</span>
+                    </div>
+                    <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold shadow-sm"
+                        style="width: 44px; height: 44px; font-size: 1.1rem;">
+                        ΜΓ
+                    </div>
+                </button>
+
+                <!-- Κουμπί Εξόδου -->
+                <a href="../index.html" class="btn btn-outline-danger rounded-pill px-3 py-1 fw-semibold ms-1"
+                    title="Αποσύνδεση">
+                    <i class="bi bi-box-arrow-right me-md-1"></i> <span class="d-none d-sm-inline">Έξοδος</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="profileOffcanvas" aria-labelledby="profileOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-bold text-ballet" id="profileOffcanvasLabel">Το προφίλ μου</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="text-center mb-4">
+                <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center mx-auto mb-3 fw-bold avatar-lg">
+                    ΜΓ
+                </div>
+                <h5 class="fw-bold mb-1">Μαρία Γεωργίου</h5>
+                <p class="text-muted small mb-0">maria.georgiou@balletarts.gr</p>
+            </div>
+
+            <ul class="list-group list-group-flush small">
+                <li class="list-group-item px-0 d-flex align-items-center">
+                    <i class="bi bi-mortarboard text-ballet fs-5 me-3"></i>
+                    <div>
+                        <span class="text-muted d-block">Τμήμα Φοίτησης</span>
+                        <span class="fw-semibold">Intermediate Foundation (RAD)</span>
+                    </div>
+                </li>
+                <li class="list-group-item px-0 d-flex align-items-center">
+                    <i class="bi bi-person-badge text-ballet fs-5 me-3"></i>
+                    <div>
+                        <span class="text-muted d-block">Διδάσκουσα</span>
+                        <span class="fw-semibold">Ελένη Κυριακίδου</span>
+                    </div>
+                </li>
+                <li class="list-group-item px-0 d-flex align-items-center">
+                    <i class="bi bi-calendar-check text-ballet fs-5 me-3"></i>
+                    <div>
+                        <span class="text-muted d-block">Ακαδημαϊκό Έτος</span>
+                        <span class="fw-semibold">2026–2027</span>
+                    </div>
+                </li>
+                <li class="list-group-item px-0 d-flex align-items-center">
+                    <i class="bi bi-check2-circle text-ballet fs-5 me-3"></i>
+                    <div>
+                        <span class="text-muted d-block">Κατάσταση Εγγραφής</span>
+                        <span class="badge text-bg-success">Ενεργή</span>
+                    </div>
+                </li>
+            </ul>
+
+            <p class="small text-muted border-top pt-3 mt-4">
+                Για αλλαγή των στοιχείων ή του τμήματός σου, επικοινώνησε με τη Γραμματεία.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Workspace -->
+    <main class="container mb-5">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+
+            <!-- Profile band -->
+            <div class="profile-band p-4 p-md-4">
+                <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-4">
+                    <div class="d-flex align-items-center gap-3 flex-grow-1">
+                        <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold flex-shrink-0 avatar-lg">
+                            ΜΓ
+                        </div>
+                        <div>
+                            <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;">Μαρία Γεωργίου</h4>
+                            <div class="d-flex flex-wrap gap-2 mt-2">
+                                <span class="stat-chip"><i class="bi bi-mortarboard me-1 text-ballet"></i>Τμήμα: <strong>Intermediate Foundation (RAD)</strong></span>
+                                <span class="stat-chip"><i class="bi bi-calendar-week me-1 text-ballet"></i><strong>3</strong> μαθήματα / εβδομάδα</span>
+                                <span class="stat-chip"><i class="bi bi-clock me-1 text-ballet"></i><strong>4,5</strong> ώρες</span>
+                                <span class="stat-chip"><i class="bi bi-check2-circle me-1 text-ballet"></i>Παρουσίες: <strong>23/25 (92%)</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4 p-md-5">
+
+                <!-- Navigation Tabs -->
+                <ul class="nav nav-pills pill-tabs gap-2 mb-4 d-print-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="view_student_schedule.html">
+                            <i class="bi bi-calendar3 me-2"></i>Εβδομαδιαίο Πρόγραμμα (View Personal Schedule)
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="view_student_progress.html">
+                            <i class="bi bi-journal-check me-2"></i>Ύλη, Πρόοδος &amp; Εξετάσεις (View Syllabus &amp; Personal Progress)
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+                    <div>
+                        <h4 class="fw-bold mb-1 text-ballet">Εβδομαδιαίο Ωρολόγιο Πρόγραμμα</h4>
+                        <p class="small text-muted mb-0">Σταθερές ώρες μαθημάτων · Ακαδημαϊκό έτος 2026–2027</p>
+                    </div>
+                    <button type="button" id="printSchedule" class="d-print-none btn btn-outline-ballet rounded-pill px-3">
+                        <i class="bi bi-printer me-2" aria-hidden="true"></i>Εκτύπωση
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="row g-3 align-items-end mb-4 d-print-none" id="scheduleFilters">
+                    <div class="col-md-7">
+                        <label class="form-label small fw-semibold text-muted" for="classSelect">Το τμήμα μου</label>
+                        <select id="classSelect" class="form-select rounded-3">
+                            <option value="rad-if">Intermediate Foundation (RAD)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label small fw-semibold text-muted" for="daySelect">Ημέρα</label>
+                        <select id="daySelect" class="form-select rounded-3">
+                            <option value="all">Όλες οι ημέρες</option>
+                            <option value="1">Δευτέρα</option>
+                            <option value="2">Τρίτη</option>
+                            <option value="3">Τετάρτη</option>
+                            <option value="4">Πέμπτη</option>
+                            <option value="5">Παρασκευή</option>
+                            <option value="6">Σάββατο</option>
+                            <option value="0">Κυριακή</option>
+                        </select>
+                    </div>
+                </div>
+
+                <p class="small text-muted" id="scheduleCount" role="status" aria-live="polite">3 μαθήματα</p>
+
+                <!-- Cards -->
+                <div class="row g-3" id="scheduleWrapper">
+                    <article class="col-12 col-lg-4" data-day="1" data-class="rad-if">
+                        <div class="card h-100 border rounded-4 shadow-sm">
+                            <div class="card-header bg-light border-bottom p-3">
+                                <h5 class="text-ballet fw-bold mb-0">Δευτέρα</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-ballet fw-bold fs-5 mb-0"><i class="bi bi-clock me-2"></i>17:00 – 18:30</span>
+                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                                        <i class="bi bi-check2 me-1"></i>Τακτικό
+                                    </span>
+                                </div>
+                                <h5 class="fw-bold mb-1">Classical Ballet Technique</h5>
+                                <span class="badge bg-ballet mb-3" style="font-size: 0.75rem;">Intermediate Foundation · RAD</span>
+                                <ul class="list-unstyled small text-muted mb-0">
+                                    <li class="mb-1"><strong>Αίθουσα:</strong> Room 1 (Studio A)</li>
+                                    <li><strong>Διδάσκουσα:</strong> Ελένη Κυριακίδου</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="col-12 col-lg-4" data-day="3" data-class="rad-if">
+                        <div class="card h-100 border rounded-4 shadow-sm">
+                            <div class="card-header bg-light border-bottom p-3">
+                                <h5 class="text-ballet fw-bold mb-0">Τετάρτη</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-ballet fw-bold fs-5 mb-0"><i class="bi bi-clock me-2"></i>17:00 – 18:30</span>
+                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                                        <i class="bi bi-check2 me-1"></i>Τακτικό
+                                    </span>
+                                </div>
+                                <h5 class="fw-bold mb-1">Classical Ballet Technique</h5>
+                                <span class="badge bg-ballet mb-3" style="font-size: 0.75rem;">Intermediate Foundation · RAD</span>
+                                <ul class="list-unstyled small text-muted mb-0">
+                                    <li class="mb-1"><strong>Αίθουσα:</strong> Room 1 (Studio A)</li>
+                                    <li><strong>Διδάσκουσα:</strong> Ελένη Κυριακίδου</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="col-12 col-lg-4" data-day="5" data-class="rad-if">
+                        <div class="card h-100 border rounded-4 shadow-sm">
+                            <div class="card-header bg-light border-bottom p-3">
+                                <h5 class="text-ballet fw-bold mb-0">Παρασκευή</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="text-ballet fw-bold fs-5 mb-0"><i class="bi bi-clock me-2"></i>17:00 – 18:30</span>
+                                    <span class="badge rounded-pill bg-success-subtle text-success border border-success-subtle px-2 py-1 small">
+                                        <i class="bi bi-check2 me-1"></i>Τακτικό
+                                    </span>
+                                </div>
+                                <h5 class="fw-bold mb-1">Classical Ballet Technique</h5>
+                                <span class="badge bg-ballet mb-3" style="font-size: 0.75rem;">Intermediate Foundation · RAD</span>
+                                <ul class="list-unstyled small text-muted mb-0">
+                                    <li class="mb-1"><strong>Αίθουσα:</strong> Room 1 (Studio A)</li>
+                                    <li><strong>Διδάσκουσα:</strong> Ελένη Κυριακίδου</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptySchedule" class="text-center p-4 border rounded-3 d-none">
+                    <i class="bi bi-calendar2-check fs-2 text-ballet" aria-hidden="true"></i>
+                    <h5 class="mt-3">Δεν υπάρχει προγραμματισμένο μάθημα</h5>
+                    <p class="small text-muted mb-3">Για την ημέρα που επέλεξες δεν εμφανίζονται μαθήματα του τμήματός σου.</p>
+                    <button type="button" class="btn btn-outline-ballet rounded-pill" id="resetFilters">
+                        Προβολή όλων των ημερών
+                    </button>
+                </div>
+
+                <div class="bg-light border rounded-3 p-3 mt-4">
+                    <p class="small mb-0 text-muted">
+                        <i class="bi bi-info-circle text-ballet me-2"></i>
+                        Για αλλαγές στο πρόγραμμα ή αναπληρώσεις, ενημερώνεσαι από τη Γραμματεία.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        'use strict';
+
+        const daySelect = document.getElementById('daySelect');
+        const classSelect = document.getElementById('classSelect');
+        const scheduleRows = [...document.querySelectorAll('#scheduleWrapper article')];
+
+        function filterSchedule() {
+            let count = 0;
+
+            scheduleRows.forEach(row => {
+                const visible = row.dataset.class === classSelect.value &&
+                    (daySelect.value === 'all' || row.dataset.day === daySelect.value);
+                row.classList.toggle('d-none', !visible);
+                if (visible) count++;
+            });
+
+            document.getElementById('scheduleWrapper').classList.toggle('d-none', count === 0);
+            document.getElementById('emptySchedule').classList.toggle('d-none', count !== 0);
+            document.getElementById('scheduleCount').textContent = count === 1 ? '1 μάθημα' : `${count} μαθήματα`;
+        }
+
+        daySelect.addEventListener('change', filterSchedule);
+        classSelect.addEventListener('change', filterSchedule);
+
+        document.getElementById('resetFilters').addEventListener('click', () => {
+            daySelect.value = 'all';
+            filterSchedule();
+            daySelect.focus();
+        });
+
+        document.getElementById('printSchedule').addEventListener('click', () => window.print());
+
+        filterSchedule();
+    </script>
+</body>
+
+</html>

@@ -33,11 +33,11 @@ public class LoginControllerServlet extends HttpServlet {
 
             Role role = user.getRole();
             if (role == Role.SECRETARY) {
-                response.sendRedirect("manage_schedule.jsp");
+                response.sendRedirect(request.getContextPath() + "/dashboard/manage_schedule.jsp");
             } else if (role == Role.TEACHER) {
-                response.sendRedirect("update_class_progress.jsp");
+                response.sendRedirect(request.getContextPath() + "/dashboard/update_class_progress.jsp");
             } else if (role == Role.STUDENT) {
-                response.sendRedirect("view_student_progress.jsp");
+                response.sendRedirect(request.getContextPath() + "/dashboard/view_student_progress.jsp");
             } else {
                 throw new Exception("Unknown role");
             }
