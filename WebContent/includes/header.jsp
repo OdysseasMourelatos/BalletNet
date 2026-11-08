@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/png" href="../photos/BalletArts.png">
+    <link rel="icon" type="image/png" href="<%=request.getContextPath()%>/BalletNet/WebContent/photos/BalletArts.png">
     
     <!-- Bootstrap 5.3 CSS & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
@@ -15,4 +15,4 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="css/background_style.css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/BalletNet/WebContent/css/background_style.css">

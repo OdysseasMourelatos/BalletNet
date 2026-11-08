@@ -11,6 +11,7 @@ import balletnet.models.*;
 @WebServlet("/loginController")
 public class LoginControllerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static final String APP_BASE = "/BalletNet/WebContent";
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -32,18 +33,21 @@ public class LoginControllerServlet extends HttpServlet {
             session.setAttribute("user", user);
 
             Role role = user.getRole();
+            String contextPath = request.getContextPath();
+
             if (role == Role.SECRETARY) {
-                response.sendRedirect(request.getContextPath() + "/dashboard/manage_schedule.jsp");
+                response.sendRedirect(contextPath + APP_BASE + "/dashboard/manage_schedule.jsp");
             } else if (role == Role.TEACHER) {
-                response.sendRedirect(request.getContextPath() + "/dashboard/update_class_progress.jsp");
+                response.sendRedirect(contextPath + APP_BASE + "/dashboard/update_class_progress.jsp");
             } else if (role == Role.STUDENT) {
-                response.sendRedirect(request.getContextPath() + "/dashboard/view_student_progress.jsp");
+                response.sendRedirect(contextPath + APP_BASE + "/dashboard/view_student_schedule.jsp");
             } else {
                 throw new Exception("Unknown role");
             }
+        
         } catch (Exception e) {
             request.setAttribute("message", e.getMessage());
-            RequestDispatcher dispatcher = request.getRequestDispatcher("login_form.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(APP_BASE + "/login_form.jsp");
             dispatcher.forward(request, response);
         }
 
