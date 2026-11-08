@@ -52,7 +52,7 @@
                     <% } %>
 
                     <!-- Login Form -->
-                    <form method="post" action="loginController">
+                    <form method="post" action="<%=request.getContextPath()%>/servlet/balletnet.controllers.LoginControllerServlet">
                         <div class="mb-3">
                             <label for="inputusername" class="form-label fw-semibold small" data-el="Όνομα χρήστη" data-en="Username">Όνομα χρήστη</label>
                             <div class="input-group auth-input">

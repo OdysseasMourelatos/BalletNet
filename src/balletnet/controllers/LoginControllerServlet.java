@@ -42,7 +42,7 @@ public class LoginControllerServlet extends HttpServlet {
                 throw new Exception("Unknown role");
             }
         } catch (Exception e) {
-            request.setAttribute("errorMessage", e.getMessage());
+            request.setAttribute("message", e.getMessage());
             RequestDispatcher dispatcher = request.getRequestDispatcher("login_form.jsp");
             dispatcher.forward(request, response);
         }
