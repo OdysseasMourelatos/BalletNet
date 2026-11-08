@@ -1,6 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page isErrorPage="true" %>
 
+<%!
+    // Απλό HTML escape (χωρίς εξάρτηση από JSTL)
+    private static String esc(String s) {
+        if (s == null) return "";
+        return s.replace("&", "&amp;")
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
+                .replace("\"", "&quot;")
+                .replace("'", "&#39;");
+    }
+%>
+<%
+    // Τεχνικό μήνυμα (υποστηρίζει Tomcat 9 - javax και Tomcat 10+ - jakarta)
+    String errorDetails = null;
+    if (exception != null) {
+        errorDetails = exception.getMessage() != null ? exception.getMessage() : exception.toString();
+    } else {
+        Object msg = request.getAttribute("javax.servlet.error.message");
+        if (msg == null) msg = request.getAttribute("jakarta.servlet.error.message");
+        if (msg != null) errorDetails = msg.toString();
+    }
+%>
+
 <!DOCTYPE html>
 <html lang="el">
 
@@ -8,17 +31,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Σφάλμα Συστήματος - Ballet Net</title>
-    
+
     <link rel="icon" type="image/png" href="photos/BalletArts.png">
-    
+
     <!-- Bootstrap 5.3 CSS & Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (το Noto Serif Display καλύπτει τα ελληνικά που δεν έχει το Playfair) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Serif+Display:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="css/background_style.css">
@@ -40,49 +63,55 @@
     </nav>
 
     <!-- Error Content Container -->
-    <div class="container my-5">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6">
-                <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 text-center bg-white">
-                    
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: calc(100vh - 120px);">
+        <div class="row justify-content-center w-100">
+            <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+                <div class="card border-0 rounded-4 p-4 p-md-5 text-center error-card">
+
                     <!-- Icon -->
-                    <div class="mb-3">
-                        <div class="bg-danger-subtle text-danger rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 76px; height: 76px;">
-                            <i class="bi bi-exclamation-octagon fs-1"></i>
+                    <div class="mb-4">
+                        <div class="error-icon rounded-circle d-inline-flex align-items-center justify-content-center">
+                            <i class="bi bi-flower1 fs-1"></i>
                         </div>
                     </div>
 
                     <!-- Heading -->
-                    <h2 class="fw-bold text-dark mb-2" style="font-family: 'Playfair Display', serif;">
-                        Κάτι πήγε στραβά
-                    </h2>
-                    <p class="text-muted mb-4 small">
-                        Παρουσιάστηκε ένα απρόβλεπτο σφάλμα κατά την επεξεργασία του αιτήματός σας. Παρακαλούμε δοκιμάστε ξανά ή επιστρέψτε στην αρχική σελίδα.
+                    <h2 class="fw-bold mb-2 error-title">Κάτι πήγε στραβά</h2>
+                    <div class="error-divider"></div>
+
+                    <p class="text-muted mb-4 mx-auto error-text">
+                        Παρουσιάστηκε ένα απρόβλεπτο σφάλμα κατά την επεξεργασία του αιτήματός σας.
+                        Παρακαλούμε δοκιμάστε ξανά ή επιστρέψτε στην αρχική σελίδα.
                     </p>
 
-                    <!-- Technical Details (Εμφανίζονται δυναμικά αν υπάρχει Exception) -->
-                    <% if (exception != null || request.getAttribute("javax.servlet.error.message") != null) { %>
-                        <div class="text-start bg-light border rounded-3 p-3 mb-4">
-                            <span class="small fw-bold text-muted d-block mb-1">
-                                <i class="bi bi-bug me-1 text-danger"></i> Τεχνική Περιγραφή Σφάλματος:
-                            </span>
-                            <div class="small font-monospace text-danger text-break mb-0" style="font-size: 0.85rem;">
-                                <% if (exception != null) { %>
-                                    <%= exception.getMessage() != null ? exception.getMessage() : exception.toString() %>
-                                <% } else { %>
-                                    <%= request.getAttribute("javax.servlet.error.message") %>
-                                <% } %>
+                    <!-- Technical Details (collapsible, escaped) -->
+                    <% if (errorDetails != null) { %>
+                        <p class="mb-3">
+                            <a class="small text-muted text-decoration-none error-details-toggle collapsed"
+                               data-bs-toggle="collapse" href="#errDetails" role="button"
+                               aria-expanded="false" aria-controls="errDetails">
+                                <i class="bi bi-chevron-down me-1"></i> Τεχνικές λεπτομέρειες
+                            </a>
+                        </p>
+                        <div class="collapse" id="errDetails">
+                            <div class="text-start error-details rounded-3 p-3 mb-4 mx-auto w-100">
+                                <span class="small fw-bold text-muted d-block mb-1">
+                                    <i class="bi bi-bug me-1 text-danger"></i> Τεχνική Περιγραφή Σφάλματος:
+                                </span>
+                                <div class="small font-monospace text-danger text-break mb-0">
+                                    <%= esc(errorDetails) %>
+                                </div>
                             </div>
                         </div>
                     <% } %>
 
                     <!-- Actions -->
-                    <div class="d-flex justify-content-center gap-2">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 fw-semibold" onclick="window.history.back();">
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold" onclick="window.history.back();">
                             <i class="bi bi-arrow-left me-1"></i> Πίσω
                         </button>
-                        <a href="home.jsp" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> Σύνδεση στο Σύστημα
+                        <a href="home.jsp" class="btn btn-ballet rounded-pill px-4 py-2 fw-semibold shadow-sm">
+                            <i class="bi bi-house-door me-1"></i> Επιστροφή στην Αρχική
                         </a>
                     </div>
 
