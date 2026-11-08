@@ -43,6 +43,14 @@
                         </p>
                     </div>
 
+                    <!-- Error message from the controller -->
+                    <% if (request.getAttribute("message") != null) { %>
+                        <div class="alert alert-danger d-flex align-items-center rounded-3 small py-2" role="alert">
+                            <i class="bi bi-exclamation-circle me-2"></i>
+                            <div><%= String.valueOf(request.getAttribute("message")) %></div>
+                        </div>
+                    <% } %>
+
                     <!-- Login Form -->
                     <form method="post" action="loginController">
                         <div class="mb-3">
