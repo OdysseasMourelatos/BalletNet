@@ -3,9 +3,8 @@ package balletnet.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.relation.Role;
-
 import balletnet.models.*;
+
 
 /**
  * UserService provides all the necessary methods related to users.
