@@ -7,6 +7,7 @@
 
 <head>
     <%@ include file="includes/header.jsp" %>
+    <title>Home Page - Ballet Net</title>
 </head>
 
 <body>
