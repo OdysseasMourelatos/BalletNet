@@ -44,12 +44,31 @@
                     </div>
 
                     <!-- Error message from the controller -->
-                    <% if (request.getAttribute("message") != null) { %>
+                    <% 
+                        String msgKey = (String) request.getAttribute("message");
+                        if (msgKey != null) { 
+                            String elText = "";
+                            String enText = "";
+
+                            if ("auth_failed".equals(msgKey)) {
+                                elText = "Λάθος όνομα χρήστη ή κωδικός πρόσβασης.";
+                                enText = "Wrong username or password.";
+                            } else if ("login_required".equals(msgKey)) {
+                                elText = "Απαιτείται σύνδεση για πρόσβαση σε αυτή τη σελίδα.";
+                                enText = "Please login to access this resource.";
+                            } else if ("forbidden_role".equals(msgKey)) {
+                                elText = "Δεν έχετε δικαιώματα πρόσβασης στη συγκεκριμένη σελίδα.";
+                                enText = "You are not authorized to view this page.";
+                            } else {
+                                // Fallback αν περαστεί απευθείας custom String μήνυμα
+                                elText = msgKey;
+                                enText = msgKey;
+                            }
+                    %>
                         <div class="alert alert-danger d-flex align-items-center rounded-3 small py-2" role="alert">
                             <i class="bi bi-exclamation-circle me-2"></i>
-                            <div data-el="Λάθος όνομα χρήστη ή κωδικός πρόσβασης" 
-                                data-en="Wrong username or password">
-                                Λάθος όνομα χρήστη ή κωδικός πρόσβασης
+                            <div data-el="<%= elText %>" data-en="<%= enText %>">
+                                <%= elText %>
                             </div>
                         </div>
                     <% } %>
