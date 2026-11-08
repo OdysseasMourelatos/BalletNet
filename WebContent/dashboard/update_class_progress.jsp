@@ -34,7 +34,7 @@ if (!(user instanceof Teacher)) {
     <!-- Responsive Navbar -->
     <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
         <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center flex-nowrap">
-            <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="../index.html">
+            <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="../home.jsp">
                 <img src="../photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
                 Ballet Net
             </a>
@@ -138,12 +138,12 @@ if (!(user instanceof Teacher)) {
                 <!-- Tabs ανάμεσα στις δύο σελίδες της Δασκάλας -->
                 <ul class="nav nav-pills pill-tabs gap-2 mb-4" id="teacherNav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="update_class_progress.html">
+                        <a class="nav-link active" href="update_class_progress.jsp">
                             <i class="bi bi-journal-check me-2"></i>Πρόοδος ύλης τμήματος (Update Class Progress)
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="update_student_progress.html">
+                        <a class="nav-link" href="update_student_progress.jsp">
                             <i class="bi bi-people-fill me-2"></i>Αξιολόγηση μαθητριών (Update Personal Student Progress)
                         </a>
                     </li>
