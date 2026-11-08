@@ -146,6 +146,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Scripts -->
+    <script>
+        function goToRole() {
+            const role = document.getElementById('userRoleSelect').value;
+            if (role === 'secretary') {
+                window.location.href = 'dashboard/manage_schedule.html';
+            } else if (role === 'teacher') {
+                window.location.href = 'dashboard/update_class_progress.html';
+            } else if (role === 'student') {
+                window.location.href = 'dashboard/view_student_schedule.html';
+            }
+        }
+
+        const language = navigator.language || navigator.userLanguage;
+        const selectedLanguage = language.startsWith("el") ? "el" : "en";
+
+        document.documentElement.lang = selectedLanguage;
+
+        document.querySelectorAll("[data-el]").forEach(element => {
+            element.textContent = element.getAttribute("data-" + selectedLanguage);
+        });
+
+        const loginModal = document.getElementById('loginModal');
+        if (loginModal) {
+            loginModal.addEventListener('hidden.bs.modal', function () {
+                if (document.activeElement) {
+                    document.activeElement.blur();
+                }
+            });
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
