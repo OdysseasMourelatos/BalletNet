@@ -95,27 +95,31 @@
                 %>
                 <!-- Επιλογή τμήματος -->
                 <div class="flex-shrink-0" style="min-width: 260px;">
-                    <label for="classSelect" class="form-label small fw-semibold text-muted mb-1">
-                        <i class="bi bi-collection-play me-1 text-ballet"></i>Ενεργό τμήμα
-                    </label>
-                    <select class="form-select rounded-pill fw-semibold border-secondary-subtle" id="classSelect"
-                        onchange="location.href='<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet?groupId=' + this.value;">
-                        <%
-                        List<CourseGroup> groups = (List<CourseGroup>) request.getAttribute("teacherGroups");
-                        int i = 0;
-                        for (CourseGroup group : groups) {
-                            i++;
-                            boolean isSelected = (currentGroupId != null && currentGroupId.equals(group.getGroupId())) 
-                                 || (currentGroupId == null && i == 1);
-                        if (isSelected) {
-                        %>
-                            <option value="<%= group.getGroupId() %>" selected><%=group.getLevel()%></option>        
-                        <% } else { %>
-                            <option value="<%= group.getGroupId() %>"><%=group.getLevel()%></option>
-                        <%
-                        }
-                        %>
-                    </select>
+                    <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet" method="GET" class="m-0">
+                        <label for="classSelect" class="form-label small fw-semibold text-muted mb-1">
+                            <i class="bi bi-collection-play me-1 text-ballet"></i>Ενεργό τμήμα
+                        </label>
+                        <select class="form-select rounded-pill fw-semibold border-secondary-subtle" 
+                                id="classSelect" 
+                                name="groupId" 
+                                onchange="this.form.submit();">
+                            <%
+                            List<CourseGroup> groups = (List<CourseGroup>) request.getAttribute("teacherGroups");
+                            int i = 0;
+                            for (CourseGroup group : groups) {
+                                i++;
+                                boolean isSelected = (currentGroupId != null && currentGroupId.equals(group.getGroupId())) 
+                                    || (currentGroupId == null && i == 1);
+                            if (isSelected) {
+                            %>
+                                <option value="<%= group.getGroupId() %>" selected><%=group.getLevel()%></option>        
+                            <% } else { %>
+                                <option value="<%= group.getGroupId() %>"><%=group.getLevel()%></option>
+                            <%
+                            }
+                            %>
+                        </select>
+                    </form>
                 </div>
                 <% } %>
             </div>
