@@ -20,7 +20,13 @@ if (!(user instanceof Teacher)) {
 <%
 }
 Teacher teacher = (Teacher) user;
+
+if (request.getAttribute("course_data") == null) {
 %>
+	<jsp:forward page="../../src/balletnet/controllers/ClassProgressServlet"/>
+<%
+	return;
+}
 
 <!DOCTYPE html>
 <html lang="el">
@@ -47,7 +53,7 @@ Teacher teacher = (Teacher) user;
                         </a>
                     </li>
                 </ul>
-                
+
                 <!-- ΠΕΡΙΕΧΟΜΕΝΟ: UPDATE CLASS PROGRESS -->
                 <div>
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
