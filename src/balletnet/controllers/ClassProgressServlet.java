@@ -5,8 +5,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
-import balletnet.models.*;
-
 @WebServlet("/classProgress")
 public class ClassProgressServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;

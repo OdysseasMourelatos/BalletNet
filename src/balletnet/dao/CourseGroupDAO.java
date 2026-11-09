@@ -43,4 +43,18 @@ public class CourseGroupDAO {
     public List<CourseGroup> getCourseGroups() {
         return courseGroups;
     }
+
+    public List<CourseGroup> getCourseGroupsByTeacher(Teacher teacher) {
+        List<CourseGroup> groups = new ArrayList<>();
+        for (CourseGroup courseGroup: courseGroups) {
+            List<Teacher> teachers = courseGroup.getTeachers();
+            for (Teacher t: teachers) {
+                if (t.getTeacherID().equals(teacher.getTeacherID())) {
+                    groups.add(courseGroup);
+                    break;
+                }
+            }
+        }
+        return groups;
+    }
 }
