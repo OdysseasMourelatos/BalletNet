@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="balletnet.models.CourseGroup, java.util.List"%>
 
 <!-- Responsive Navbar -->
 <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
@@ -88,16 +89,34 @@
                         </div>
                     </div>
                 </div>
-
+                <%
+                if ((Integer) request.getAttribute("teacherGroupsSize") != 0) {
+                %>
                 <!-- Επιλογή τμήματος -->
                 <div class="flex-shrink-0" style="min-width: 260px;">
                     <label for="classSelect" class="form-label small fw-semibold text-muted mb-1">
                         <i class="bi bi-collection-play me-1 text-ballet"></i>Ενεργό τμήμα
                     </label>
                     <select class="form-select rounded-pill fw-semibold border-secondary-subtle" id="classSelect">
-                        <option value="1" selected>Intermediate Foundation (RAD)</option>
-                        <option value="2">Grade 3 Ballet (RAD)</option>
+                        <%
+                        List<CourseGroup> groups = (List<CourseGroup>) request.getAttribute("teacherGroups");
+                        int i = 0;
+                        for (CourseGroup group : groups) {
+                            i++;
+                            if (i == 1) {
+                            %>
+                                <option value="<%= i %>" selected><%=group.getLevel()%></option>        
+                            <%
+                            } else {
+                            %>
+                                <option value="<%= i %>"><%=group.getLevel()%></option>
+                            }
+                        }
+                        %>
                     </select>
                 </div>
+                <%
+                }
+                %>
             </div>
         </div>
