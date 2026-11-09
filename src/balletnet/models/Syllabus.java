@@ -95,4 +95,10 @@ public class Syllabus {
     public void setGroupID(String groupID) {
         this.groupID = groupID;
     }
+
+    //Methods as defined in the class diagram
+    public double calculateCompletion() {
+        return (getBarreProgress() + getCentreProgress() + getAllegroProgress() + getPointeProgress()) / 4;
+    }
+
 }

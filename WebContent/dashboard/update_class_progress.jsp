@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- Unhandled JSP exceptions are forwarded internally to this common error page. --%>
-<%@ page import="balletnet.models.User, balletnet.models.Teacher" %>
+<%@ page import="balletnet.models.User, balletnet.models.Teacher, balletnet.models.Syllabus" %>
 <%@ page errorPage="../error.jsp" %>
 
 <%
@@ -121,6 +121,7 @@ if (request.getAttribute("course_data") == null) {
                 </ul>
 
                 <!-- ΠΕΡΙΕΧΟΜΕΝΟ: UPDATE CLASS PROGRESS -->
+                <% Syllabus syllabus = (Syllabus) request.getAttribute("syllabus"); %>
                 <div>
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
                         <div>
@@ -128,7 +129,7 @@ if (request.getAttribute("course_data") == null) {
                             <p class="text-muted small mb-0">Ενημερώστε το ποσοστό κάλυψης ανά ενότητα της επίσημης ύλης RAD.</p>
                         </div>
                         <span class="badge bg-light text-dark border px-3 py-2 rounded-pill fs-6 shadow-sm">
-                            Συνολική κάλυψη: <strong class="text-ballet ms-1" id="overallProgress">56%</strong>
+                            Συνολική κάλυψη: <strong class="text-ballet ms-1" id="overallProgress"><%= syllabus.calculateCompletion()%></strong>
                         </span>
                     </div>
 
@@ -137,7 +138,7 @@ if (request.getAttribute("course_data") == null) {
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between mb-1">
                                     <label for="barreRange" class="form-label fw-semibold mb-0">1. Barre Work <span class="text-muted fw-normal small d-block">Pliés, Battements</span></label>
-                                    <span class="fw-bold text-ballet" id="valBarre">75%</span>
+                                    <span class="fw-bold text-ballet" id="valBarre"><%= syllabus.getBarreProgress()%></span>
                                 </div>
                                 <input type="range" class="syllabus-slider" min="0" max="100" value="75" id="barreRange">
                             </div>
@@ -145,25 +146,25 @@ if (request.getAttribute("course_data") == null) {
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between mb-1">
                                     <label for="centreRange" class="form-label fw-semibold mb-0">2. Port de Bras & Centre <span class="text-muted fw-normal small d-block">Κέντρο & ισορροπίες</span></label>
-                                    <span class="fw-bold text-ballet" id="valCentre">60%</span>
+                                    <span class="fw-bold text-ballet" id="valCentre"><%= syllabus.getBarreProgress()%></span>
                                 </div>
-                                <input type="range" class="syllabus-slider" min="0" max="100" value="60" id="centreRange">
+                                <input type="range" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="centreRange">
                             </div>
 
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between mb-1">
                                     <label for="allegroRange" class="form-label fw-semibold mb-0">3. Allegro & Pirouettes <span class="text-muted fw-normal small d-block">Άλματα, στροφές & enchaînements</span></label>
-                                    <span class="fw-bold text-ballet" id="valAllegro">50%</span>
+                                    <span class="fw-bold text-ballet" id="valAllegro"><%= syllabus.getBarreProgress()%></span>
                                 </div>
-                                <input type="range" class="syllabus-slider" min="0" max="100" value="50" id="allegroRange">
+                                <input type="range" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="allegroRange">
                             </div>
 
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between mb-1">
                                     <label for="pointeRange" class="form-label fw-semibold mb-0">4. Pointe Work <span class="text-muted fw-normal small d-block">Εισαγωγή στις πουέντ</span></label>
-                                    <span class="fw-bold text-ballet" id="valPointe">40%</span>
+                                    <span class="fw-bold text-ballet" id="valPointe"><%= syllabus.getBarreProgress()%></span>
                                 </div>
-                                <input type="range" class="syllabus-slider" min="0" max="100" value="40" id="pointeRange">
+                                <input type="range" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="pointeRange">
                             </div>
                         </div>
 
