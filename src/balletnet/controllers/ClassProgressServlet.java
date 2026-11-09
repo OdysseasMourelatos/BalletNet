@@ -37,7 +37,7 @@ public class ClassProgressServlet extends HttpServlet {
         request.setAttribute("syllabus", syllabus);
         request.setAttribute("course_data", true);
 
-        request.getRequestDispatcher("/dashboard/update_class_progress.jsp").forward(request, response);
+        request.getRequestDispatcher(APP_BASE + "/dashboard/update_class_progress.jsp").forward(request, response);
     }
 
     @Override

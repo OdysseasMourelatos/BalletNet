@@ -23,10 +23,11 @@ Teacher teacher = (Teacher) user;
 
 if (request.getAttribute("course_data") == null) {
 %>
-	<jsp:forward page="../../src/balletnet/controllers/ClassProgressServlet"/>
+	<jsp:forward page="/servlet/balletnet.controllers.ClassProgressServlet"/>
 <%
 	return;
 }
+%>
 
 <!DOCTYPE html>
 <html lang="el">
