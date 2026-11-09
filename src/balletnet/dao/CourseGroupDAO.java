@@ -44,13 +44,10 @@ public class CourseGroupDAO {
             studentIndex++;
         }
         
-        for (Student student : courseGroups.get(0).getStudents()) {
-            System.out.println("Course Group 1 Student: " + student.getFirstName() + " " + student.getLastName());
-        }
+        courseGroups.get(0).getTeachers().add(teachers.get(0)); // Assign first teacher to first group
+        courseGroups.get(1).getTeachers().add(teachers.get(0)); // Assign first teacher to second group as well
 
-        for (Student student : courseGroups.get(1).getStudents()) {
-            System.out.println("Course Group 2 Student: " + student.getFirstName() + " " + student.getLastName());
-        }
+        System.out.println(courseGroups.get(0).getTeachers().get(0).getFirstName() + " " + courseGroups.get(0).getTeachers().get(0).getLastName() + " is assigned to group " + courseGroups.get(0).getGroupID());
     }
 
     public static void main(String[] args) {
