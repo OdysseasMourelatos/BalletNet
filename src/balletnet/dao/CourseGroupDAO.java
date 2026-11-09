@@ -5,6 +5,7 @@ import java.util.List;
 
 import balletnet.models.CourseGroup;
 import balletnet.models.Student;
+import balletnet.models.Syllabus;
 import balletnet.models.Teacher;
 
 public class CourseGroupDAO {
@@ -47,11 +48,11 @@ public class CourseGroupDAO {
         courseGroups.get(0).getTeachers().add(teachers.get(0)); // Assign first teacher to first group
         courseGroups.get(1).getTeachers().add(teachers.get(0)); // Assign first teacher to second group as well
 
-        System.out.println(courseGroups.get(0).getTeachers().get(0).getFirstName() + " " + courseGroups.get(0).getTeachers().get(0).getLastName() + " is assigned to group " + courseGroups.get(0).getGroupID());
-    }
-
-    public static void main(String[] args) {
-        CourseGroupDAO dao = new CourseGroupDAO();
-        dao.fillCourseGroupDetails();
+        courseGroups.get(0).setSyllabus(new Syllabus(
+            "SYL-01", "Intermediate Foundation (RAD)", 75.0, 60.0, 50.0, 40.0, 56.0, "Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu.", "GRP-01"
+        ));
+        courseGroups.get(1).setSyllabus(new Syllabus(
+            "SYL-02", "Grade 3 Ballet Syllabus", 35.0, 40.0, 20.0, 0.0, 24.0, "Επανάληψη βασικών ασκήσεων μπάρας και προετοιμασία.", "GRP-02"
+        ));
     }
 }
