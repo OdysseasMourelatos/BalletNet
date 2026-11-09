@@ -34,8 +34,22 @@ public class CourseGroupDAO {
         List<Student> students = userDAO.getStudents();
         List<Teacher> teachers = userDAO.getTeachers();
 
+        int studentIndex = 0;
         for (Student student : students) {
-            System.out.println("Student: " + student.getUsername() + ", Age: " + student.getAge());
+            if (studentIndex < 10) {
+                courseGroups.get(0).getStudents().add(student);
+            } else {
+                courseGroups.get(1).getStudents().add(student);
+            }
+            studentIndex++;
+        }
+        
+        for (Student student : courseGroups.get(0).getStudents()) {
+            System.out.println("Course Group 1 Student: " + student.getFirstName() + " " + student.getLastName());
+        }
+
+        for (Student student : courseGroups.get(1).getStudents()) {
+            System.out.println("Course Group 2 Student: " + student.getFirstName() + " " + student.getLastName());
         }
     }
 
