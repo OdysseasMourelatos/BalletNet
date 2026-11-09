@@ -4,8 +4,8 @@
 <!-- Responsive Navbar -->
 <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
     <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center flex-nowrap">
-        <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="../home.jsp">
-            <img src="../photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
+        <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="<%=request.getContextPath()%>/BalletNet/WebContent/home.jsp">
+            <img src="<%=request.getContextPath()%>/BalletNet/WebContent/photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
             Ballet Net
         </a>
 
@@ -22,7 +22,7 @@
             </button>
 
             <!-- Κουμπί Εξόδου -->
-            <a href="../logout.jsp" class="btn btn-outline-danger rounded-pill px-3 py-1 fw-semibold ms-1" title="Αποσύνδεση">
+            <a href="<%=request.getContextPath()%>/BalletNet/WebContent/logout.jsp" class="btn btn-outline-danger rounded-pill px-3 py-1 fw-semibold ms-1" title="Αποσύνδεση">
                 <i class="bi bi-box-arrow-right me-md-1"></i> <span class="d-none d-sm-inline">Έξοδος</span>
             </a>
         </div>

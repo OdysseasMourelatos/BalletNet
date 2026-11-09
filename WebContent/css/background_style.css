@@ -593,3 +593,60 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
     .auth-card { animation: none; }
     .auth-card .btn-ballet:hover { transform: none; }
 }
+
+/* =========================================================
+   Νο Groups Assigned to Teacher
+   ========================================================= */
+.empty-state { max-width: 680px; }
+
+/* Εικονίδιο με ομόκεντρους δακτυλίους */
+.empty-state .es-badge {
+    position: relative;
+    width: 112px; height: 112px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, rgba(139, 90, 131, 0.10) 100%);
+    border: 1px solid rgba(139, 90, 131, 0.22);
+    box-shadow: 0 0 0 14px rgba(139, 90, 131, 0.05),
+                0 0 0 30px rgba(139, 90, 131, 0.025);
+}
+.empty-state .es-badge i { font-size: 2.9rem; color: #8B5A83; }
+
+.empty-state .es-title {
+    font-family: 'Playfair Display', serif;
+    color: #8B5A83;
+    letter-spacing: .2px;
+}
+.empty-state .es-text { max-width: 520px; margin-inline: auto; line-height: 1.7; }
+
+/* Προεπισκόπηση λειτουργιών που ενεργοποιούνται μετά την ανάθεση */
+.empty-state .es-feature {
+    display: flex; align-items: center; gap: .9rem;
+    text-align: left;
+    padding: .85rem 1rem;
+    border: 1px dashed rgba(139, 90, 131, 0.35);
+    border-radius: 1rem;
+    background: rgba(139, 90, 131, 0.03);
+    height: 100%;
+}
+.empty-state .es-feature .es-ico {
+    flex: 0 0 auto;
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: rgba(139, 90, 131, 0.10);
+    color: #8B5A83; font-size: 1.15rem;
+}
+.empty-state .es-feature .es-lock { margin-left: auto; color: #adb5bd; }
+
+.empty-state .btn-ballet,
+.empty-state .btn-outline-secondary { transition: transform .15s ease, box-shadow .15s ease; }
+.empty-state .btn-ballet:hover,
+.empty-state .btn-outline-secondary:hover { transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+    .empty-state .btn-ballet,
+    .empty-state .btn-outline-secondary { transition: none; }
+    .empty-state .btn-ballet:hover,
+    .empty-state .btn-outline-secondary:hover { transform: none; }
+}

@@ -43,43 +43,66 @@ if (request.getAttribute("course_data") == null) {
             <%
             if ((Integer) request.getAttribute("teacherGroupsSize") == 0) {
             %>
-            <div class="text-center py-5 px-3 mx-auto" style="max-width: 620px;">
-                <!-- Stylized Icon Badge -->
-                <div class="d-inline-flex align-items-center justify-content-center rounded-circle mb-4 shadow-sm" 
-                        style="width: 96px; height: 96px; background: rgba(139, 90, 131, 0.08); border: 1px solid rgba(139, 90, 131, 0.15);">
-                    <i class="bi bi-journal-x" style="font-size: 2.8rem; color: #8B5A83;"></i>
+            <div class="empty-state text-center py-5 px-3 mx-auto">
+
+                <!-- Εικονίδιο -->
+                <div class="es-badge mb-5">
+                    <i class="bi bi-journal-x" aria-hidden="true"></i>
                 </div>
 
-                <!-- Title & Subtitle -->
-                <h3 class="fw-bold mb-2 text-ballet" style="font-family: 'Playfair Display', serif;">
-                    Δεν βρέθηκαν ενεργά τμήματα
-                </h3>
-                <p class="text-muted mb-4 fs-6 lh-base">
-                    Δεν υπάρχουν καταχωρημένα τμήματα διδασκαλίας ανατεθειμένα στο προφίλ σας για την τρέχουσα περίοδο. 
-                    Η ενημέρωση της διδακτέας ύλης και η αξιολόγηση μαθητριών θα ενεργοποιηθούν αυτόματα μόλις ολοκληρωθεί η ανάθεση.
+                <!-- Τίτλος & περιγραφή -->
+                <h3 class="es-title fw-bold mb-3">Δεν βρέθηκαν ενεργά τμήματα</h3>
+                <p class="es-text text-muted mb-4">
+                    Δεν υπάρχουν τμήματα διδασκαλίας ανατεθειμένα στο προφίλ σας για την τρέχουσα περίοδο.
+                    Μόλις γίνει η ανάθεση, θα ενεργοποιηθούν αυτόματα οι παρακάτω λειτουργίες.
                 </p>
 
-                <!-- Status Info Pill -->
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-light border border-secondary-subtle small text-muted mb-4 shadow-sm">
-                    <i class="bi bi-info-circle-fill text-ballet"></i>
-                    <span>Κατάσταση λογαριασμού: <strong class="text-dark">RAD Certified Instructor</strong> (Αναμονή ανάθεσης)</span>
+                <!-- Τι θα ενεργοποιηθεί -->
+                <div class="row g-3 mb-4 text-start">
+                    <div class="col-sm-6">
+                        <div class="es-feature">
+                            <span class="es-ico"><i class="bi bi-journal-check" aria-hidden="true"></i></span>
+                            <div class="lh-sm">
+                                <div class="fw-semibold small">Πρόοδος ύλης τμήματος</div>
+                                <div class="text-muted" style="font-size: .78rem;">Κάλυψη ανά ενότητα RAD</div>
+                            </div>
+                            <i class="bi bi-lock-fill es-lock" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="es-feature">
+                            <span class="es-ico"><i class="bi bi-people-fill" aria-hidden="true"></i></span>
+                            <div class="lh-sm">
+                                <div class="fw-semibold small">Αξιολόγηση μαθητριών</div>
+                                <div class="text-muted" style="font-size: .78rem;">Προσωπική πρόοδος</div>
+                            </div>
+                            <i class="bi bi-lock-fill es-lock" aria-hidden="true"></i>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="d-flex flex-wrap justify-content-center gap-3 pt-2">
-                    <a href="mailto:secretariat@balletarts.gr?subject=Ανάθεση%20Τμημάτων%20Διδασκαλίας%20-%20BalletNet" 
-                        class="btn btn-ballet rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
+                <!-- Κατάσταση λογαριασμού -->
+                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-light border border-secondary-subtle small text-muted mb-4 shadow-sm">
+                    <span class="spinner-grow spinner-grow-sm text-ballet" style="width: .6rem; height: .6rem;" aria-hidden="true"></span>
+                    <span>Κατάσταση λογαριασμού: <strong class="text-dark">RAD Certified Instructor</strong> · Αναμονή ανάθεσης</span>
+                </div>
+
+                <!-- Ενέργειες -->
+                <div class="d-flex flex-wrap justify-content-center gap-3 pt-1">
+                    <a href="mailto:secretariat@balletarts.gr?subject=Ανάθεση%20Τμημάτων%20Διδασκαλίας%20-%20BalletNet"
+                    class="btn btn-ballet rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
                         <i class="bi bi-envelope"></i>
                         <span>Επικοινωνία με Γραμματεία</span>
                     </a>
-                    
-                    <a href="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet" 
-                        class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
+
+                    <a href="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet"
+                    class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2">
                         <i class="bi bi-arrow-clockwise"></i>
                         <span>Ανανέωση δεδομένων</span>
                     </a>
                 </div>
             </div>
+
 
             <% } else { %>
             <div class="card-body p-4 p-md-5">
