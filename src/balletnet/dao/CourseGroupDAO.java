@@ -57,4 +57,13 @@ public class CourseGroupDAO {
         }
         return groups;
     }
+
+    public CourseGroup getCourseGroupByGroupID(String groupID) {
+        for (CourseGroup group: getCourseGroups()) {
+            if (group.getGroupID().equals(groupID)) {
+                return group;
+            }
+        }
+        return null;
+    }
 }

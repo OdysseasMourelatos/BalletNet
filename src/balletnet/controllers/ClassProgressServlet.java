@@ -26,7 +26,8 @@ public class ClassProgressServlet extends HttpServlet {
         List<CourseGroup> groups = courseGroupDAO.getCourseGroupsByTeacher(teacher);
 
         int totalStudents = 0;
-        CourseGroup currentGroup = null;
+        String groupId = request.getParameter("groupId");
+        CourseGroup courseGroup = 
         Syllabus syllabus = null;
 
         if (groups != null && !groups.isEmpty()) {
@@ -35,7 +36,6 @@ public class ClassProgressServlet extends HttpServlet {
                     totalStudents += g.getStudents().size();
                 }
             }
-            currentGroup = groups.get(0);
             syllabus = currentGroup.getSyllabus();
         }
 
