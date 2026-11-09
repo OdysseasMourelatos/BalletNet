@@ -11,12 +11,13 @@ public class CourseGroup {
     private List<Teacher> teachers;
     private Syllabus syllabus;
 
-    public CourseGroup(String groupID, String level, int capacity, List<Student> students, List<Teacher> teachers) {
+    public CourseGroup(String groupID, String level, int capacity, List<Student> students, List<Teacher> teachers, Syllabus syllabus) {
         this.groupID = groupID;
         this.level = level;
         this.capacity = capacity;
         this.students = students;
         this.teachers = teachers;
+        this.syllabus = syllabus;
     }
 
     public String getGroupID() {
