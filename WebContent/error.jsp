@@ -37,11 +37,11 @@
     <!-- Minimal Navbar -->
     <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
         <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center">
-            <a class="navbar-brand fs-3 fw-bold d-flex align-items-center text-ballet m-0" href="home.jsp">
+            <a class="navbar-brand fs-3 fw-bold d-flex align-items-center text-ballet m-0" href="<%=request.getContextPath()%>/BalletNet/WebContent/home.jsp">
                 <img src="<%=request.getContextPath()%>/BalletNet/WebContent/photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
                 Ballet Net
             </a>
-            <a href="home.jsp" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold">
+            <a href="<%=request.getContextPath()%>/BalletNet/WebContent/home.jsp" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold">
                 <i class="bi bi-house-door me-1"></i> Αρχική Σελίδα
             </a>
         </div>
@@ -95,7 +95,7 @@
                         <button type="button" class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold" onclick="window.history.back();">
                             <i class="bi bi-arrow-left me-1"></i> Πίσω
                         </button>
-                        <a href="home.jsp" class="btn btn-ballet rounded-pill px-4 py-2 fw-semibold shadow-sm">
+                        <a href="<%=request.getContextPath()%>/BalletNet/WebContent/home.jsp" class="btn btn-ballet rounded-pill px-4 py-2 fw-semibold shadow-sm">
                             <i class="bi bi-house-door me-1"></i> Επιστροφή στην Αρχική
                         </a>
                     </div>
