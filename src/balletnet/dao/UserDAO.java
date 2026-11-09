@@ -13,7 +13,6 @@ import balletnet.models.*;
  */
 public class UserDAO {
 
-    // Στατική λίστα για in-memory persistence (δεν ξαναδημιουργείται σε κάθε κλήση)
     private static final List<User> users = new ArrayList<>();
 
     static {
@@ -140,5 +139,5 @@ public class UserDAO {
         }
         return teachers;
     }
-    
+
 } //End of class
