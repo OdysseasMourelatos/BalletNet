@@ -91,25 +91,28 @@
                 </div>
                 <%
                 if ((Integer) request.getAttribute("teacherGroupsSize") != 0) {
+                    String currentGroupId = (String) session.getAttribute("selectedGroupId");
                 %>
                 <!-- Επιλογή τμήματος -->
                 <div class="flex-shrink-0" style="min-width: 260px;">
                     <label for="classSelect" class="form-label small fw-semibold text-muted mb-1">
                         <i class="bi bi-collection-play me-1 text-ballet"></i>Ενεργό τμήμα
                     </label>
-                    <select class="form-select rounded-pill fw-semibold border-secondary-subtle" id="classSelect">
+                    <select class="form-select rounded-pill fw-semibold border-secondary-subtle" id="classSelect"
+                        onchange="location.href='<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet?groupId=' + this.value;">
                         <%
                         List<CourseGroup> groups = (List<CourseGroup>) request.getAttribute("teacherGroups");
                         int i = 0;
                         for (CourseGroup group : groups) {
                             i++;
-                            if (i == 1) {
-                            %>
-                                <option value="<%= i %>" selected><%=group.getLevel()%></option>        
-                            <% } else { %>
-                                <option value="<%= i %>"><%=group.getLevel()%></option>
-                            <%
-                            }
+                            boolean isSelected = (currentGroupId != null && currentGroupId.equals(group.getGroupId())) 
+                                 || (currentGroupId == null && i == 1);
+                        if (isSelected) {
+                        %>
+                            <option value="<%= group.getGroupId() %>" selected><%=group.getLevel()%></option>        
+                        <% } else { %>
+                            <option value="<%= group.getGroupId() %>"><%=group.getLevel()%></option>
+                        <%
                         }
                         %>
                     </select>

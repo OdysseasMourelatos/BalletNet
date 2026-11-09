@@ -129,7 +129,7 @@ if (request.getAttribute("course_data") == null) {
                             <p class="text-muted small mb-0">Ενημερώστε το ποσοστό κάλυψης ανά ενότητα της επίσημης ύλης RAD.</p>
                         </div>
                         <span class="badge bg-light text-dark border px-3 py-2 rounded-pill fs-6 shadow-sm">
-                            Συνολική κάλυψη: <strong class="text-ballet ms-1" id="overallProgress"><%= syllabus.calculateCompletion()%></strong>
+                            Συνολική κάλυψη: <strong class="text-ballet ms-1" id="overallProgress"><%= (int) syllabus.calculateCompletion()%></strong>
                         </span>
                     </div>
 
