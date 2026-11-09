@@ -10,7 +10,9 @@ public class Syllabus {
     private double completionPercentage;
     private String dailyLog;
 
-    public Syllabus(String syllabusID, String title, double barreProgress, double centreProgress, double allegroProgress, double pointeProgress, double completionPercentage, String dailyLog) {
+    private String groupID;
+
+    public Syllabus(String syllabusID, String title, double barreProgress, double centreProgress, double allegroProgress, double pointeProgress, double completionPercentage, String dailyLog, String groupID) {
         this.syllabusID = syllabusID;
         this.title = title;
         this.barreProgress = barreProgress;
@@ -19,6 +21,7 @@ public class Syllabus {
         this.pointeProgress = pointeProgress;
         this.completionPercentage = completionPercentage;
         this.dailyLog = dailyLog;
+        this.groupID = groupID;
     }
 
     public String getSyllabusID() {
@@ -83,5 +86,13 @@ public class Syllabus {
 
     public void setDailyLog(String dailyLog) {
         this.dailyLog = dailyLog;
+    }
+
+    public String getGroupID() {
+        return groupID;
+    }
+
+    public void setGroupID(String groupID) {
+        this.groupID = groupID;
     }
 }
