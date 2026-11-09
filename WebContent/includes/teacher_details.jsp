@@ -91,7 +91,7 @@
                 </div>
                 <%
                 if ((Integer) request.getAttribute("teacherGroupsSize") != 0) {
-                    String currentGroupId = (String) session.getAttribute("selectedGroupId");
+                    String currentGroupID = (String) session.getAttribute("selectedGroupId");
                 %>
                 <!-- Επιλογή τμήματος -->
                 <div class="flex-shrink-0" style="min-width: 260px;">
@@ -101,21 +101,22 @@
                         </label>
                         <select class="form-select rounded-pill fw-semibold border-secondary-subtle" 
                                 id="classSelect" 
-                                name="groupId" 
+                                name="groupID" 
                                 onchange="this.form.submit();">
                             <%
                             List<CourseGroup> groups = (List<CourseGroup>) request.getAttribute("teacherGroups");
                             int i = 0;
                             for (CourseGroup group : groups) {
                                 i++;
-                                boolean isSelected = (currentGroupId != null && currentGroupId.equals(group.getGroupId())) 
-                                    || (currentGroupId == null && i == 1);
-                            if (isSelected) {
-                            %>
-                                <option value="<%= group.getGroupId() %>" selected><%=group.getLevel()%></option>        
-                            <% } else { %>
-                                <option value="<%= group.getGroupId() %>"><%=group.getLevel()%></option>
-                            <%
+                                boolean isSelected = (currentGroupID != null && currentGroupID.equals(group.getGroupID())) 
+                                    || (currentGroupID == null && i == 1);
+                                if (isSelected) {
+                                %>
+                                    <option value="<%= group.getGroupID() %>" selected><%=group.getLevel()%></option>        
+                                <% } else { %>
+                                    <option value="<%= group.getGroupID() %>"><%=group.getLevel()%></option>
+                                <%
+                                }
                             }
                             %>
                         </select>

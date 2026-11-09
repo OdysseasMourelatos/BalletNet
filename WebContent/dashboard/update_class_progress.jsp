@@ -109,12 +109,12 @@ if (request.getAttribute("course_data") == null) {
                 <!-- Tabs ανάμεσα στις δύο σελίδες της Δασκάλας -->
                 <ul class="nav nav-pills pill-tabs gap-2 mb-4" id="teacherNav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="update_class_progress.jsp">
+                        <a class="nav-link active" href="<%=request.getContextPath()%>/BalletNet/WebContent/dashboard/update_class_progress.jsp">
                             <i class="bi bi-journal-check me-2"></i>Πρόοδος ύλης τμήματος (Update Class Progress)
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="update_student_progress.jsp">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/BalletNet/WebContent/dashboard/update_student_progress.jsp">
                             <i class="bi bi-people-fill me-2"></i>Αξιολόγηση μαθητριών (Update Personal Student Progress)
                         </a>
                     </li>
