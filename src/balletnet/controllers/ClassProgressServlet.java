@@ -26,9 +26,11 @@ public class ClassProgressServlet extends HttpServlet {
         List<CourseGroup> groups = courseGroupDAO.getCourseGroupsByTeacher(teacher);
 
         int totalStudents = 0;
-        String groupId = request.getParameter("groupId");
-        CourseGroup courseGroup = 
-        Syllabus syllabus = null;
+
+        String groupID = request.getParameter("groupID");
+        if (groupID == null || groupID.trim().isEmpty()) {
+            groupID = (String) session.getAttribute("selectedGroupId");
+        }
 
         if (groups != null && !groups.isEmpty()) {
             for (CourseGroup g : groups) {
@@ -36,13 +38,26 @@ public class ClassProgressServlet extends HttpServlet {
                     totalStudents += g.getStudents().size();
                 }
             }
-            syllabus = currentGroup.getSyllabus();
+
+            if (groupID == null || groupID.trim().isEmpty()) {
+                groupID = groups.get(0).getGroupID();
+            }
+        }
+
+        CourseGroup courseGroup = null;
+        Syllabus syllabus = null;
+
+        if (groupID != null) {
+            courseGroup = courseGroupDAO.getCourseGroupByGroupID(groupID);
+            if (courseGroup != null) {
+                syllabus = courseGroup.getSyllabus();
+            }
+            session.setAttribute("selectedGroupId", groupID);
         }
 
         request.setAttribute("teacherGroups", groups);
         request.setAttribute("teacherGroupsSize", (groups != null) ? groups.size() : 0);
         request.setAttribute("totalStudents", totalStudents);
-        request.setAttribute("currentGroup", currentGroup);
         request.setAttribute("syllabus", syllabus);
         request.setAttribute("course_data", true);
 
