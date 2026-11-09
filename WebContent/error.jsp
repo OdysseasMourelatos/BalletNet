@@ -28,23 +28,8 @@
 <html lang="el">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%@ include file="includes/header.jsp"%>
     <title>Σφάλμα Συστήματος - Ballet Net</title>
-
-    <link rel="icon" type="image/png" href="photos/BalletArts.png">
-
-    <!-- Bootstrap 5.3 CSS & Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Google Fonts (το Noto Serif Display καλύπτει τα ελληνικά που δεν έχει το Playfair) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Serif+Display:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="css/background_style.css">
 </head>
 
 <body>
@@ -53,7 +38,7 @@
     <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
         <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center">
             <a class="navbar-brand fs-3 fw-bold d-flex align-items-center text-ballet m-0" href="home.jsp">
-                <img src="photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
+                <img src="<%=request.getContextPath()%>/BalletNet/WebContent/photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
                 Ballet Net
             </a>
             <a href="home.jsp" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold">
