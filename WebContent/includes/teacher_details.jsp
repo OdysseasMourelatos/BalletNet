@@ -106,17 +106,14 @@
                             if (i == 1) {
                             %>
                                 <option value="<%= i %>" selected><%=group.getLevel()%></option>        
-                            <%
-                            } else {
-                            %>
+                            <% } else { %>
                                 <option value="<%= i %>"><%=group.getLevel()%></option>
+                            <%
                             }
                         }
                         %>
                     </select>
                 </div>
-                <%
-                }
-                %>
+                <% } %>
             </div>
         </div>
