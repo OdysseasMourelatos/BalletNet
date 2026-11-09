@@ -57,4 +57,20 @@ public class CourseGroupDAO {
         }
         return groups;
     }
+
+    public static void main(String[] args) {
+        List<CourseGroup> groups = new ArrayList<>();
+        for (CourseGroup courseGroup: courseGroups) {
+            List<Teacher> teachers = courseGroup.getTeachers();
+            for (Teacher t: teachers) {
+                if (t.getTeacherID().equals("TEA-01")) {
+                    groups.add(courseGroup);
+                    break;
+                }
+            }
+        }
+        for (CourseGroup group : groups) {
+            System.out.println(group.getLevel());
+        }
+    }
 }

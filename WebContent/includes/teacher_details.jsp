@@ -60,7 +60,7 @@
                 <i class="bi bi-collection text-ballet fs-5 me-3"></i>
                 <div>
                     <span class="text-muted d-block">Ενεργά τμήματα</span>
-                    <span class="fw-semibold">2 τμήματα (17 μαθήτριες)</span>
+                    <span class="fw-semibold"><%= request.getParameter("teacherGroupsSize")%> τμήματα (17 μαθήτριες)</span>
                 </div>
             </li>
         </ul>
