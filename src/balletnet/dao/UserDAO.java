@@ -98,8 +98,6 @@ public class UserDAO {
 	 * @throws Exception, if the credentials are not valid or an error occurs.
 	 */
     public User authenticate(String username, String password) throws Exception {
-    
-        List<User> users = getUsers();
 
 		for (User user: users) {
 
@@ -113,5 +111,34 @@ public class UserDAO {
 
     } // End of authenticate
 
+    /**
+     * This method returns a List with all Students
+     * 
+     * @return List<Student>
+     */
+    public List<Student> getStudents() {
+        List<Student> students = new ArrayList<>();
+        for (User user : users) {
+            if (user instanceof Student) {
+                students.add((Student) user);
+            }
+        }
+        return students;
+    }
+
+    /**
+     * This method returns a List with all Teachers
+     * 
+     * @return List<Teacher>
+     */
+    public List<Teacher> getTeachers() {
+        List<Teacher> teachers = new ArrayList<>();
+        for (User user : users) {
+            if (user instanceof Teacher) {
+                teachers.add((Teacher) user);
+            }
+        }
+        return teachers;
+    }
     
 } //End of class
