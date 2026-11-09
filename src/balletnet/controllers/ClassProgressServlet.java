@@ -25,17 +25,24 @@ public class ClassProgressServlet extends HttpServlet {
         CourseGroupDAO courseGroupDAO = new CourseGroupDAO();
         List<CourseGroup> groups = courseGroupDAO.getCourseGroupsByTeacher(teacher);
 
-        int teacherGroupsSize = groups.size();
         int totalStudents = 0;
-        for (CourseGroup g: groups) {
-            totalStudents += g.getStudents().size();
+        CourseGroup currentGroup = null;
+        Syllabus syllabus = null;
+
+        if (groups != null && !groups.isEmpty()) {
+            for (CourseGroup g : groups) {
+                if (g.getStudents() != null) {
+                    totalStudents += g.getStudents().size();
+                }
+            }
+            currentGroup = groups.get(0);
+            syllabus = currentGroup.getSyllabus();
         }
-        Syllabus syllabus = groups.get(0).getSyllabus();
-        
+
         request.setAttribute("teacherGroups", groups);
-        request.setAttribute("teacherGroupsSize", teacherGroupsSize);
+        request.setAttribute("teacherGroupsSize", (groups != null) ? groups.size() : 0);
         request.setAttribute("totalStudents", totalStudents);
-        request.setAttribute("currentGroup", groups.isEmpty() ? null : groups.get(0));
+        request.setAttribute("currentGroup", currentGroup);
         request.setAttribute("syllabus", syllabus);
         request.setAttribute("course_data", true);
 
