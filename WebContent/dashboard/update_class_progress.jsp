@@ -200,7 +200,7 @@ if (request.getAttribute("course_data") == null) {
         function updateSlider(s) {
             const v = s.el.value;
             s.val.innerText = v + '%';
-            s.el.style.background = `linear-gradient(to right, #8B5A83 ${v}%, #dee2e6 ${v}%)`;
+            s.el.style.background = 'linear-gradient(to right, #8B5A83 ' + v + '%, #dee2e6 ' + v + '%)';
             calculateOverall();
         }
 
