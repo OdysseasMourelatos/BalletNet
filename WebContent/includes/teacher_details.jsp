@@ -60,7 +60,7 @@
                 <i class="bi bi-collection text-ballet fs-5 me-3"></i>
                 <div>
                     <span class="text-muted d-block">Ενεργά τμήματα</span>
-                    <span class="fw-semibold"><%= request.getParameter("teacherGroupsSize")%> τμήματα (17 μαθήτριες)</span>
+                    <span class="fw-semibold"><%= request.getAttribute("teacherGroupsSize")%> τμήματα (<%= request.getAttribute("totalStudents")%> μαθήτριες)</span>
                 </div>
             </li>
         </ul>
@@ -83,8 +83,8 @@
                         <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;"><%= teacher.getFirstName() + " " + teacher.getLastName()%></h4>
                         <div class="d-flex flex-wrap gap-2 mt-2">
                             <span class="stat-chip"><i class="bi bi-door-open me-1 text-ballet"></i><strong>Room 1</strong> (Studio A)</span>
-                            <span class="stat-chip"><i class="bi bi-collection me-1 text-ballet"></i><strong>2</strong> τμήματα</span>
-                            <span class="stat-chip"><i class="bi bi-people me-1 text-ballet"></i><strong>17</strong> μαθήτριες (Σύνολο)</span>
+                            <span class="stat-chip"><i class="bi bi-collection me-1 text-ballet"></i><strong><%= request.getAttribute("teacherGroupsSize")%></strong> τμήματα</span>
+                            <span class="stat-chip"><i class="bi bi-people me-1 text-ballet"></i><strong><%= request.getAttribute("totalStudents")%></strong> μαθήτριες (Σύνολο)</span>
                         </div>
                     </div>
                 </div>
