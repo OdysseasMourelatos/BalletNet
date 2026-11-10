@@ -1,0 +1,107 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%-- Unhandled JSP exceptions are forwarded internally to this common error page. --%>
+<%@ page errorPage="error.jsp" %>
+
+<!DOCTYPE html>
+<html lang="el">
+
+<head>
+    <%@ include file="includes/header.jsp" %>
+    <title>Home Page - Ballet Net</title>
+</head>
+
+<body>
+    
+    <!-- Responsive Navbar -->
+    <nav class="navbar navbar-light bg-light mb-4 shadow-sm py-2">
+        <div class="container-fluid px-3 px-md-5 d-flex justify-content-between align-items-center flex-nowrap">
+            <a class="navbar-brand fs-3 fs-md-2 fw-bold d-flex align-items-center text-ballet m-0" href="home.jsp">
+                <img src="photos/BalletArts.png" alt="Ballet Arts Logo" height="48" class="me-2 me-md-3">
+                Ballet Net
+            </a>
+
+            <div>
+                <a href="login_form.jsp" class="btn btn-outline-ballet rounded-pill px-3 py-1 fw-semibold">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> <span data-el="Είσοδος" data-en="Login">Είσοδος</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mb-5 mt-4">
+        <div class="bg-white p-4 p-md-5 shadow-sm rounded-4">
+
+            <!-- Hero Header -->
+            <div class="text-center mb-4 mb-md-5 pb-2">
+                <h1 class="fw-bold mb-3 text-ballet display-5" data-el="Καλώς ήρθατε στο Ballet Net" data-en="Welcome to Ballet Net">
+                    Καλώς ήρθατε στο Ballet Net
+                </h1>
+                <h4 class="text-muted fw-normal mt-3 fs-5 lh-base mx-auto" style="max-width: 700px;" 
+                    data-el="Χορεύουμε με πειθαρχία, έκφραση και αγάπη για την τέχνη."
+                    data-en="We dance with discipline, expression and love for the art.">
+                    Χορεύουμε με πειθαρχία, έκφραση και αγάπη για την τέχνη.
+                </h4>
+            </div>
+
+            <!-- Value Proposition Cards -->
+            <div class="row g-4 mt-1">
+                <!-- Card 1 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm feature-card p-4 border-0 rounded-3">
+                        <div class="card-body text-center p-0">
+                            <i class="bi bi-heart card-icon fs-1 text-ballet mb-3 d-inline-block"></i>
+                            <h4 class="card-title fw-bold text-dark mb-3" data-el="Τα πιστεύω μας" data-en="Our Beliefs">Τα πιστεύω μας</h4>
+                            <p class="card-text text-muted lh-base" 
+                                data-el="Πιστεύουμε ότι ο χορός καλλιεργεί το σώμα, το μυαλό και την ψυχή. Μέσα από τη σωστή καθοδήγηση, κάθε μαθητής μπορεί να αναπτυχθεί με σεβασμό, αυτοπεποίθηση και δημιουργικότητα."
+                                data-en="We believe that dance develops the body, mind and spirit. Through thoughtful guidance, every student can grow with respect, confidence and creativity.">
+                                Πιστεύουμε ότι ο χορός καλλιεργεί το σώμα, το μυαλό και την ψυχή. Μέσα από τη σωστή καθοδήγηση, κάθε μαθητής μπορεί να αναπτυχθεί με σεβασμό, αυτοπεποίθηση και δημιουργικότητα.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm feature-card p-4 border-0 rounded-3">
+                        <div class="card-body text-center p-0">
+                            <i class="bi bi-eye card-icon fs-1 text-ballet mb-3 d-inline-block"></i>
+                            <h4 class="card-title fw-bold text-dark mb-3" data-el="Το όραμά μας" data-en="Our Vision">Το όραμά μας</h4>
+                            <p class="card-text text-muted lh-base" 
+                                data-el="Το όραμά μας είναι να δημιουργούμε ένα ασφαλές, οργανωμένο και εμπνευσμένο περιβάλλον όπου οι μαθητές εξελίσσονται όχι μόνο ως χορευτές, αλλά και ως άνθρωποι."
+                                data-en="Our vision is to create a safe, organised and inspiring environment where students grow not only as dancers, but also as individuals.">
+                                Το όραμά μας είναι να δημιουργούμε ένα ασφαλές, οργανωμένο και εμπνευσμένο περιβάλλον όπου οι μαθητές εξελίσσονται όχι μόνο ως χορευτές, αλλά και ως άνθρωποι.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100 shadow-sm feature-card p-4 border-0 rounded-3">
+                        <div class="card-body text-center p-0">
+                            <i class="bi bi-laptop card-icon fs-1 text-ballet mb-3 d-inline-block"></i>
+                            <h4 class="card-title fw-bold text-dark mb-3" data-el="Η πλατφόρμα μας" data-en="Our Platform">Η πλατφόρμα μας</h4>
+                            <p class="card-text text-muted lh-base" 
+                                data-el="Το Ballet Net αποτελεί την ολοκληρωμένη πλατφόρμα διαχείρισης και εκπαιδευτικού συντονισμού. Παρέχει άμεση πρόσβαση στο ωρολόγιο πρόγραμμα, καταγραφή ύλης RAD/ISTD και παρακολούθηση εξετάσεων."
+                                data-en="Ballet Net is the integrated management and educational platform. It provides direct access to schedules, RAD/ISTD syllabus tracking, and examination readiness monitoring.">
+                                Το Ballet Net αποτελεί την ολοκληρωμένη πλατφόρμα διαχείρισης και εκπαιδευτικού συντονισμού. Παρέχει άμεση πρόσβαση στο ωρολόγιο πρόγραμμα, καταγραφή ύλης RAD/ISTD και παρακολούθηση εξετάσεων.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Single Call-To-Action (Είσοδος) -->
+            <div class="mt-5 pt-4 border-top text-center">
+                <a href="login_form.jsp" class="btn btn-ballet btn-lg px-5 rounded-pill shadow-sm fw-semibold">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> <span data-el="Είσοδος στο Σύστημα" data-en="Enter System">Είσοδος στο Σύστημα</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<%@ include file ="includes/footer.jsp" %>
+</html>
