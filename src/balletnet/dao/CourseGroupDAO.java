@@ -68,4 +68,17 @@ public class CourseGroupDAO {
         }
         return null;
     }
+
+    public int getTotalStudentsByTeacher(Teacher teacher) {
+        List<CourseGroup> groups = getCourseGroupsByTeacher(teacher);
+        int totalStudents = 0;
+        if (groups != null && !groups.isEmpty()) {
+            for (CourseGroup g : groups) {
+                if (g.getEnrolledStudents() != null) {
+                    totalStudents += g.getEnrolledStudents().size();
+                }
+            }
+        }
+        return totalStudents;
+    }
 }

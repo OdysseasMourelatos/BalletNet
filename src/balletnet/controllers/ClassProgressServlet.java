@@ -26,27 +26,21 @@ public class ClassProgressServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/BalletNet/WebContent/login_form.jsp?message=login_required");
             return;
         }
+
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         CourseGroupDAO courseGroupDAO = new CourseGroupDAO();
         List<CourseGroup> groups = courseGroupDAO.getCourseGroupsByTeacher(teacher);
 
-        int totalStudents = 0;
+        int totalStudents = courseGroupDAO.getTotalStudentsByTeacher(teacher);
 
         String groupID = request.getParameter("groupID");
-        if (groupID == null || groupID.trim().isEmpty()) {
-            groupID = (String) session.getAttribute("selectedGroupId");
-        }
-
         if (groups != null && !groups.isEmpty()) {
-            for (CourseGroup g : groups) {
-                if (g.getStudents() != null) {
-                    totalStudents += g.getStudents().size();
-                }
-            }
-
             if (groupID == null || groupID.trim().isEmpty()) {
-                groupID = groups.get(0).getGroupID();
+                groupID = (String) session.getAttribute("selectedGroupId");
+                if (groupID == null || groupID.trim().isEmpty()) {
+                    groupID = groups.get(0).getGroupID();
+                }
             }
         }
 
