@@ -4,50 +4,67 @@
 
 The project includes a pilot instance based on real-world domain data from the **Ballet Arts** dance school in Glyfada, Athens.
 
-> **Status (1st deliverable):** this release contains the design documentation and a **static front-end prototype** (HTML/CSS/JavaScript). The Java backend (Servlets/JSP, Active Record, JDBC) shown in the architecture diagrams is the design target and is not yet implemented in this repository.
+> **Status (2nd deliverable):** This release delivers the core **Java Web Application** implementing the **MVC Model 2** architecture. The static UI prototype has been fully integrated into dynamic **JSP** views driven by **Java Servlets**, business domain models, and in-memory **DAO** persistence. Role-Based Access Control (RBAC), session management, and the Post-Redirect-Get (PRG) pattern are implemented across active modules.
 
 ---
 
-## 🌐 Pilot Deployment
+## 🌐 Pilot Deployment & Credentials
 
-- **Prototype URL:** [https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html](https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html)
-- **Role switching instead of login:** for easy academic inspection, the landing page (`index.html`) provides a role selector (Secretary / Teacher / Student) that opens the corresponding screens without credentials. Authentication and Role-Based Access Control (RBAC) are part of the architectural design and will be implemented together with the backend.
+- **Prototype URL (Static):** [https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html](https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/index.html)
+- **Application URL (Dynamic):** [https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/home.jsp](https://ism.dmst.aueb.gr/ismgroup1/BalletNet/WebContent/home.jsp)
 
----
 
-## 🏛️ Target Architecture (design)
+### Role-Based Access Control (RBAC) Accounts
 
-The platform is designed as a 3-tier layered system following **MVC Model 2**:
+Authentication is managed via HTTP Sessions (`login_form.jsp` / `LoginServlet`). For academic inspection and grading, the following in-memory seed accounts are available:
 
-1. **Presentation Layer:** JSP pages (HTML5, CSS3, Bootstrap 5.3). In this release, the screens exist as static HTML pages.
-2. **Application Layer:** Java Servlets as controllers and nine domain classes (`User`, `Secretary`, `Teacher`, `Student`, `CourseGroup`, `ScheduledSession`, `Syllabus`, `StudentProgress`, `ExamSession`) implementing the business logic, including room and teacher conflict detection.
-3. **Database Layer:** relational schema on **MySQL**, accessed through the **Active Record** pattern with a central `DatabaseConnection` class (JDBC). The schema is in [`sql/sqlschema.sql`](sql/sqlschema.sql).
-
-UML and architecture diagrams are in the [`Diagrams`](Diagrams) folder.
-
----
-
-## 🎯 Prototype Screens and Use Cases
-
-| Role | Screen (`WebContent/dashboard/`) | Use case |
-|---|---|---|
-| Secretary | `manage_schedule.html` | Manage Schedule: weekly timetable per studio (Room 1 / Room 2), substitution flag, room conflict check (demo logic) |
-| Secretary | `manage_exam_sessions.html` | Manage Exam Sessions: schedule RAD/ISTD exams, exam status, eligible candidates |
-| Teacher | `update_class_progress.html` | Update Class Progress: syllabus coverage sliders (Barre, Centre, Allegro, Pointe) and a teaching log |
-| Teacher | `update_student_progress.html` | Update Personal Student Progress: individual assessment, comments and the `Exam Ready` flag |
-| Student | `view_student_schedule.html` | View Personal Schedule |
-| Student | `view_student_progress.html` | View Syllabus & Personal Progress, with the conditional extension View Upcoming Exams & Status (shown only for `Exam Ready` students) |
-
-Authentication is treated as a precondition of the system (RBAC) and not as a standalone use case. Account creation and class enrollment are performed by the Secretary at administrative level.
+| Role | Username | Password | Notes / Scope |
+|---|---|---|---|
+| Secretary | `salexiou` | `1111` | Lead Administrator (`SEC-01`) |
+| Secretary | `nkostopoulou` | `1112` | Assistant Administrator (`SEC-02`) |
+| Teacher | `ekyriakidou` | `2222` | RAD Certified Instructor — 2 groups (`TEA-01`) |
+| Teacher | `ddimitriou` | `2223` | Contemporary / Vaganova Instructor (`TEA-02`) |
+| Teacher | `akara` | `2224` | Repertoire & Pointe — Shared Intermediate Group (`TEA-03`) |
+| Student | `mgeorgiou` | `3333` | Exam Ready Candidate (`STU-01`) |
+| Student | `ipapadopoulou` | `3334` | Advanced Foundation Student (`STU-02`) |
 
 ---
 
-## 🔄 Scope Refactoring
+## 🏛️ Implemented System Architecture
 
-Compared to earlier exploratory work, the scope was refined:
-- Social media content workflows (UGC) were removed to focus on operational efficiency and educational consistency.
-- Authentication was excluded from the Use Case Diagram and is treated as an RBAC precondition.
-- The student portal is split into two single-purpose views (schedule, and syllabus & progress).
+The platform follows a clean 3-tier layered **MVC Model 2** architecture:
+
+1. **Presentation Layer (View):** Dynamic JSP pages (`WebContent/dashboard/*.jsp`) styled with Bootstrap 5.3 and custom CSS. Forms leverage dynamic slider bindings, client-side real-time calculation, server-side data hydration, and flash-message dismissals.
+2. **Application / Controller Layer:** 
+   - **Java Servlets (`balletnet.controllers`):** Act as the system controllers handling routing, request parsing, session gatekeeping, and the **Post-Redirect-Get (PRG)** pattern to eliminate duplicate form submissions and recursion faults.
+   - **Domain Model (`balletnet.models`):** Nine encapsulated domain classes (`User`, `Secretary`, `Teacher`, `Student`, `CourseGroup`, `ScheduledSession`, `Syllabus`, `StudentProgress`, `ExamSession`) handling business rules (e.g. syllabus metric updates, completion weighting).
+3. **Data Access Layer (Model / Persistence):** 
+   - Managed via DAO classes (`UserDAO`, `CourseGroupDAO`) using thread-safe, static in-memory collections for fast, consistent grading and evaluation without local database installation overhead.
+   - Relational MySQL schema target is maintained in [`sql/sqlschema.sql`](sql/sqlschema.sql).
+
+UML Class Diagrams, Sequence Diagrams, and Architecture Specifications are available in the [`Diagrams`](Diagrams) directory.
+
+---
+
+## 🎯 System Modules, Endpoints & Use Cases
+
+| Role | Dynamic Endpoint (JSP / Servlet) | UI Prototype (`WebContent/dashboard/`) | Use Case & Implemented Logic |
+|---|---|---|---|
+| Teacher | `/classProgress` &rarr; `update_class_progress.jsp` | `update_class_progress.html` | **Update Class Progress:** Form submission via POST, syllabus metrics persistence (Barre, Centre, Allegro, Pointe), daily log updating, and PRG redirection. |
+| Teacher | `/studentProgress` &rarr; `update_student_progress.jsp` | `update_student_progress.html` | **Update Personal Student Progress:** Per-student technical evaluations, attendance review, and exam-readiness qualification flag. |
+| Secretary | `/manageSchedule` &rarr; `manage_schedule.jsp` | `manage_schedule.html` | **Manage Schedule:** Studio calendar allocations, teacher substitution logging, and schedule conflict validation. |
+| Secretary | `/manageExams` &rarr; `manage_exam_sessions.jsp` | `manage_exam_sessions.html` | **Manage Exam Sessions:** Exam timetable orchestration and RAD/ISTD candidate roster consolidation. |
+| Student | `/studentSchedule` &rarr; `view_student_schedule.jsp` | `view_student_schedule.html` | **View Personal Schedule:** Timetable inspection per enrolled course group. |
+| Student | `/studentProgressView` &rarr; `view_student_progress.jsp` | `view_student_progress.html` | **View Syllabus & Progress:** Personal evaluation feedback and conditional upcoming exam view for eligible candidates. |
+
+---
+
+## 🔄 Scope Refactoring & Milestone Progress (Deliverable 2)
+
+- **Authentication & RBAC:** Enforced session-based gatekeeping across all endpoints (`session.getAttribute("user")`) with redirect triggers to `/login_form.jsp`.
+- **Controller Decoupling:** Separated class syllabus progression from individual student evaluation into dedicated Servlet controllers (`ClassProgressServlet`, `StudentProgressServlet`).
+- **Post-Redirect-Get (PRG) Pattern:** Refactored form handlers to avoid dispatcher recursion (`StackOverflowError`) and browser re-submission warnings.
+- **Multi-Instructor Assignment:** Seeded additional faculty accounts (`akara`) to validate collaborative multi-instructor group assignment.
 
 ---
 
