@@ -66,4 +66,18 @@ public class StudentProgressDAO {
             }
         }
     }
+
+    public List<StudentProgress> getStudentsProgress() {
+        return studentsProgress;
+    }
+
+    public List<StudentProgress> getStudentsProgressByCourse(CourseGroup courseGroup) {
+        List <StudentProgress> courseStudentsProgress = new ArrayList<>();
+        for (StudentProgress studentProgress : studentsProgress) {
+            if (studentProgress.getCourseGroup().equals(courseGroup)) {
+                courseStudentsProgress.add(studentProgress);
+            }
+        }
+        return courseStudentsProgress;
+    }
 }
