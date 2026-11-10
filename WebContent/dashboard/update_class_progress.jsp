@@ -139,14 +139,14 @@ if (request.getAttribute("course_data") == null) {
                         </span>
                     </div>
 
-                    <form id="formClassProgress" onsubmit="event.preventDefault(); showInlineAlert('alertTab1');">
+                    <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet" method="GET" class="m-0">
                         <div class="row g-4 mb-4">
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between mb-1">
                                     <label for="barreRange" class="form-label fw-semibold mb-0">1. Barre Work <span class="text-muted fw-normal small d-block">Pliés, Battements</span></label>
-                                    <span class="fw-bold text-ballet" id="valBarre"><%= syllabus.getBarreProgress()%></span>
+                                    <span class="fw-bold text-ballet" id="valBarre" ><%= syllabus.getBarreProgress()%></span>
                                 </div>
-                                <input type="range" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="barreRange">
+                                <input type="range" name="barreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="barreRange">
                             </div>
 
                             <div class="col-md-6">
@@ -154,7 +154,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="centreRange" class="form-label fw-semibold mb-0">2. Port de Bras & Centre <span class="text-muted fw-normal small d-block">Κέντρο & ισορροπίες</span></label>
                                     <span class="fw-bold text-ballet" id="valCentre"><%= syllabus.getCentreProgress()%></span>
                                 </div>
-                                <input type="range" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getCentreProgress()%>" id="centreRange">
+                                <input type="range" name="centreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getCentreProgress()%>" id="centreRange">
                             </div>
 
                             <div class="col-md-6">
@@ -162,7 +162,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="allegroRange" class="form-label fw-semibold mb-0">3. Allegro & Pirouettes <span class="text-muted fw-normal small d-block">Άλματα, στροφές & enchaînements</span></label>
                                     <span class="fw-bold text-ballet" id="valAllegro"><%= syllabus.getAllegroProgress()%></span>
                                 </div>
-                                <input type="range" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getAllegroProgress()%>" id="allegroRange">
+                                <input type="range" name="alegroProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getAllegroProgress()%>" id="allegroRange">
                             </div>
 
                             <div class="col-md-6">
@@ -170,13 +170,13 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="pointeRange" class="form-label fw-semibold mb-0">4. Pointe Work <span class="text-muted fw-normal small d-block">Εισαγωγή στις πουέντ</span></label>
                                     <span class="fw-bold text-ballet" id="valPointe"><%= syllabus.getPointeProgress()%></span>
                                 </div>
-                                <input type="range" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getPointeProgress()%>" id="pointeRange">
+                                <input type="range" name = "pointeProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getPointeProgress()%>" id="pointeRange">
                             </div>
                         </div>
 
                         <div class="mb-4">
                             <label for="classNotes" class="form-label fw-semibold">Ημερολόγιο διδασκαλίας / παρατηρήσεις τμήματος</label>
-                            <textarea class="form-control rounded-3" id="classNotes" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."></textarea>
+                            <textarea class="form-control rounded-3" id="classNotes" name = "dailyLog" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."></textarea>
                         </div>
 
                         <div id="alertTab1" class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mb-3 border-0 shadow-sm" role="alert">
