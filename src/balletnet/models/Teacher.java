@@ -26,4 +26,16 @@ public class Teacher extends User {
     public void setSpecialization(String specialization) { 
         this.specialization = specialization; 
     }
+
+    //Teacher methods as defined in the class diagram
+    public void updateClassProgress(CourseGroup courseGroup, double barreProgress, double centreProgress, double allegroProgress, double pointeProgress, String dailyLog) {
+        Syllabus syllabus = courseGroup.getSyllabus();
+        
+        syllabus.setBarreProgress(barreProgress);
+        syllabus.setCentreProgress(centreProgress);
+        syllabus.setAllegroProgress(allegroProgress);
+        syllabus.setPointeProgress(pointeProgress);
+
+        syllabus.setDailyLog(dailyLog);
+    }
 }
