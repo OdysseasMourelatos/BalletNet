@@ -102,8 +102,6 @@ public class ClassProgressServlet extends HttpServlet {
             teacher.updateClassProgress(courseGroup, bP, cP, aP, pP, dailyLog);
         }
 
-        request.setAttribute("success", "Η πρόοδος της διδακτέας ύλης αποθηκεύτηκε επιτυχώς!");
-
-        request.getRequestDispatcher(APP_BASE + "/dashboard/update_class_progress.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/servlet/balletnet.controllers.ClassProgressServlet?groupID=" + groupID + "&success=true");
     }
 }
