@@ -19,7 +19,13 @@ public class ClassProgressServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         HttpSession session = request.getSession();
+
+        if (session == null || session.getAttribute("user") == null || !(session.getAttribute("user") instanceof Teacher)) {
+            response.sendRedirect(request.getContextPath() + "/BalletNet/WebContent/login_form.jsp?message=login_required");
+            return;
+        }
         Teacher teacher = (Teacher) session.getAttribute("user");
 
         CourseGroupDAO courseGroupDAO = new CourseGroupDAO();
@@ -58,6 +64,7 @@ public class ClassProgressServlet extends HttpServlet {
         request.setAttribute("teacherGroups", groups);
         request.setAttribute("teacherGroupsSize", (groups != null) ? groups.size() : 0);
         request.setAttribute("totalStudents", totalStudents);
+        request.setAttribute("currentGroup", courseGroup);
         request.setAttribute("syllabus", syllabus);
         request.setAttribute("course_data", true);
 

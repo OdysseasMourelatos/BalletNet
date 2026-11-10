@@ -125,7 +125,13 @@ if (request.getAttribute("course_data") == null) {
                 <div>
                     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-2">
                         <div>
-                            <h4 class="fw-bold mb-1 text-ballet">Διδακτέα ύλη: Intermediate Foundation</h4>
+                            <%
+                            CourseGroup currentGroup = (CourseGroup) request.getAttribute("currentGroup");
+                            String rawLevel = (currentGroup != null) ? currentGroup.getLevel() : "Intermediate Foundation";
+                            String displayLevel = rawLevel.replaceAll("\\s*\\(.*\\)", "").trim();
+                            %>
+
+                            <h4 class="fw-bold mb-1 text-ballet">Διδακτέα ύλη: <%= displayLevel %></h4>
                             <p class="text-muted small mb-0">Ενημερώστε το ποσοστό κάλυψης ανά ενότητα της επίσημης ύλης RAD.</p>
                         </div>
                         <span class="badge bg-light text-dark border px-3 py-2 rounded-pill fs-6 shadow-sm">
