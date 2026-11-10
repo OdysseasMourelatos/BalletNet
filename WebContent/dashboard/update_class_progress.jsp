@@ -139,7 +139,8 @@ if (request.getAttribute("course_data") == null) {
                         </span>
                     </div>
 
-                    <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet" method="GET" class="m-0">
+                    <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet" method="POST" class="m-0">
+                        <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
                         <div class="row g-4 mb-4">
                             <div class="col-md-6">
                                 <div class="d-flex justify-content-between mb-1">
@@ -176,13 +177,15 @@ if (request.getAttribute("course_data") == null) {
 
                         <div class="mb-4">
                             <label for="classNotes" class="form-label fw-semibold">Ημερολόγιο διδασκαλίας / παρατηρήσεις τμήματος</label>
-                            <textarea class="form-control rounded-3" id="classNotes" name = "dailyLog" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."></textarea>
+                            <textarea class="form-control rounded-3" id="classNotes" name = "dailyLog" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."><%= (syllabus != null && syllabus.getDailyLog() != null) ? syllabus.getDailyLog() : "" %></textarea>
                         </div>
 
-                        <div id="alertTab1" class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mb-3 border-0 shadow-sm" role="alert">
-                            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
-                            <span>Η πρόοδος της διδακτέας ύλης αποθηκεύτηκε επιτυχώς!</span>
-                        </div>
+                        <% if (request.getParameter("success") != null) { %>
+                            <div id="alertTab1" class="alert alert-success d-flex align-items-center rounded-3 py-2 px-3 mb-3 border-0 shadow-sm" role="alert">
+                                <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                                <span>Η πρόοδος της διδακτέας ύλης αποθηκεύτηκε επιτυχώς!</span>
+                            </div>
+                        <% } %>
 
                         <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
                             <i class="bi bi-cloud-arrow-up me-1"></i> Αποθήκευση προόδου ύλης
