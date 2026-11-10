@@ -163,7 +163,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="allegroRange" class="form-label fw-semibold mb-0">3. Allegro & Pirouettes <span class="text-muted fw-normal small d-block">Άλματα, στροφές & enchaînements</span></label>
                                     <span class="fw-bold text-ballet" id="valAllegro"><%= syllabus.getAllegroProgress()%></span>
                                 </div>
-                                <input type="range" name="alegroProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getAllegroProgress()%>" id="allegroRange">
+                                <input type="range" name="allegroProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getAllegroProgress()%>" id="allegroRange">
                             </div>
 
                             <div class="col-md-6">
@@ -224,12 +224,17 @@ if (request.getAttribute("course_data") == null) {
             s.el.addEventListener('input', () => updateSlider(s));
         });
 
-        function showInlineAlert(alertId) {
-            const box = document.getElementById(alertId);
-            if (!box) return;
-            box.classList.replace('d-none', 'd-flex');
-            setTimeout(() => box.classList.replace('d-flex', 'd-none'), 3500);
-        }
+        // Αυτόματη απόκρυψη του alert επιτυχίας μετά από 5 δευτερόλεπτα
+        window.addEventListener('DOMContentLoaded', () => {
+            const alertBox = document.getElementById('alertTab1');
+            if (alertBox) {
+                setTimeout(() => {
+                    alertBox.style.transition = 'opacity 0.6s ease';
+                    alertBox.style.opacity = '0';
+                    setTimeout(() => alertBox.remove(), 600);
+                }, 5000);
+            }
+        });
     </script>
 </body>
 
