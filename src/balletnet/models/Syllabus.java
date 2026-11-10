@@ -101,4 +101,17 @@ public class Syllabus {
         return (getBarreProgress() + getCentreProgress() + getAllegroProgress() + getPointeProgress()) / 4;
     }
 
+    public void updateClassProgress(double barreProgress, double centreProgress, double allegroProgress, double pointeProgress) {
+        this.setBarreProgress(barreProgress);
+        this.setCentreProgress(centreProgress);
+        this.setAllegroProgress(allegroProgress);
+        this.setPointeProgress(pointeProgress);
+
+        this.setCompletionPercentage(this.calculateCompletion());
+    }
+
+    public void updateDailyLog(String dailyLog) {
+        this.setDailyLog(dailyLog);
+    }
+
 }

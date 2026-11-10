@@ -31,11 +31,7 @@ public class Teacher extends User {
     public void updateClassProgress(CourseGroup courseGroup, double barreProgress, double centreProgress, double allegroProgress, double pointeProgress, String dailyLog) {
         Syllabus syllabus = courseGroup.getSyllabus();
         
-        syllabus.setBarreProgress(barreProgress);
-        syllabus.setCentreProgress(centreProgress);
-        syllabus.setAllegroProgress(allegroProgress);
-        syllabus.setPointeProgress(pointeProgress);
-
-        syllabus.setDailyLog(dailyLog);
+        syllabus.updateClassProgress(barreProgress, centreProgress, allegroProgress, pointeProgress);
+        syllabus.updateDailyLog(dailyLog);
     }
 }
