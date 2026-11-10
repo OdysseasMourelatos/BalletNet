@@ -31,6 +31,8 @@ public class CourseGroupDAO {
         
         courseGroups.get(0).getTeachers().add(teachers.get(0));
         courseGroups.get(1).getTeachers().add(teachers.get(0));
+        
+        courseGroups.get(0).getTeachers().add(teachers.get(2));
 
         courseGroups.get(0).setSyllabus(new Syllabus(
             "SYL-01", "Intermediate Foundation (RAD)", 75.0, 60.0, 50.0, 40.0, 56.0, "Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu.", "GRP-01"

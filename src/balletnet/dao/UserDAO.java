@@ -39,6 +39,11 @@ public class UserDAO {
             "Δέσποινα", "Δημητρίου", "despina.dim@balletarts.gr", 
             "TEA-02", "Vaganova & Contemporary Ballet"
         ));
+        users.add(new Teacher(
+            "U22", "akara", "2224", 
+            "Άννα", "Καρά", "anna.kara@balletarts.gr", 
+            "TEA-03", "RAD Repertoire & Pointe Work"
+        ));
 
         // --- 3. Οι 3 Επώνυμες Μαθήτριες (που εμφανίζονται στα UIs & Modals) ---
         users.add(new Student(

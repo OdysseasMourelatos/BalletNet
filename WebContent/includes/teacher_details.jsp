@@ -61,7 +61,14 @@
                 <i class="bi bi-collection text-ballet fs-5 me-3"></i>
                 <div>
                     <span class="text-muted d-block">Ενεργά τμήματα</span>
-                    <span class="fw-semibold"><%= request.getAttribute("teacherGroupsSize")%> τμήματα (<%= request.getAttribute("totalStudents")%> μαθήτριες)</span>
+                    <% 
+                    Integer size = (Integer) request.getAttribute("teacherGroupsSize");
+                    String classes = (size != null && size == 1) ? "τμήμα" : "τμήματα";
+                    
+                    Integer stSize = (Integer) request.getAttribute("totalStudents");
+                    String students = (stSize != null && stSize == 1) ? "μαθήτρια" : "μαθήτριες";
+                    %> 
+                    <span class="fw-semibold"><%= request.getAttribute("teacherGroupsSize")%> <%=classes%> (<%= request.getAttribute("totalStudents")%> <%=students%>)</span>
                 </div>
             </li>
         </ul>
@@ -84,8 +91,8 @@
                         <h4 class="fw-bold mb-1" style="font-family: 'Playfair Display', serif;"><%= teacher.getFirstName() + " " + teacher.getLastName()%></h4>
                         <div class="d-flex flex-wrap gap-2 mt-2">
                             <span class="stat-chip"><i class="bi bi-door-open me-1 text-ballet"></i><strong>Room 1</strong> (Studio A)</span>
-                            <span class="stat-chip"><i class="bi bi-collection me-1 text-ballet"></i><strong><%= request.getAttribute("teacherGroupsSize")%></strong> τμήματα</span>
-                            <span class="stat-chip"><i class="bi bi-people me-1 text-ballet"></i><strong><%= request.getAttribute("totalStudents")%></strong> μαθήτριες (Σύνολο)</span>
+                            <span class="stat-chip"><i class="bi bi-collection me-1 text-ballet"></i><strong><%= request.getAttribute("teacherGroupsSize")%></strong> <%=classes%></span>
+                            <span class="stat-chip"><i class="bi bi-people me-1 text-ballet"></i><strong><%= request.getAttribute("totalStudents")%></strong> <%=students%> (Σύνολο)</span>
                         </div>
                     </div>
                 </div>
