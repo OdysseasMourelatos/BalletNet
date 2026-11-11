@@ -20,7 +20,6 @@ if (!(user instanceof Teacher)) {
 <%
 }
 Teacher teacher = (Teacher) user;
-%>
 
 if (request.getAttribute("student_data") == null) {
 %>

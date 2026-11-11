@@ -80,4 +80,14 @@ public class StudentProgressDAO {
         }
         return courseStudentsProgress;
     }
+
+    public int getNumberOfStudentsReadyForExam(CourseGroup courseGroup) {
+        int totalReady = 0;
+        for (StudentProgress studentProgress : getStudentsProgressByCourse(courseGroup)) {
+            if (studentProgress.isExamReady()) {
+                totalReady += 1;
+            }
+        }
+        return totalReady;
+    }
 }
