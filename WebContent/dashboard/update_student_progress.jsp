@@ -80,7 +80,7 @@ if (request.getAttribute("student_data") == null) {
                                     <th class="text-center">Ενέργεια</th>
                                 </tr>
                             </thead>
-                            <% List<StudentProgress> studentsProgress = request.setAttribute("studentsProgress");
+                            <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
                                 if (studentsProgress.size() != 0) {
                                     for (StudentProgress stProgress : studentsProgress) {     
                                 %>
@@ -98,10 +98,10 @@ if (request.getAttribute("student_data") == null) {
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
                                             <div class="progress attendance-bar"><div class="progress-bar bg-success" style="width: 92%"></div></div>
-                                            <span class="small fw-semibold text-success">23/25 (92%)</span>
+                                            <span class="small fw-semibold text-success">(<%= (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0 %>%)</span>
                                         </div>
                                     </td>
-                                    <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">Προχωρημένη</span></td>
+                                    <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2"><%=stProgress.getReadinessLevel()%></span></td>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch" id="readySwitch1" checked onchange="toggleReadyLabel(this)">
@@ -115,6 +115,10 @@ if (request.getAttribute("student_data") == null) {
                                     </td>
                                 </tr>
                             </tbody>
+                            <%
+                            }
+                        }
+                        %>
                         </table>
                     </div>
 
