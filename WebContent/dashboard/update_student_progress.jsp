@@ -65,7 +65,7 @@ if (request.getAttribute("student_data") == null) {
                         </div>
                         <span class="badge bg-light text-dark border px-3 py-2 rounded-pill shadow-sm">
                             <i class="bi bi-patch-check text-success me-1"></i>
-                            <strong id="readyCount">2</strong> / 3 έτοιμες
+                            <strong id="readyCount"><%=request.getAttribute("totalStudentsReady")%></strong> / 3 έτοιμες
                         </span>
                     </div>
 

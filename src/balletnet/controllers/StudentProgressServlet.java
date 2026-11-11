@@ -49,12 +49,14 @@ public class StudentProgressServlet extends HttpServlet {
 
         CourseGroup courseGroup = null;
         List<StudentProgress> studentsProgress = new ArrayList<>();
+        int totalStudentsReady = 0;
 
         if (groupID != null) {
             courseGroup = courseGroupDAO.getCourseGroupByGroupID(groupID);
             if (courseGroup != null) {
                 StudentProgressDAO studentProgressDAO = new StudentProgressDAO();
                 studentsProgress = studentProgressDAO.getStudentsProgressByCourse(courseGroup);
+                totalStudentsReady = studentProgressDAO.getNumberOfStudentsReadyForExam(courseGroup);
             }
             session.setAttribute("selectedGroupId", groupID);
         }
@@ -64,6 +66,7 @@ public class StudentProgressServlet extends HttpServlet {
         request.setAttribute("totalStudents", totalStudents);
         request.setAttribute("currentGroup", courseGroup);
         request.setAttribute("studentsProgress", studentsProgress);
+        request.setAttribute("totalStudentsReady", totalStudentsReady);
         request.setAttribute("student_data", true);
 
         request.getRequestDispatcher(APP_BASE + "/dashboard/update_student_progress.jsp").forward(request, response);
