@@ -12,7 +12,6 @@ import balletnet.dao.CourseGroupDAO;
 import balletnet.dao.StudentProgressDAO;
 import balletnet.models.CourseGroup;
 import balletnet.models.StudentProgress;
-import balletnet.models.Syllabus;
 import balletnet.models.Teacher;
 
 @WebServlet("/studentProgress")
@@ -50,6 +49,7 @@ public class StudentProgressServlet extends HttpServlet {
         CourseGroup courseGroup = null;
         List<StudentProgress> studentsProgress = new ArrayList<>();
         int totalStudentsReady = 0;
+        int totalStudentsOfCourseGroup = 0;
 
         if (groupID != null) {
             courseGroup = courseGroupDAO.getCourseGroupByGroupID(groupID);
@@ -57,6 +57,7 @@ public class StudentProgressServlet extends HttpServlet {
                 StudentProgressDAO studentProgressDAO = new StudentProgressDAO();
                 studentsProgress = studentProgressDAO.getStudentsProgressByCourse(courseGroup);
                 totalStudentsReady = studentProgressDAO.getNumberOfStudentsReadyForExam(courseGroup);
+                totalStudentsOfCourseGroup = courseGroupDAO.getTotalStudentsOfCourse(courseGroup);
             }
             session.setAttribute("selectedGroupId", groupID);
         }
@@ -67,6 +68,7 @@ public class StudentProgressServlet extends HttpServlet {
         request.setAttribute("currentGroup", courseGroup);
         request.setAttribute("studentsProgress", studentsProgress);
         request.setAttribute("totalStudentsReady", totalStudentsReady);
+        request.setAttribute("totalStudentsOfCourseGroup", totalStudentsOfCourseGroup);
         request.setAttribute("student_data", true);
 
         request.getRequestDispatcher(APP_BASE + "/dashboard/update_student_progress.jsp").forward(request, response);

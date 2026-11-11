@@ -81,4 +81,8 @@ public class CourseGroupDAO {
         }
         return totalStudents;
     }
+
+    public int getTotalStudentsOfCourse(CourseGroup courseGroup) {
+        return courseGroup.getEnrolledStudents().size();
+    }
 }
