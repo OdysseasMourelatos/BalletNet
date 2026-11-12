@@ -99,10 +99,12 @@
                 <%
                 if ((Integer) request.getAttribute("teacherGroupsSize") != 0) {
                     String currentGroupID = (String) session.getAttribute("selectedGroupId");
+                
+                String targetEndpoint = (request.getAttribute("student_data") != null) ? "StudentProgressServlet" : "ClassProgressServlet";
                 %>
                 <!-- Επιλογή τμήματος -->
                 <div class="flex-shrink-0" style="min-width: 260px;">
-                    <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet" method="GET" class="m-0">
+                    <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.<%=targetEndpoint%>" method="GET" class="m-0">
                         <label for="classSelect" class="form-label small fw-semibold text-muted mb-1">
                             <i class="bi bi-collection-play me-1 text-ballet"></i>Ενεργό τμήμα
                         </label>

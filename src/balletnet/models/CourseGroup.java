@@ -48,16 +48,8 @@ public class CourseGroup {
         return students;
     }
 
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
     public List<Teacher> getTeachers() {
         return teachers;
-    }
-
-    public void setTeachers(List<Teacher> teachers) {
-        this.teachers = teachers;
     }
 
     public Syllabus getSyllabus() {
@@ -66,5 +58,18 @@ public class CourseGroup {
 
     public void setSyllabus(Syllabus syllabus) {
         this.syllabus = syllabus;
+    }
+
+    //CourseGroup methods as defined in the class diagram
+    public void addStudent(Student student) {
+        this.getStudents().add(student);
+    }
+
+    public void addTeacher(Teacher teacher) {
+        this.getTeachers().add(teacher);
+    }
+
+    public List<Student> getEnrolledStudents() {
+        return getStudents();
     }
 }

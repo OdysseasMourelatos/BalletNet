@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- Unhandled JSP exceptions are forwarded internally to this common error page. --%>
-<%@ page import="balletnet.models.User, balletnet.models.Teacher" %>
+<%@ page import="balletnet.models.User, balletnet.models.Teacher, balletnet.models.Student, balletnet.models.StudentProgress, java.util.List" %>
 <%@ page errorPage="../error.jsp" %>
 
 <%
@@ -20,6 +20,13 @@ if (!(user instanceof Teacher)) {
 <%
 }
 Teacher teacher = (Teacher) user;
+
+if (request.getAttribute("student_data") == null) {
+%>
+	<jsp:forward page="/servlet/balletnet.controllers.StudentProgressServlet"/>
+<%
+	return;
+}
 %>
 
 <!DOCTYPE html>
@@ -38,12 +45,12 @@ Teacher teacher = (Teacher) user;
                 <!-- Tabs ανάμεσα στις δύο σελίδες της Δασκάλας -->
                 <ul class="nav nav-pills pill-tabs gap-2 mb-4" id="teacherNav">
                     <li class="nav-item">
-                        <a class="nav-link" href="update_class_progress.jsp">
+                        <a class="nav-link" href="<%=request.getContextPath()%>/BalletNet/WebContent/dashboard/update_class_progress.jsp">
                             <i class="bi bi-journal-check me-2"></i>Πρόοδος ύλης τμήματος (Update Class Progress)
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="update_student_progress.jsp">
+                        <a class="nav-link active" href="<%=request.getContextPath()%>/BalletNet/WebContent/dashboard/update_student_progress.jsp">
                             <i class="bi bi-people-fill me-2"></i>Αξιολόγηση μαθητριών (Update Personal Student Progress)
                         </a>
                     </li>
@@ -58,7 +65,7 @@ Teacher teacher = (Teacher) user;
                         </div>
                         <span class="badge bg-light text-dark border px-3 py-2 rounded-pill shadow-sm">
                             <i class="bi bi-patch-check text-success me-1"></i>
-                            <strong id="readyCount">2</strong> / 3 έτοιμες
+                            <strong id="readyCount"><%=request.getAttribute("totalStudentsReady")%></strong> / <%= request.getAttribute("totalStudentsOfCourseGroup")%> έτοιμες
                         </span>
                     </div>
 
@@ -73,24 +80,28 @@ Teacher teacher = (Teacher) user;
                                     <th class="text-center">Ενέργεια</th>
                                 </tr>
                             </thead>
+                            <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
+                                if (studentsProgress.size() != 0) {
+                                    for (StudentProgress stProgress : studentsProgress) {     
+                                %>
                             <tbody>
                                 <tr>
                                     <td class="ps-3">
                                         <div class="d-flex align-items-center gap-3">
                                             <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold">ΜΓ</div>
                                             <div>
-                                                <div class="fw-bold">Μαρία Γεωργίου</div>
-                                                <span class="text-muted small">ID: #ST-104</span>
+                                                <div class="fw-bold"><%=stProgress.getStudent().getFirstName() + " " + stProgress.getStudent().getLastName()%></div>
+                                                <span class="text-muted small"><%=stProgress.getStudent().getStudentID()%></span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
                                             <div class="progress attendance-bar"><div class="progress-bar bg-success" style="width: 92%"></div></div>
-                                            <span class="small fw-semibold text-success">23/25 (92%)</span>
+                                            <span class="small fw-semibold text-success">(<%= (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0 %>%)</span>
                                         </div>
                                     </td>
-                                    <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">Προχωρημένη</span></td>
+                                    <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2"><%=stProgress.getReadinessLevel()%></span></td>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch" id="readySwitch1" checked onchange="toggleReadyLabel(this)">
@@ -103,67 +114,11 @@ Teacher teacher = (Teacher) user;
                                         </button>
                                     </td>
                                 </tr>
-
-                                <tr>
-                                    <td class="ps-3">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold">ΙΠ</div>
-                                            <div>
-                                                <div class="fw-bold">Ιωάννα Παπαδοπούλου</div>
-                                                <span class="text-muted small">ID: #ST-108</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="progress attendance-bar"><div class="progress-bar bg-warning" style="width: 72%"></div></div>
-                                            <span class="small fw-semibold text-warning-emphasis">18/25 (72%)</span>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge rounded-pill bg-secondary-subtle text-secondary border border-secondary-subtle px-3 py-2">Υπό εξέλιξη</span></td>
-                                    <td>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="readySwitch2" onchange="toggleReadyLabel(this)">
-                                            <label class="form-check-label text-muted" for="readySwitch2">Pending Review</label>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Ιωάννα Παπαδοπούλου', '#ST-108', '18 από 25 μαθήματα (72%)', 'Υπό εξέλιξη', 'Χρειάζεται επιπλέον ενδυνάμωση στα άλματα και περισσότερες παρουσίες.')" title="Προβολή καρτέλας">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="ps-3">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold">ΧΟ</div>
-                                            <div>
-                                                <div class="fw-bold">Χριστίνα Οικονόμου</div>
-                                                <span class="text-muted small">ID: #ST-112</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="progress attendance-bar"><div class="progress-bar bg-success" style="width: 96%"></div></div>
-                                            <span class="small fw-semibold text-success">24/25 (96%)</span>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">Προχωρημένη</span></td>
-                                    <td>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="readySwitch3" checked onchange="toggleReadyLabel(this)">
-                                            <label class="form-check-label fw-semibold text-success" for="readySwitch3">Exam Ready</label>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Χριστίνα Οικονόμου', '#ST-112', '24 από 25 μαθήματα (96%)', 'Προχωρημένη', 'Άψογη τεχνική σε pirouettes και pointe work.')" title="Προβολή καρτέλας">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </td>
-                                </tr>
                             </tbody>
+                            <%
+                            }
+                        }
+                        %>
                         </table>
                     </div>
 

@@ -96,9 +96,22 @@ public class Syllabus {
         this.groupID = groupID;
     }
 
-    //Methods as defined in the class diagram
+    //Syllabus methods as defined in the class diagram
     public double calculateCompletion() {
         return (getBarreProgress() + getCentreProgress() + getAllegroProgress() + getPointeProgress()) / 4;
+    }
+
+    public void updateClassProgress(double barreProgress, double centreProgress, double allegroProgress, double pointeProgress) {
+        this.setBarreProgress(barreProgress);
+        this.setCentreProgress(centreProgress);
+        this.setAllegroProgress(allegroProgress);
+        this.setPointeProgress(pointeProgress);
+
+        this.setCompletionPercentage(this.calculateCompletion());
+    }
+
+    public void updateDailyLog(String dailyLog) {
+        this.setDailyLog(dailyLog);
     }
 
 }

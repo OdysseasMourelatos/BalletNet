@@ -22,17 +22,17 @@ public class CourseGroupDAO {
         int studentIndex = 0;
         for (Student student : students) {
             if (studentIndex < 10) {
-                courseGroups.get(0).getStudents().add(student);
+                courseGroups.get(0).addStudent(student);
             } else {
-                courseGroups.get(1).getStudents().add(student);
+                courseGroups.get(1).addStudent(student);
             }
             studentIndex++;
         }
         
-        courseGroups.get(0).getTeachers().add(teachers.get(0));
-        courseGroups.get(1).getTeachers().add(teachers.get(0));
+        courseGroups.get(0).addTeacher(teachers.get(0));
+        courseGroups.get(1).addTeacher((teachers.get(0)));
         
-        courseGroups.get(0).getTeachers().add(teachers.get(2));
+        courseGroups.get(0).addTeacher(teachers.get(2));
 
         courseGroups.get(0).setSyllabus(new Syllabus(
             "SYL-01", "Intermediate Foundation (RAD)", 75.0, 60.0, 50.0, 40.0, 56.0, "Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu.", "GRP-01"
@@ -67,5 +67,22 @@ public class CourseGroupDAO {
             }
         }
         return null;
+    }
+
+    public int getTotalStudentsByTeacher(Teacher teacher) {
+        List<CourseGroup> groups = getCourseGroupsByTeacher(teacher);
+        int totalStudents = 0;
+        if (groups != null && !groups.isEmpty()) {
+            for (CourseGroup g : groups) {
+                if (g.getEnrolledStudents() != null) {
+                    totalStudents += g.getEnrolledStudents().size();
+                }
+            }
+        }
+        return totalStudents;
+    }
+
+    public int getTotalStudentsOfCourse(CourseGroup courseGroup) {
+        return courseGroup.getEnrolledStudents().size();
     }
 }
