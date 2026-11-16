@@ -76,6 +76,12 @@ public class StudentProgressServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //Pass
+        request.setCharacterEncoding("UTF-8");
+
+        HttpSession session = request.getSession();
+        if (session == null || session.getAttribute("user") == null || !(session.getAttribute("user") instanceof Teacher)) {
+            response.sendRedirect(request.getContextPath() + "/BalletNet/WebContent/login_form.jsp?message=login_required");
+            return;
+        }
     }
 }
