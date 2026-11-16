@@ -168,14 +168,13 @@ if (request.getAttribute("student_data") == null) {
                     <% } else { %>
                         <div id="alertTab2" class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
                             <i class="bi bi-check-circle-fill me-2 fs-5"></i>
-                            <span>Η ατομική αξιολόγηση και η λίστα ετοιμότητας εξετάσεων ενημερώθηκαν!</span>
+                            <span id="alertTab2Text"></span>
                         </div>
 
-                        <div class="mt-4">
-                            <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" onclick="showInlineAlert('alertTab2');">
-                                <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
-                            </button>
-                        </div>
+                        <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" 
+                                onclick="showInlineAlert('alertTab2', 'Η λίστα ετοιμότητας εξετάσεων του τμήματος οριστικοποιήθηκε!');">
+                            <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
+                        </button>
                     <% } %>
                 </div>
             <% } %>
@@ -223,7 +222,8 @@ if (request.getAttribute("student_data") == null) {
                     </div>
 
                     <div class="d-grid">
-                        <button type="button" class="btn btn-ballet rounded-pill fw-semibold" data-bs-dismiss="modal" onclick="showInlineAlert('alertTab2');">
+                        <button type="button" class="btn btn-ballet rounded-pill fw-semibold" data-bs-dismiss="modal" 
+                                onclick="showInlineAlert('alertTab2', 'Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!');">
                             Αποθήκευση σημειώσεων
                         </button>
                     </div>
@@ -236,9 +236,13 @@ if (request.getAttribute("student_data") == null) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        function showInlineAlert(alertId) {
+        function showInlineAlert(alertId, message) {
             const box = document.getElementById(alertId);
+            const textSpan = document.getElementById(alertId + 'Text');
             if (!box) return;
+            if (textSpan && message) {
+                textSpan.innerText = message;
+            }
             box.classList.replace('d-none', 'd-flex');
             setTimeout(() => box.classList.replace('d-flex', 'd-none'), 3500);
         }
