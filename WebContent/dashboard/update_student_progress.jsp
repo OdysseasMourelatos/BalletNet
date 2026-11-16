@@ -18,6 +18,7 @@ if (!(user instanceof Teacher)) {
 %>
     <jsp:forward page="../login_form.jsp"/>
 <%
+    return;
 }
 Teacher teacher = (Teacher) user;
 
@@ -77,6 +78,8 @@ if (request.getAttribute("student_data") == null) {
                         </span>
                     </div>
 
+                    <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress"); %>
+
                     <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.StudentProgressServlet" method="POST" class="m-0">
                         <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
                         <input type="hidden" name="action" value="updateExamReadiness">
@@ -92,11 +95,11 @@ if (request.getAttribute("student_data") == null) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
+                                <%
                                 if (studentsProgress != null && !studentsProgress.isEmpty()) {
                                     int counter = 0;
-                                    for (StudentProgress stProgress : studentsProgress) {   
-                                        counter++;  
+                                    for (StudentProgress stProgress : studentsProgress) {
+                                        counter++;
                                 %>
                                     <tr>
                                         <td class="ps-3">
@@ -109,11 +112,11 @@ if (request.getAttribute("student_data") == null) {
                                             </div>
                                         </td>
                                         <td>
-                                            <% 
+                                            <%
                                                 int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
                                                 String bg = "bg-success";
                                                 String textColor = "text-success";
-                                                
+
                                                 if (attendance < 50) {
                                                     bg = "bg-danger";
                                                     textColor = "text-danger";
@@ -125,22 +128,22 @@ if (request.getAttribute("student_data") == null) {
                                                 String readinessLevel = stProgress.getReadinessLevel();
                                                 String text = "primary";
 
-                                                if (readinessLevel.equals("Αρχάρια")) {
+                                                if ("Αρχάρια".equals(readinessLevel)) {
                                                     text = "danger";
-                                                } else if (readinessLevel.equals("Υπό εξέλιξη")) {
+                                                } else if ("Υπό εξέλιξη".equals(readinessLevel)) {
                                                     text = "secondary";
                                                 }
                                             %>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="progress attendance-bar">
-                                                <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
+                                                    <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
                                                 </div>
                                                 <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
                                             </div>
                                         </td>
                                         <td><span class="badge rounded-pill bg-<%= text %>-subtle text-<%= text %> border border-<%= text %>-subtle px-3 py-2"><%=readinessLevel%></span></td>
                                         <td>
-                                            <% 
+                                            <%
                                                 boolean isExamReady = stProgress.isExamReady();
                                                 String textOutput = isExamReady ? "Exam Ready" : "Pending Review";
                                                 String textClass = isExamReady ? "fw-semibold text-success" : "text-muted";
@@ -164,7 +167,7 @@ if (request.getAttribute("student_data") == null) {
                                             </button>
                                         </td>
                                     </tr>
-                                    <%
+                                <%
                                     }
                                 }
                                 %>
@@ -172,24 +175,7 @@ if (request.getAttribute("student_data") == null) {
                             </table>
                         </div>
 
-                        <% if (studentsProgress == null || studentsProgress.isEmpty()) { %>
-                        <div class="alert alert-light border d-flex align-items-center rounded-3 py-3 px-4 mt-3 mb-0 shadow-sm" role="alert">
-                            <i class="bi bi-info-circle-fill text-ballet me-3 fs-5"></i>
-                            <span class="text-muted fw-medium">Δεν υπάρχουν εγγεγραμμένοι μαθητές στο συγκεκριμένο τμήμα.</span>
-                        </div>
-                        <% } else { %>
-                        <% String success = request.getParameter("success");
-                        if (success != null) { %>
-                            <div id="alertTab2" class="alert alert-success d-flex align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
-                                <i class="bi bi-check-circle-fill me-2 fs-5"></i>
-                                <span>
-                                    <%= "details".equals(success)
-                                        ? "Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!"
-                                        : "Η λίστα ετοιμότητας εξετάσεων του τμήματος αποθηκεύτηκε!" %>
-                                </span>
-                            </div>
-                        <% } %>
-
+                        <% if (studentsProgress != null && !studentsProgress.isEmpty()) { %>
                         <div class="mt-4">
                             <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
                                 <i class="bi bi-check2-circle me-1"></i> Αποθήκευση ετοιμότητας εξετάσεων
@@ -197,12 +183,30 @@ if (request.getAttribute("student_data") == null) {
                         </div>
                         <% } %>
                     </form>
+
+                    <% if (studentsProgress == null || studentsProgress.isEmpty()) { %>
+                        <div class="alert alert-light border d-flex align-items-center rounded-3 py-3 px-4 mt-3 mb-0 shadow-sm" role="alert">
+                            <i class="bi bi-info-circle-fill text-ballet me-3 fs-5"></i>
+                            <span class="text-muted fw-medium">Δεν υπάρχουν εγγεγραμμένοι μαθητές στο συγκεκριμένο τμήμα.</span>
+                        </div>
+                    <% } %>
+
+                    <% String success = request.getParameter("success");
+                    if (success != null) { %>
+                        <div id="alertTab2" class="alert alert-success d-flex align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
+                            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                            <span>
+                                <%= "details".equals(success)
+                                    ? "Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!"
+                                    : "Η λίστα ετοιμότητας εξετάσεων του τμήματος αποθηκεύτηκε!" %>
+                            </span>
+                        </div>
+                    <% } %>
                 </div>
             <% } %>
             </div>
         </div>
     </div>
-
 
     <!-- Student Detail Modal -->
     <div class="modal fade" id="studentDetailModal" tabindex="-1" aria-labelledby="studentDetailModalLabel" aria-hidden="true">
@@ -284,12 +288,12 @@ if (request.getAttribute("student_data") == null) {
             document.getElementById('modalStudentName').innerText = btn.dataset.studentName;
             document.getElementById('modalStudentId').innerText = 'ID: #' + id;
             document.getElementById('modalStudentAttendance').innerText = btn.dataset.attendance;
-            
+
             const levelSelect = document.getElementById('modalStudentLevelSelect');
             if (levelSelect) {
                 levelSelect.value = btn.dataset.level;
             }
-            
+
             document.getElementById('modalStudentNotes').value = btn.dataset.notes || '';
             bootstrap.Modal.getOrCreateInstance(document.getElementById('studentDetailModal')).show();
         }
