@@ -82,7 +82,9 @@ if (request.getAttribute("student_data") == null) {
                             </thead>
                             <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
                                 if (studentsProgress.size() != 0) {
-                                    for (StudentProgress stProgress : studentsProgress) {     
+                                    int counter = 0;
+                                    for (StudentProgress stProgress : studentsProgress) {   
+                                        counter++;  
                                 %>
                             <tbody>
                                 <tr>
@@ -121,13 +123,19 @@ if (request.getAttribute("student_data") == null) {
                                     </td>
                                     <td><span class="badge rounded-pill bg-<%= text %>-subtle text-<%= text %> border border-<%= text %>-subtle px-3 py-2"><%=stProgress.getReadinessLevel()%></span></td>
                                     <td>
+                                        <% 
+                                            boolean isExamReady = stProgress.isExamReady();
+                                            String textOutput = isExamReady ? "Exam Ready" : "Pending Review";
+                                            String textClass = isExamReady ? "fw-semibold text-success" : "text-muted";
+                                            String switchId = "readySwitch_" + counter;
+                                        %>
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="readySwitch1" checked onchange="toggleReadyLabel(this)">
-                                            <label class="form-check-label fw-semibold text-success" for="readySwitch1"><%= (stProgress.isExamReady()) ? "Exam Ready" : "Pending View" %></label>
+                                            <input class="form-check-input" type="checkbox" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
+                                            <label class="form-check-label <%= textClass %>" for="<%= switchId %>"><%= textOutput %></label>
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0 %>%)', '<%=stProgress.getReadinessLevel()%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= attendance %>%)', '<%=stProgress.getReadinessLevel()%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </td>
@@ -169,11 +177,11 @@ if (request.getAttribute("student_data") == null) {
                         <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
                             <i class="bi bi-person"></i>
                         </div>
-                    <div>
-                        <h5 class="fw-bold mb-0" id="modalStudentName">—</h5>
-                        <span class="text-muted small" id="modalStudentId">ID: —</span>
+                        <div>
+                            <h5 class="fw-bold mb-0" id="modalStudentName">—</h5>
+                            <span class="text-muted small" id="modalStudentId">ID: —</span>
+                        </div>
                     </div>
-
                     <ul class="list-group list-group-flush small mb-3">
                         <li class="list-group-item d-flex justify-content-between px-0">
                             <span class="text-muted">Παρουσίες μαθήτριας:</span>
