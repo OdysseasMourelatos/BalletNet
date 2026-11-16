@@ -88,28 +88,43 @@ if (request.getAttribute("student_data") == null) {
                                 <tr>
                                     <td class="ps-3">
                                         <div class="d-flex align-items-center gap-3">
-                                            <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold">ΜΓ</div>
+                                            <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold"><%=stProgress.getStudent().getFirstName().charAt(0) + "" + stProgress.getStudent().getLastName().charAt(0)%></div>
                                             <div>
                                                 <div class="fw-bold"><%=stProgress.getStudent().getFirstName() + " " + stProgress.getStudent().getLastName()%></div>
-                                                <span class="text-muted small"><%=stProgress.getStudent().getStudentID()%></span>
+                                                <span class="text-muted small">ID: #<%=stProgress.getStudent().getStudentID()%></span>
                                             </div>
                                         </div>
                                     </td>
                                     <td>
+                                        <% 
+                                            int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
+                                            String bg = "bg-success";
+                                            String textColor = "text-success";
+                                            
+                                            if (attendance < 50) {
+                                                bg = "bg-danger";
+                                                textColor = "text-danger";
+                                            } else if (attendance < 75) {
+                                                bg = "bg-warning";
+                                                textColor = "text-warning-emphasis";
+                                            }
+                                        %>
                                         <div class="d-flex align-items-center gap-2">
-                                            <div class="progress attendance-bar"><div class="progress-bar bg-success" style="width: 92%"></div></div>
-                                            <span class="small fw-semibold text-success">(<%= (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0 %>%)</span>
+                                            <div class="progress attendance-bar">
+                                               <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
+                                            </div>
+                                            <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
                                         </div>
                                     </td>
                                     <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2"><%=stProgress.getReadinessLevel()%></span></td>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch" id="readySwitch1" checked onchange="toggleReadyLabel(this)">
-                                            <label class="form-check-label fw-semibold text-success" for="readySwitch1">Exam Ready</label>
+                                            <label class="form-check-label fw-semibold text-success" for="readySwitch1"><%= (stProgress.isExamReady()) ? "Exam Ready" : "Pending View" %></label>
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('Μαρία Γεωργίου', '#ST-104', '23 από 25 μαθήματα (92%)', 'Προχωρημένη', 'Εξαιρετική τοποθέτηση κορμού, έτοιμη για την εξέταση.')" title="Προβολή καρτέλας">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0 %>%)', '<%=stProgress.getReadinessLevel()%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </td>
