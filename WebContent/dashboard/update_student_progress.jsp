@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- Unhandled JSP exceptions are forwarded internally to this common error page. --%>
-<%@ page import="balletnet.models.User, balletnet.models.Teacher, balletnet.models.Student, balletnet.models.StudentProgress, java.util.List" %>
+<%@ page import="balletnet.models.User, balletnet.models.Teacher, balletnet.models.Student, balletnet.models.StudentProgress, balletnet.models.CourseGroup, java.util.List" %>
 <%@ page errorPage="../error.jsp" %>
 
 <%
@@ -75,98 +75,101 @@ if (request.getAttribute("student_data") == null) {
                             <strong id="readyCount"><%=request.getAttribute("totalStudentsReady")%></strong> / <%= request.getAttribute("totalStudentsOfCourseGroup")%> έτοιμες
                         </span>
                     </div>
-
-                    <div class="table-responsive border rounded-3">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th class="ps-3">Μαθήτρια</th>
-                                    <th>Παρουσίες</th>
-                                    <th>Τεχνική επάρκεια</th>
-                                    <th>Ετοιμότητα εξετάσεων</th>
-                                    <th class="text-center">Ενέργεια</th>
-                                </tr>
-                            </thead>
-                            <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
-                                if (studentsProgress.size() != 0) {
-                                    int counter = 0;
-                                    for (StudentProgress stProgress : studentsProgress) {   
-                                        counter++;  
-                                %>
-                            <tbody>
-                                <tr>
-                                    <td class="ps-3">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold"><%=stProgress.getStudent().getFirstName().charAt(0) + "" + stProgress.getStudent().getLastName().charAt(0)%></div>
-                                            <div>
-                                                <div class="fw-bold"><%=stProgress.getStudent().getFirstName() + " " + stProgress.getStudent().getLastName()%></div>
-                                                <span class="text-muted small">ID: #<%=stProgress.getStudent().getStudentID()%></span>
+                    <% CourseGroup currentGroup = request.getAttribute("currentGroup");
+                    <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.StudentProgressServlet" method="POST" class="m-0">
+                        <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
+                        <input type="hidden" name="action" value="updateExamReadiness">
+                        <div class="table-responsive border rounded-3">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="ps-3">Μαθήτρια</th>
+                                        <th>Παρουσίες</th>
+                                        <th>Τεχνική επάρκεια</th>
+                                        <th>Ετοιμότητα εξετάσεων</th>
+                                        <th class="text-center">Ενέργεια</th>
+                                    </tr>
+                                </thead>
+                                <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
+                                    if (studentsProgress.size() != 0) {
+                                        int counter = 0;
+                                        for (StudentProgress stProgress : studentsProgress) {   
+                                            counter++;  
+                                    %>
+                                <tbody>
+                                    <tr>
+                                        <td class="ps-3">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold"><%=stProgress.getStudent().getFirstName().charAt(0) + "" + stProgress.getStudent().getLastName().charAt(0)%></div>
+                                                <div>
+                                                    <div class="fw-bold"><%=stProgress.getStudent().getFirstName() + " " + stProgress.getStudent().getLastName()%></div>
+                                                    <span class="text-muted small">ID: #<%=stProgress.getStudent().getStudentID()%></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <% 
-                                            int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
-                                            String bg = "bg-success";
-                                            String textColor = "text-success";
-                                            
-                                            if (attendance < 50) {
-                                                bg = "bg-danger";
-                                                textColor = "text-danger";
-                                            } else if (attendance < 75) {
-                                                bg = "bg-warning";
-                                                textColor = "text-warning-emphasis";
-                                            }
+                                        </td>
+                                        <td>
+                                            <% 
+                                                int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
+                                                String bg = "bg-success";
+                                                String textColor = "text-success";
+                                                
+                                                if (attendance < 50) {
+                                                    bg = "bg-danger";
+                                                    textColor = "text-danger";
+                                                } else if (attendance < 75) {
+                                                    bg = "bg-warning";
+                                                    textColor = "text-warning-emphasis";
+                                                }
 
-                                            String readinessLevel = stProgress.getReadinessLevel();
-                                            String text = "primary";
+                                                String readinessLevel = stProgress.getReadinessLevel();
+                                                String text = "primary";
 
-                                            if (readinessLevel.equals("Αρχάρια")) {
-                                                text = "danger";
-                                            } else if (readinessLevel.equals("Υπό εξέλιξη")) {
-                                                text = "secondary";
-                                            }
-                                        %>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <div class="progress attendance-bar">
-                                               <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
+                                                if (readinessLevel.equals("Αρχάρια")) {
+                                                    text = "danger";
+                                                } else if (readinessLevel.equals("Υπό εξέλιξη")) {
+                                                    text = "secondary";
+                                                }
+                                            %>
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress attendance-bar">
+                                                <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
+                                                </div>
+                                                <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
                                             </div>
-                                            <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge rounded-pill bg-<%= text %>-subtle text-<%= text %> border border-<%= text %>-subtle px-3 py-2"><%=readinessLevel%></span></td>
-                                    <td>
-                                        <% 
-                                            boolean isExamReady = stProgress.isExamReady();
-                                            String textOutput = isExamReady ? "Exam Ready" : "Pending Review";
-                                            String textClass = isExamReady ? "fw-semibold text-success" : "text-muted";
-                                            String switchId = "readySwitch_" + counter;
-                                        %>
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
-                                            <label class="form-check-label <%= textClass %>" for="<%= switchId %>"><%= textOutput %></label>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= attendance %>%)', '<%=readinessLevel%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            <%
+                                        </td>
+                                        <td><span class="badge rounded-pill bg-<%= text %>-subtle text-<%= text %> border border-<%= text %>-subtle px-3 py-2"><%=readinessLevel%></span></td>
+                                        <td>
+                                            <% 
+                                                boolean isExamReady = stProgress.isExamReady();
+                                                String textOutput = isExamReady ? "Exam Ready" : "Pending Review";
+                                                String textClass = isExamReady ? "fw-semibold text-success" : "text-muted";
+                                                String switchId = "readySwitch_" + counter;
+                                            %>
+                                            <div class="form-check form-switch">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
+                                                <label class="form-check-label <%= textClass %>" for="<%= switchId %>"><%= textOutput %></label>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= attendance %>%)', '<%=readinessLevel%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <%
+                                }
                             }
-                        }
-                        %>
-                        </table>
-                    </div>
+                            %>
+                            </table>
+                        </div>
 
-                    <% if (studentsProgress == null || studentsProgress.isEmpty()) { %>
+                        <% if (studentsProgress == null || studentsProgress.isEmpty()) { %>
                         <div class="alert alert-light border d-flex align-items-center rounded-3 py-3 px-4 mt-3 mb-0 shadow-sm" role="alert">
                             <i class="bi bi-info-circle-fill text-ballet me-3 fs-5"></i>
                             <span class="text-muted fw-medium">Δεν υπάρχουν εγγεγραμμένοι μαθητές στο συγκεκριμένο τμήμα.</span>
                         </div>
-                    <% } else { %>
+                        <% } else { %>
                         <div id="alertTab2" class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
                             <i class="bi bi-check-circle-fill me-2 fs-5"></i>
                             <span id="alertTab2Text"></span>
@@ -175,10 +178,11 @@ if (request.getAttribute("student_data") == null) {
                         <div class="mt-4">
                             <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" 
                                     onclick="showInlineAlert('alertTab2', 'Η λίστα ετοιμότητας εξετάσεων του τμήματος οριστικοποιήθηκε!');">
-                                <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
+                                <i class="bi bi-check2-circle me-1"></i> Αποθήκευση ετοιμότητας εξετάσεων
                             </button>
                         </div>
-                    <% } %>
+                        <% } %>
+                    </form>
                 </div>
             <% } %>
             </div>
@@ -194,43 +198,47 @@ if (request.getAttribute("student_data") == null) {
                     <h5 class="modal-title fw-bold text-ballet" id="studentDetailModalLabel">Καρτέλα προόδου μαθήτριας</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body p-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
-                            <i class="bi bi-person"></i>
+                <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.StudentProgressServlet" method="POST" class="m-0">
+                    <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
+                    <input type="hidden" name="action" value="updateStudentDetails">
+                    <div class="modal-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0" id="modalStudentName">—</h5>
+                                <span class="text-muted small" id="modalStudentId">ID: —</span>
+                            </div>
                         </div>
-                        <div>
-                            <h5 class="fw-bold mb-0" id="modalStudentName">—</h5>
-                            <span class="text-muted small" id="modalStudentId">ID: —</span>
+                        <ul class="list-group list-group-flush small mb-3">
+                            <li class="list-group-item d-flex justify-content-between px-0">
+                                <span class="text-muted">Παρουσίες μαθήτριας:</span>
+                                <strong id="modalStudentAttendance">—</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span class="text-muted">Τεχνική επάρκεια:</span>
+                                <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect">
+                                    <option value="Αρχάρια">Αρχάρια</option>
+                                    <option value="Υπό εξέλιξη">Υπό εξέλιξη</option>
+                                    <option value="Προχωρημένη">Προχωρημένη</option>
+                                </select>
+                            </li>
+                        </ul>
+
+                        <div class="mb-3">
+                            <label for="modalStudentNotes" class="form-label fw-semibold small text-muted">Προσωπικές παρατηρήσεις διδάσκουσας:</label>
+                            <textarea class="form-control rounded-3 small" id="modalStudentNotes" rows="3"></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-ballet rounded-pill fw-semibold" data-bs-dismiss="modal" 
+                                    onclick="showInlineAlert('alertTab2', 'Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!');">
+                                Αποθήκευση σημειώσεων
+                            </button>
                         </div>
                     </div>
-                    <ul class="list-group list-group-flush small mb-3">
-                        <li class="list-group-item d-flex justify-content-between px-0">
-                            <span class="text-muted">Παρουσίες μαθήτριας:</span>
-                            <strong id="modalStudentAttendance">—</strong>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <span class="text-muted">Τεχνική επάρκεια:</span>
-                            <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect">
-                                <option value="Αρχάρια">Αρχάρια</option>
-                                <option value="Υπό εξέλιξη">Υπό εξέλιξη</option>
-                                <option value="Προχωρημένη">Προχωρημένη</option>
-                            </select>
-                        </li>
-                    </ul>
-
-                    <div class="mb-3">
-                        <label for="modalStudentNotes" class="form-label fw-semibold small text-muted">Προσωπικές παρατηρήσεις διδάσκουσας:</label>
-                        <textarea class="form-control rounded-3 small" id="modalStudentNotes" rows="3"></textarea>
-                    </div>
-
-                    <div class="d-grid">
-                        <button type="button" class="btn btn-ballet rounded-pill fw-semibold" data-bs-dismiss="modal" 
-                                onclick="showInlineAlert('alertTab2', 'Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!');">
-                            Αποθήκευση σημειώσεων
-                        </button>
-                    </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
