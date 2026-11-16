@@ -154,16 +154,23 @@ if (request.getAttribute("student_data") == null) {
                         </table>
                     </div>
 
-                    <div id="alertTab2" class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
-                        <i class="bi bi-check-circle-fill me-2 fs-5"></i>
-                        <span>Η ατομική αξιολόγηση και η λίστα ετοιμότητας εξετάσεων ενημερώθηκαν!</span>
-                    </div>
+                    <% if (studentsProgress == null || studentsProgress.isEmpty()) { %>
+                        <div class="alert alert-light border d-flex align-items-center rounded-3 py-3 px-4 mt-3 mb-0 shadow-sm" role="alert">
+                            <i class="bi bi-info-circle-fill text-ballet me-3 fs-5"></i>
+                            <span class="text-muted fw-medium">Δεν υπάρχουν εγγεγραμμένοι μαθητές στο συγκεκριμένο τμήμα.</span>
+                        </div>
+                    <% } else { %>
+                        <div id="alertTab2" class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
+                            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                            <span>Η ατομική αξιολόγηση και η λίστα ετοιμότητας εξετάσεων ενημερώθηκαν!</span>
+                        </div>
 
-                    <div class="mt-4">
-                        <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" onclick="showInlineAlert('alertTab2');">
-                            <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
-                        </button>
-                    </div>
+                        <div class="mt-4">
+                            <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" onclick="showInlineAlert('alertTab2');">
+                                <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
+                            </button>
+                        </div>
+                    <% } %>
                 </div>
             <% } %>
             </div>
