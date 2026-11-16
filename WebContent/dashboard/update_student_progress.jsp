@@ -41,6 +41,7 @@ if (request.getAttribute("student_data") == null) {
 <body>
 
     <%@ include file="../includes/teacher_details.jsp" %>
+            <% CourseGroup currentGroup = (CourseGroup) request.getAttribute("currentGroup"); %>
             <%
             if ((Integer) request.getAttribute("teacherGroupsSize") == 0) {
             %>
@@ -75,7 +76,7 @@ if (request.getAttribute("student_data") == null) {
                             <strong id="readyCount"><%=request.getAttribute("totalStudentsReady")%></strong> / <%= request.getAttribute("totalStudentsOfCourseGroup")%> έτοιμες
                         </span>
                     </div>
-                    <% CourseGroup currentGroup = request.getAttribute("currentGroup");
+
                     <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.StudentProgressServlet" method="POST" class="m-0">
                         <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
                         <input type="hidden" name="action" value="updateExamReadiness">
@@ -90,13 +91,13 @@ if (request.getAttribute("student_data") == null) {
                                         <th class="text-center">Ενέργεια</th>
                                     </tr>
                                 </thead>
-                                <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
-                                    if (studentsProgress.size() != 0) {
-                                        int counter = 0;
-                                        for (StudentProgress stProgress : studentsProgress) {   
-                                            counter++;  
-                                    %>
                                 <tbody>
+                                <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
+                                if (studentsProgress.size() != 0) {
+                                    int counter = 0;
+                                    for (StudentProgress stProgress : studentsProgress) {   
+                                        counter++;  
+                                %>
                                     <tr>
                                         <td class="ps-3">
                                             <div class="d-flex align-items-center gap-3">
@@ -146,21 +147,21 @@ if (request.getAttribute("student_data") == null) {
                                                 String switchId = "readySwitch_" + counter;
                                             %>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
+                                                <input class="form-check-input" type="checkbox" name = "isExamReady" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
                                                 <label class="form-check-label <%= textClass %>" for="<%= switchId %>"><%= textOutput %></label>
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= attendance %>%)', '<%=readinessLevel%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
+                                            <button type="button" class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= attendance %>%)', '<%=readinessLevel%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                         </td>
                                     </tr>
-                                </tbody>
-                                <%
+                                    <%
+                                    }
                                 }
-                            }
-                            %>
+                                %>
+                                </tbody>
                             </table>
                         </div>
 
@@ -176,7 +177,7 @@ if (request.getAttribute("student_data") == null) {
                         </div>
 
                         <div class="mt-4">
-                            <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" 
+                            <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" 
                                     onclick="showInlineAlert('alertTab2', 'Η λίστα ετοιμότητας εξετάσεων του τμήματος οριστικοποιήθηκε!');">
                                 <i class="bi bi-check2-circle me-1"></i> Αποθήκευση ετοιμότητας εξετάσεων
                             </button>
@@ -218,7 +219,7 @@ if (request.getAttribute("student_data") == null) {
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 <span class="text-muted">Τεχνική επάρκεια:</span>
-                                <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect">
+                                <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect" name="readinessLevel">
                                     <option value="Αρχάρια">Αρχάρια</option>
                                     <option value="Υπό εξέλιξη">Υπό εξέλιξη</option>
                                     <option value="Προχωρημένη">Προχωρημένη</option>
@@ -228,11 +229,11 @@ if (request.getAttribute("student_data") == null) {
 
                         <div class="mb-3">
                             <label for="modalStudentNotes" class="form-label fw-semibold small text-muted">Προσωπικές παρατηρήσεις διδάσκουσας:</label>
-                            <textarea class="form-control rounded-3 small" id="modalStudentNotes" rows="3"></textarea>
+                            <textarea class="form-control rounded-3 small" id="modalStudentNotes" name = "personalComments" rows="3"></textarea>
                         </div>
 
                         <div class="d-grid">
-                            <button type="button" class="btn btn-ballet rounded-pill fw-semibold" data-bs-dismiss="modal" 
+                            <button type="submit" class="btn btn-ballet rounded-pill fw-semibold" data-bs-dismiss="modal" 
                                     onclick="showInlineAlert('alertTab2', 'Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!');">
                                 Αποθήκευση σημειώσεων
                             </button>
