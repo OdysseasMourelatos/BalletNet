@@ -193,17 +193,30 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
 }
 
 @media (max-width: 767.98px) {
+    .navbar {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    .navbar-brand img {
+        height: 24px !important;
+        width: auto;
+    }
     .profile-trigger {
         padding: 1px 4px;
         font-size: 0.72rem;
     }
-
-    .profile-trigger .rounded-circle {
+    /* Πιάνει οποιοδήποτε avatar/κύκλο μέσα στο profile-trigger ή navbar */
+    .profile-trigger > div:first-child,
+    .profile-trigger .rounded-circle,
+    .navbar .avatar-sm {
         width: 26px !important;
         height: 26px !important;
+        min-width: 26px !important;
         font-size: 0.68rem !important;
     }
-
     .profile-trigger .fw-semibold,
     .profile-trigger .small {
         font-size: 0.7rem !important;

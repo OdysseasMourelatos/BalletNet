@@ -81,6 +81,19 @@ if (request.getAttribute("course_data") == null) {
                         </span>
                     </div>
 
+                    <%
+                        Integer groupStudentsCount = (Integer) request.getAttribute("groupStudentsCount");
+                        boolean hasStudents = (groupStudentsCount != null && groupStudentsCount > 0);
+                        String disabledAttr = hasStudents ? "" : "disabled";
+                    %>
+
+                    <% if (!hasStudents) { %>
+                        <div class="alert alert-light border d-flex align-items-center rounded-3 py-3 px-4 mb-4 shadow-sm" role="alert">
+                            <i class="bi bi-info-circle-fill text-ballet me-3 fs-5"></i>
+                            <span class="text-muted fw-medium">Δεν υπάρχουν εγγεγραμμένοι μαθητές στο συγκεκριμένο τμήμα. Δεν είναι δυνατή η μεταβολή της προόδου ύλης.</span>
+                        </div>
+                    <% } %>
+
                     <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet" method="POST" class="m-0">
                         <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
                         <div class="row g-4 mb-4">
@@ -89,7 +102,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="barreRange" class="form-label fw-semibold mb-0">1. Barre Work <span class="text-muted fw-normal small d-block">Pliés, Battements</span></label>
                                     <span class="fw-bold text-ballet" id="valBarre" ><%= syllabus.getBarreProgress()%></span>
                                 </div>
-                                <input type="range" name="barreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="barreRange">
+                                <input type="range" <%= disabledAttr %> name="barreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="barreRange">
                             </div>
 
                             <div class="col-md-6">
@@ -97,7 +110,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="centreRange" class="form-label fw-semibold mb-0">2. Port de Bras & Centre <span class="text-muted fw-normal small d-block">Κέντρο & ισορροπίες</span></label>
                                     <span class="fw-bold text-ballet" id="valCentre"><%= syllabus.getCentreProgress()%></span>
                                 </div>
-                                <input type="range" name="centreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getCentreProgress()%>" id="centreRange">
+                                <input type="range" <%= disabledAttr %> name="centreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getCentreProgress()%>" id="centreRange">
                             </div>
 
                             <div class="col-md-6">
@@ -105,7 +118,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="allegroRange" class="form-label fw-semibold mb-0">3. Allegro & Pirouettes <span class="text-muted fw-normal small d-block">Άλματα, στροφές & enchaînements</span></label>
                                     <span class="fw-bold text-ballet" id="valAllegro"><%= syllabus.getAllegroProgress()%></span>
                                 </div>
-                                <input type="range" name="allegroProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getAllegroProgress()%>" id="allegroRange">
+                                <input type="range" <%= disabledAttr %> name="allegroProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getAllegroProgress()%>" id="allegroRange">
                             </div>
 
                             <div class="col-md-6">
@@ -113,13 +126,13 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="pointeRange" class="form-label fw-semibold mb-0">4. Pointe Work <span class="text-muted fw-normal small d-block">Εισαγωγή στις πουέντ</span></label>
                                     <span class="fw-bold text-ballet" id="valPointe"><%= syllabus.getPointeProgress()%></span>
                                 </div>
-                                <input type="range" name = "pointeProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getPointeProgress()%>" id="pointeRange">
+                                <input type="range" <%= disabledAttr %> name = "pointeProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getPointeProgress()%>" id="pointeRange">
                             </div>
                         </div>
 
                         <div class="mb-4">
                             <label for="classNotes" class="form-label fw-semibold">Ημερολόγιο διδασκαλίας / παρατηρήσεις τμήματος</label>
-                            <textarea class="form-control rounded-3" id="classNotes" name = "dailyLog" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."><%= (syllabus != null && syllabus.getDailyLog() != null) ? syllabus.getDailyLog() : "" %></textarea>
+                            <textarea <%= disabledAttr %> class="form-control rounded-3" id="classNotes" name = "dailyLog" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."><%= (syllabus != null && syllabus.getDailyLog() != null) ? syllabus.getDailyLog() : "" %></textarea>
                         </div>
 
                         <% if (request.getParameter("success") != null) { %>
@@ -129,7 +142,7 @@ if (request.getAttribute("course_data") == null) {
                             </div>
                         <% } %>
 
-                        <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
+                        <button type="submit" <%= disabledAttr %> class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
                             <i class="bi bi-cloud-arrow-up me-1"></i> Αποθήκευση προόδου ύλης
                         </button>
                     </form>
