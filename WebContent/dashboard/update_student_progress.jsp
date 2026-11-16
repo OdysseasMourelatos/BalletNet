@@ -108,15 +108,21 @@ if (request.getAttribute("student_data") == null) {
                                             int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
                                             String bg = "bg-success";
                                             String textColor = "text-success";
-                                            String text = "primary";
                                             
                                             if (attendance < 50) {
                                                 bg = "bg-danger";
                                                 textColor = "text-danger";
-                                                text = "danger";
                                             } else if (attendance < 75) {
                                                 bg = "bg-warning";
                                                 textColor = "text-warning-emphasis";
+                                            }
+
+                                            String readinessLevel = stProgress.getReadinessLevel();
+                                            String text = "primary";
+
+                                            if (readinessLevel.equals("Αρχάρια")) {
+                                                text = "danger";
+                                            } else if (readinessLevel.equals("Υπό εξέλιξη")) {
                                                 text = "secondary";
                                             }
                                         %>
@@ -127,7 +133,7 @@ if (request.getAttribute("student_data") == null) {
                                             <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
                                         </div>
                                     </td>
-                                    <td><span class="badge rounded-pill bg-<%= text %>-subtle text-<%= text %> border border-<%= text %>-subtle px-3 py-2"><%=stProgress.getReadinessLevel()%></span></td>
+                                    <td><span class="badge rounded-pill bg-<%= text %>-subtle text-<%= text %> border border-<%= text %>-subtle px-3 py-2"><%=readinessLevel%></span></td>
                                     <td>
                                         <% 
                                             boolean isExamReady = stProgress.isExamReady();
@@ -141,7 +147,7 @@ if (request.getAttribute("student_data") == null) {
                                         </div>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= attendance %>%)', '<%=stProgress.getReadinessLevel()%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
+                                        <button class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= attendance %>%)', '<%=readinessLevel%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
                                             <i class="bi bi-pencil-square"></i>
                                         </button>
                                     </td>
