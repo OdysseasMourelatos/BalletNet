@@ -40,6 +40,12 @@ if (request.getAttribute("student_data") == null) {
 <body>
 
     <%@ include file="../includes/teacher_details.jsp" %>
+            <%
+            if ((Integer) request.getAttribute("teacherGroupsSize") == 0) {
+            %>
+                <%@ include file="../includes/teacher_no_classes.jsp" %>
+
+            <% } else { %>
             <div class="card-body p-4 p-md-5">
 
                 <!-- Tabs ανάμεσα στις δύο σελίδες της Δασκάλας -->
@@ -159,10 +165,11 @@ if (request.getAttribute("student_data") == null) {
                         </button>
                     </div>
                 </div>
-
+            <% } %>
             </div>
         </div>
     </div>
+
 
     <!-- Student Detail Modal -->
     <div class="modal fade" id="studentDetailModal" tabindex="-1" aria-labelledby="studentDetailModalLabel" aria-hidden="true">

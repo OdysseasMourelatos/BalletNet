@@ -40,6 +40,12 @@ public class CourseGroupDAO {
         courseGroups.get(1).setSyllabus(new Syllabus(
             "SYL-02", "Grade 3 Ballet Syllabus", 35.0, 40.0, 20.0, 0.0, 24.0, "Επανάληψη βασικών ασκήσεων μπάρας και προετοιμασία.", "GRP-02"
         ));
+
+        courseGroups.add(new CourseGroup("GRP-03", "Pre-Primary in Dance (RAD)", 10, new ArrayList<>(), new ArrayList<>(), null));
+        courseGroups.get(2).addTeacher(teachers.get(2));
+        courseGroups.get(2).setSyllabus(new Syllabus(
+            "SYL-03", "Pre-Primary in Dance Syllabus", 0.0, 0.0, 0.0, 0.0, 0.0, "", "GRP-03"
+        ));
     }
 
     public List<CourseGroup> getCourseGroups() {
