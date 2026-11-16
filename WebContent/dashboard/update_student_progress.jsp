@@ -166,16 +166,15 @@ if (request.getAttribute("student_data") == null) {
                         <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
                             <i class="bi bi-person"></i>
                         </div>
-                        <div>
-                            <h5 class="fw-bold mb-0" id="modalStudentName">Μαρία Γεωργίου</h5>
-                            <span class="text-muted small" id="modalStudentId">ID: #ST-104</span>
-                        </div>
+                    <div>
+                        <h5 class="fw-bold mb-0" id="modalStudentName">—</h5>
+                        <span class="text-muted small" id="modalStudentId">ID: —</span>
                     </div>
 
                     <ul class="list-group list-group-flush small mb-3">
                         <li class="list-group-item d-flex justify-content-between px-0">
                             <span class="text-muted">Παρουσίες μαθήτριας:</span>
-                            <strong id="modalStudentAttendance">23 από 25 μαθήματα (92%)</strong>
+                            <strong id="modalStudentAttendance">—</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                             <span class="text-muted">Τεχνική επάρκεια:</span>
