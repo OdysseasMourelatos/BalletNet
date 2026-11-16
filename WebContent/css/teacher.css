@@ -1,0 +1,127 @@
+/* ---------- Syllabus Progress Sliders ---------- */
+.syllabus-slider {
+    accent-color: var(--ballet);
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #dee2e6;
+    outline: none;
+    cursor: pointer;
+}
+
+.syllabus-slider::-webkit-slider-thumb, .syllabus-slider::-moz-range-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ballet);
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    transition: transform 0.1s ease;
+}
+
+.syllabus-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.syllabus-slider:focus-visible {
+    box-shadow: 0 0 0 3px rgba(139, 90, 131, 0.3);
+}
+
+/* ---------- Student Table Elements ---------- */
+.student-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 0.85rem;
+    background: var(--ballet-soft);
+    color: var(--ballet);
+}
+
+.attendance-bar {
+    height: 6px;
+    width: 70px;
+}
+
+/* ---------- Ultra-Compact Mobile Teacher Dashboard ---------- */
+@media (max-width: 767.98px) {
+    .navbar { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+    .navbar-brand { font-size: 1rem; }
+    .navbar-brand img { height: 24px !important; width: auto; }
+    .profile-trigger { padding: 1px 4px; font-size: 0.72rem; }
+    .navbar .btn { padding: 0.2rem 0.5rem; font-size: 0.72rem; }
+
+    .profile-band { padding: 0.65rem 0.75rem !important; }
+    .avatar-lg { width: 38px; height: 38px; font-size: 0.9rem; box-shadow: 0 0 0 2px #fff, 0 0 0 3px rgba(139, 90, 131, 0.25); }
+    .profile-band h3, .profile-band h4 { font-size: 1rem; margin-bottom: 0.15rem !important; }
+    .stat-chip { padding: 0.15rem 0.45rem; font-size: 0.68rem; border-radius: 0.5rem; }
+    .profile-band .form-select { padding: 0.25rem 1.75rem 0.25rem 0.6rem; font-size: 0.78rem; }
+
+    .card-body { padding: 0.85rem !important; }
+    .pill-tabs { margin-bottom: 1rem !important; }
+    .pill-tabs .nav-link { padding: 0.3rem 0.65rem; font-size: 0.74rem; }
+
+    .card-body h4 { font-size: 1.05rem; }
+    .card-body p.small, .card-body .form-label { font-size: 0.75rem !important; }
+    .card-body > div > .d-flex .badge { padding: 0.25rem 0.6rem !important; font-size: 0.72rem; }
+
+    .table > :not(caption) > * > * { padding: 0.28rem 0.3rem; font-size: 0.72rem; white-space: nowrap; }
+    .table .student-avatar, .attendance-bar { display: none !important; }
+    .table .badge { padding: 0.2rem 0.45rem !important; font-size: 0.66rem; }
+    .table .form-check-input { transform: scale(0.85); }
+    .table .btn-sm { padding: 0.15rem 0.35rem; font-size: 0.72rem; }
+
+    .card-body .btn-ballet { padding: 0.4rem 1rem !important; font-size: 0.78rem; width: 100%; }
+    .card-body .alert { padding: 0.5rem 0.75rem !important; font-size: 0.76rem; }
+    .card-body textarea.form-control { font-size: 0.78rem; padding: 0.45rem 0.65rem; }
+    
+    .syllabus-slider { height: 6px; }
+    .syllabus-slider::-webkit-slider-thumb, .syllabus-slider::-moz-range-thumb { width: 16px; height: 16px; }
+}
+
+/* ---------- No Groups Empty State ---------- */
+.empty-state { max-width: 680px; }
+
+.empty-state .es-badge {
+    position: relative;
+    width: 112px; height: 112px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, rgba(139, 90, 131, 0.10) 100%);
+    border: 1px solid rgba(139, 90, 131, 0.22);
+    box-shadow: 0 0 0 14px rgba(139, 90, 131, 0.05), 0 0 0 30px rgba(139, 90, 131, 0.025);
+}
+
+.empty-state .es-badge i { font-size: 2.9rem; color: #8B5A83; }
+.empty-state .es-title { font-family: 'Playfair Display', serif; color: #8B5A83; letter-spacing: .2px; }
+.empty-state .es-text { max-width: 520px; margin-inline: auto; line-height: 1.7; }
+
+.empty-state .es-feature {
+    display: flex; align-items: center; gap: .9rem;
+    text-align: left;
+    padding: .85rem 1rem;
+    border: 1px dashed rgba(139, 90, 131, 0.35);
+    border-radius: 1rem;
+    background: rgba(139, 90, 131, 0.03);
+    height: 100%;
+}
+
+.empty-state .es-feature .es-ico {
+    flex: 0 0 auto;
+    width: 40px; height: 40px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 12px;
+    background: rgba(139, 90, 131, 0.10);
+    color: #8B5A83; font-size: 1.15rem;
+}
+
+.empty-state .es-feature .es-lock { margin-left: auto; color: #adb5bd; }
+
+.empty-state .btn-ballet, .empty-state .btn-outline-secondary { transition: transform .15s ease, box-shadow .15s ease; }
+.empty-state .btn-ballet:hover, .empty-state .btn-outline-secondary:hover { transform: translateY(-2px); }
+
+@media (prefers-reduced-motion: reduce) {
+    .empty-state .btn-ballet:hover, .empty-state .btn-outline-secondary:hover { transform: none; }
+}
