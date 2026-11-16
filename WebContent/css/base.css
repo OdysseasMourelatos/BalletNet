@@ -191,3 +191,22 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
 .form-check-input:focus {
     box-shadow: 0 0 0 0.25rem rgba(139, 90, 131, 0.25);
 }
+
+@media (max-width: 767.98px) {
+    .profile-trigger {
+        padding: 1px 4px;
+        font-size: 0.72rem;
+    }
+
+    .profile-trigger .rounded-circle {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 0.68rem !important;
+    }
+
+    .profile-trigger .fw-semibold,
+    .profile-trigger .small {
+        font-size: 0.7rem !important;
+        line-height: 1.1;
+    }
+}
