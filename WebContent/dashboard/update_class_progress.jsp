@@ -35,7 +35,7 @@ if (request.getAttribute("course_data") == null) {
 <head>
     <%@ include file="../includes/header.jsp" %>
     <title>Update Class Progress - Ballet Net</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/teacher.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/BalletNet/WebContent/css/teacher.css">
 </head>
 
 <body>

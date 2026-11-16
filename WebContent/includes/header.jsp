@@ -15,4 +15,4 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/base.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/BalletNet/WebContent/css/base.css">

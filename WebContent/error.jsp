@@ -30,7 +30,7 @@
 <head>
     <%@ include file="includes/header.jsp"%>
     <title>Σφάλμα Συστήματος - Ballet Net</title>
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auth.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/BalletNet/WebContent/css/auth.css">
 </head>
 
 <body>
