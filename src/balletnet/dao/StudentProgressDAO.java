@@ -72,9 +72,9 @@ public class StudentProgressDAO {
                             isExamReady = true;
                             break;
                         case 6:
-                            attendanceRate = 64.0;
+                            attendanceRate = 44.0;
                             readinessLevel = "Αρχάρια";
-                            personalComments = "Απουσίες που επηρέασαν την αφομοίωση των enchaînements.";
+                            personalComments = "Πολλές απουσίες (κάτω από το όριο), απαιτείται αναπλήρωση βασικής ύλης.";
                             isExamReady = false;
                             break;
                         case 7:
