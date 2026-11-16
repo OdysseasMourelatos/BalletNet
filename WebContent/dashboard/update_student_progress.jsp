@@ -35,6 +35,7 @@ if (request.getAttribute("student_data") == null) {
 <head>
     <%@ include file="../includes/header.jsp" %>
     <title>Update Student Progress - Ballet Net</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/teacher.css">
 </head>
 
 <body>
@@ -171,10 +172,12 @@ if (request.getAttribute("student_data") == null) {
                             <span id="alertTab2Text"></span>
                         </div>
 
-                        <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" 
-                                onclick="showInlineAlert('alertTab2', 'Η λίστα ετοιμότητας εξετάσεων του τμήματος οριστικοποιήθηκε!');">
-                            <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
-                        </button>
+                        <div class="mt-4">
+                            <button type="button" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" 
+                                    onclick="showInlineAlert('alertTab2', 'Η λίστα ετοιμότητας εξετάσεων του τμήματος οριστικοποιήθηκε!');">
+                                <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
+                            </button>
+                        </div>
                     <% } %>
                 </div>
             <% } %>

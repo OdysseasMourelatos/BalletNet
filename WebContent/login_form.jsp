@@ -8,6 +8,7 @@
 <head>
     <%@ include file="includes/header.jsp" %>
     <title>Σύνδεση - Ballet Net</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/auth.css">
 </head>
 
 <body>
