@@ -100,13 +100,16 @@ if (request.getAttribute("student_data") == null) {
                                             int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
                                             String bg = "bg-success";
                                             String textColor = "text-success";
+                                            String text = "primary";
                                             
                                             if (attendance < 50) {
                                                 bg = "bg-danger";
                                                 textColor = "text-danger";
+                                                text = "danger";
                                             } else if (attendance < 75) {
                                                 bg = "bg-warning";
                                                 textColor = "text-warning-emphasis";
+                                                text = "secondary";
                                             }
                                         %>
                                         <div class="d-flex align-items-center gap-2">
@@ -116,7 +119,7 @@ if (request.getAttribute("student_data") == null) {
                                             <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
                                         </div>
                                     </td>
-                                    <td><span class="badge rounded-pill bg-primary-subtle text-primary border border-primary-subtle px-3 py-2"><%=stProgress.getReadinessLevel()%></span></td>
+                                    <td><span class="badge rounded-pill bg-<%= text %>-subtle text-<%= text %> border border-<%= text %>-subtle px-3 py-2"><%=stProgress.getReadinessLevel()%></span></td>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" role="switch" id="readySwitch1" checked onchange="toggleReadyLabel(this)">
