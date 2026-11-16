@@ -5,27 +5,27 @@
 
 <%
 if (session.getAttribute("user") == null) {
-	request.setAttribute("message", "login_required");
+    request.setAttribute("message", "login_required");
 %>
-	<jsp:forward page="../login_form.jsp"/>
+    <jsp:forward page="../login_form.jsp"/>
 <%
-	return;
+    return;
 }
 
 User user = (User) session.getAttribute("user");
 if (!(user instanceof Teacher)) {
     request.setAttribute("message", "forbidden_role");
 %>
-	<jsp:forward page="../login_form.jsp"/>
+    <jsp:forward page="../login_form.jsp"/>
 <%
 }
 Teacher teacher = (Teacher) user;
 
 if (request.getAttribute("student_data") == null) {
 %>
-	<jsp:forward page="/servlet/balletnet.controllers.StudentProgressServlet"/>
+    <jsp:forward page="/servlet/balletnet.controllers.StudentProgressServlet"/>
 <%
-	return;
+    return;
 }
 %>
 
@@ -93,7 +93,7 @@ if (request.getAttribute("student_data") == null) {
                                 </thead>
                                 <tbody>
                                 <% List<StudentProgress> studentsProgress = (List<StudentProgress>) request.getAttribute("studentsProgress");
-                                if (studentsProgress.size() != 0) {
+                                if (studentsProgress != null && !studentsProgress.isEmpty()) {
                                     int counter = 0;
                                     for (StudentProgress stProgress : studentsProgress) {   
                                         counter++;  
@@ -147,12 +147,19 @@ if (request.getAttribute("student_data") == null) {
                                                 String switchId = "readySwitch_" + counter;
                                             %>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" name = "isExamReady" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
+                                                <input class="form-check-input" type="checkbox" name="areExamReady" value="<%= stProgress.getStudent().getStudentID() %>" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
                                                 <label class="form-check-label <%= textClass %>" for="<%= switchId %>"><%= textOutput %></label>
                                             </div>
                                         </td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-outline-ballet btn-sm rounded-circle" onclick="openStudentModal('<%=stProgress.getStudent().getFirstName()%> <%=stProgress.getStudent().getLastName()%>', '#<%=stProgress.getStudent().getStudentID()%>', '(<%= attendance %>%)', '<%=readinessLevel%>', '<%=stProgress.getPersonalComments()%>')" title="Προβολή καρτέλας">
+                                            <button type="button" class="btn btn-outline-ballet btn-sm rounded-circle"
+                                                    data-student-id="<%= stProgress.getStudent().getStudentID() %>"
+                                                    data-student-name="<%= stProgress.getStudent().getFirstName() %> <%= stProgress.getStudent().getLastName() %>"
+                                                    data-attendance="(<%= attendance %>%)"
+                                                    data-level="<%= readinessLevel %>"
+                                                    data-notes="<%= (stProgress.getPersonalComments() != null) ? stProgress.getPersonalComments().replace("\"", "&quot;") : "" %>"
+                                                    onclick="openStudentModal(this)"
+                                                    title="Προβολή καρτέλας">
                                                 <i class="bi bi-pencil-square"></i>
                                             </button>
                                         </td>
@@ -171,14 +178,20 @@ if (request.getAttribute("student_data") == null) {
                             <span class="text-muted fw-medium">Δεν υπάρχουν εγγεγραμμένοι μαθητές στο συγκεκριμένο τμήμα.</span>
                         </div>
                         <% } else { %>
-                        <div id="alertTab2" class="alert alert-success d-none align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
-                            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
-                            <span id="alertTab2Text"></span>
-                        </div>
+                        <% String success = request.getParameter("success");
+                        if (success != null) { %>
+                            <div id="alertTab2" class="alert alert-success d-flex align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
+                                <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                                <span>
+                                    <%= "details".equals(success)
+                                        ? "Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!"
+                                        : "Η λίστα ετοιμότητας εξετάσεων του τμήματος αποθηκεύτηκε!" %>
+                                </span>
+                            </div>
+                        <% } %>
 
                         <div class="mt-4">
-                            <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm" 
-                                    onclick="showInlineAlert('alertTab2', 'Η λίστα ετοιμότητας εξετάσεων του τμήματος οριστικοποιήθηκε!');">
+                            <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
                                 <i class="bi bi-check2-circle me-1"></i> Αποθήκευση ετοιμότητας εξετάσεων
                             </button>
                         </div>
@@ -202,6 +215,7 @@ if (request.getAttribute("student_data") == null) {
                 <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.StudentProgressServlet" method="POST" class="m-0">
                     <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
                     <input type="hidden" name="action" value="updateStudentDetails">
+                    <input type="hidden" name="studentID" id="modalHiddenStudentId">
                     <div class="modal-body p-4">
                         <div class="d-flex align-items-center mb-3">
                             <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
@@ -229,12 +243,11 @@ if (request.getAttribute("student_data") == null) {
 
                         <div class="mb-3">
                             <label for="modalStudentNotes" class="form-label fw-semibold small text-muted">Προσωπικές παρατηρήσεις διδάσκουσας:</label>
-                            <textarea class="form-control rounded-3 small" id="modalStudentNotes" name = "personalComments" rows="3"></textarea>
+                            <textarea class="form-control rounded-3 small" id="modalStudentNotes" name="personalComments" rows="3"></textarea>
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-ballet rounded-pill fw-semibold" data-bs-dismiss="modal" 
-                                    onclick="showInlineAlert('alertTab2', 'Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!');">
+                            <button type="submit" class="btn btn-ballet rounded-pill fw-semibold">
                                 Αποθήκευση σημειώσεων
                             </button>
                         </div>
@@ -248,17 +261,6 @@ if (request.getAttribute("student_data") == null) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        function showInlineAlert(alertId, message) {
-            const box = document.getElementById(alertId);
-            const textSpan = document.getElementById(alertId + 'Text');
-            if (!box) return;
-            if (textSpan && message) {
-                textSpan.innerText = message;
-            }
-            box.classList.replace('d-none', 'd-flex');
-            setTimeout(() => box.classList.replace('d-flex', 'd-none'), 3500);
-        }
-
         function toggleReadyLabel(checkbox) {
             const label = checkbox.nextElementSibling;
             if (checkbox.checked) {
@@ -276,19 +278,33 @@ if (request.getAttribute("student_data") == null) {
             document.getElementById('readyCount').innerText = checked;
         }
 
-        function openStudentModal(name, id, attendance, level, notes) {
-            document.getElementById('modalStudentName').innerText = name;
-            document.getElementById('modalStudentId').innerText = 'ID: ' + id;
-            document.getElementById('modalStudentAttendance').innerText = attendance;
+        function openStudentModal(btn) {
+            const id = btn.dataset.studentId;
+            document.getElementById('modalHiddenStudentId').value = id;
+            document.getElementById('modalStudentName').innerText = btn.dataset.studentName;
+            document.getElementById('modalStudentId').innerText = 'ID: #' + id;
+            document.getElementById('modalStudentAttendance').innerText = btn.dataset.attendance;
             
             const levelSelect = document.getElementById('modalStudentLevelSelect');
             if (levelSelect) {
-                levelSelect.value = level;
+                levelSelect.value = btn.dataset.level;
             }
             
-            document.getElementById('modalStudentNotes').value = notes;
+            document.getElementById('modalStudentNotes').value = btn.dataset.notes || '';
             bootstrap.Modal.getOrCreateInstance(document.getElementById('studentDetailModal')).show();
         }
+
+        // Αυτόματη απόκρυψη του alert επιτυχίας μετά από 5 δευτερόλεπτα
+        window.addEventListener('DOMContentLoaded', () => {
+            const alertBox = document.getElementById('alertTab2');
+            if (alertBox) {
+                setTimeout(() => {
+                    alertBox.style.transition = 'opacity 0.6s ease';
+                    alertBox.style.opacity = '0';
+                    setTimeout(() => alertBox.remove(), 600);
+                }, 5000);
+            }
+        });
     </script>
 </body>
 
