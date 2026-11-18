@@ -31,9 +31,11 @@ public class StudentProgressDAO {
                 String readinessLevel = "Υπό εξέλιξη";
                 String personalComments = "";
                 boolean isExamReady = false;
+                Date evaluationDate = defaultEvaluationDate;
+                Teacher evaluator = primaryTeacher;
 
                 if ("GRP-01".equals(group.getGroupID())) {
-                    // Intermediate Foundation (RAD) - 10 μαθήτριες (5/10 Exam Ready)
+                    // Intermediate Foundation (RAD) - 10 μαθήτριες (5/10 Exam Ready, 1 χωρίς αξιολόγηση)
                     switch (indexInGroup) {
                         case 0: // Μαρία Γεωργίου (#ST-104)
                             attendanceRate = 92.0;
@@ -89,15 +91,17 @@ public class StudentProgressDAO {
                             personalComments = "Πλήρης ετοιμότητα και συνέπεια στην παρακολούθηση της ύλης.";
                             isExamReady = true;
                             break;
-                        case 9:
-                            attendanceRate = 76.0;
-                            readinessLevel = "Υπό εξέλιξη";
-                            personalComments = "Καλή διάθεση, απαιτείται επανάληψη στις θέσεις των χεριών (port de bras).";
+                        case 9: // Νέα μαθήτρια - Δεν έχει αξιολογηθεί ακόμα
+                            attendanceRate = null;
+                            readinessLevel = null;
+                            personalComments = null;
                             isExamReady = false;
+                            evaluationDate = null;
+                            evaluator = null;
                             break;
                     }
                 } else if ("GRP-02".equals(group.getGroupID())) {
-                    // Grade 3 Ballet (RAD) - 7 μαθήτριες (3/7 Exam Ready)
+                    // Grade 3 Ballet (RAD) - 7 μαθήτριες (3/7 Exam Ready, 1 χωρίς αξιολόγηση)
                     switch (indexInGroup) {
                         case 0:
                             attendanceRate = 90.0;
@@ -135,11 +139,13 @@ public class StudentProgressDAO {
                             personalComments = "Βελτιώνεται σταθερά, χρειάζεται λίγο χρόνο ακόμα για τεχνική ωριμότητα.";
                             isExamReady = false;
                             break;
-                        case 6:
-                            attendanceRate = 80.0;
-                            readinessLevel = "Υπό εξέλιξη";
-                            personalComments = "Καλή αντίληψη του χώρου, να δουλευτεί το stretching.";
+                        case 6: // Νέα μαθήτρια - Δεν έχει αξιολογηθεί ακόμα
+                            attendanceRate = null;
+                            readinessLevel = null;
+                            personalComments = null;
                             isExamReady = false;
+                            evaluationDate = null;
+                            evaluator = null;
                             break;
                     }
                 }
@@ -150,10 +156,10 @@ public class StudentProgressDAO {
                     readinessLevel,
                     personalComments,
                     isExamReady,
-                    defaultEvaluationDate,
+                    evaluationDate,
                     student,
                     group,
-                    primaryTeacher,
+                    evaluator,
                     null
                 ));
 
