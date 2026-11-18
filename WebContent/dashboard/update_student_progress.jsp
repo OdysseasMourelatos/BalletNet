@@ -152,7 +152,7 @@ if (request.getAttribute("student_data") == null) {
                                         <td>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="progress attendance-bar">
-                                                    <div class="progress-bar <%= bg %>" style="width: <%= attendance %>%;"></div>
+                                                    <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
                                                 </div>
                                                 <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
                                             </div>
