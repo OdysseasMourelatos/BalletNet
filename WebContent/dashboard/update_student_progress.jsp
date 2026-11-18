@@ -186,6 +186,10 @@ if (request.getAttribute("student_data") == null) {
                         </div>
 
                         <% if (studentsProgress != null && !studentsProgress.isEmpty()) { %>
+                        <div id="stagingAlert" class="alert alert-warning d-none align-items-center rounded-3 py-2 px-3 mt-3 mb-0 border-0 shadow-sm" role="alert">
+                            <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
+                            <span>Υπάρχουν μη αποθηκευμένες αλλαγές. Πατήστε <strong>«Οριστικοποίηση αξιολόγησης»</strong> για αποθήκευση στη βάση.</span>
+                        </div>
                         <div class="mt-4">
                             <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
                                 <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
@@ -329,7 +333,14 @@ if (request.getAttribute("student_data") == null) {
                 badge.className = 'badge rounded-pill bg-' + badgeColor + '-subtle text-' + badgeColor + ' border border-' + badgeColor + '-subtle px-3 py-2';
             }
 
-            // 3. Κλείσιμο του modal χωρίς reload της σελίδας
+            // 3. Μήνυμα
+            const stagingAlert = document.getElementById('stagingAlert');
+            if (stagingAlert) {
+                stagingAlert.classList.remove('d-none');
+                stagingAlert.classList.add('d-flex');
+            }
+            
+            // 4. Κλείσιμο του modal χωρίς reload της σελίδας
             const modalEl = document.getElementById('studentDetailModal');
             const modalInstance = bootstrap.Modal.getInstance(modalEl);
             if (modalInstance) {
