@@ -242,7 +242,9 @@ if (request.getAttribute("student_data") == null) {
     </div>
 
     <!-- Student Detail Modal -->
-    <div class="modal fade" id="studentDetailModal" tabindex="-1" aria-labelledby="studentDetailModalLabel" aria-hidden="true">
+    <div class="modal fade" id="studentDetailModal" tabindex="-1"
+        data-teacher-name="<%= teacher.getFirstName() + " " + teacher.getLastName() %>"
+        aria-labelledby="studentDetailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow">
                 <div class="modal-header border-0 pb-0">
@@ -299,7 +301,7 @@ if (request.getAttribute("student_data") == null) {
     <script>
         let activeStudentId = null;
         const modifiedStudents = new Set();
-        const loggedInTeacherName = "<%= teacher.getFirstName() + " " + teacher.getLastName() %>";
+        const loggedInTeacherName = document.getElementById('studentDetailModal').dataset.teacherName;
 
         function toggleReadyLabel(checkbox) {
             const label = checkbox.nextElementSibling;

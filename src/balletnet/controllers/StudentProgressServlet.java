@@ -84,15 +84,16 @@ public class StudentProgressServlet extends HttpServlet {
             return;
         }
 
-        String groupID = request.getParameter("groupID");
-        String action = request.getParameter("action");
+        Teacher teacher = (Teacher) session.getAttribute("user");
 
-        if (action.equals("updateExamReadiness")) {
-            String [] studentsReady = request.getParameterValues("areExamReady");
-        
-        } else if (action.equals("updateStudentDetails")) {
-            String studentID = request.getParameter("studentID");
+        String [] studentsIDs = request.getParameterValues("studentIDs");
+        String [] studentsReady = request.getParameterValues("areExamReadt");
 
+        StudentProgressDAO studentProgressDAO = new StudentProgressDAO();
+        if (studentsIDs != null) {
+            for (String studentID : studentsIDs) {
+                System.out.println();
+            }
         }
     }
 }
