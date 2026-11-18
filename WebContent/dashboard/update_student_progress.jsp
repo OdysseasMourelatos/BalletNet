@@ -224,47 +224,42 @@ if (request.getAttribute("student_data") == null) {
                     <h5 class="modal-title fw-bold text-ballet" id="studentDetailModalLabel">Καρτέλα προόδου μαθήτριας</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.StudentProgressServlet" method="POST" class="m-0">
-                    <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
-                    <input type="hidden" name="action" value="updateStudentDetails">
-                    <input type="hidden" name="studentID" id="modalHiddenStudentId">
-                    <div class="modal-body p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
-                                <i class="bi bi-person"></i>
-                            </div>
-                            <div>
-                                <h5 class="fw-bold mb-0" id="modalStudentName">—</h5>
-                                <span class="text-muted small" id="modalStudentId">ID: —</span>
-                            </div>
+                <div class="modal-body p-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="bg-ballet rounded-circle text-white d-flex align-items-center justify-content-center fw-bold me-3" style="width: 50px; height: 50px; font-size: 1.2rem;">
+                            <i class="bi bi-person"></i>
                         </div>
-                        <ul class="list-group list-group-flush small mb-3">
-                            <li class="list-group-item d-flex justify-content-between px-0">
-                                <span class="text-muted">Παρουσίες μαθήτριας:</span>
-                                <strong id="modalStudentAttendance">—</strong>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                <span class="text-muted">Τεχνική επάρκεια:</span>
-                                <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect" name="readinessLevel">
-                                    <option value="Αρχάρια">Αρχάρια</option>
-                                    <option value="Υπό εξέλιξη">Υπό εξέλιξη</option>
-                                    <option value="Προχωρημένη">Προχωρημένη</option>
-                                </select>
-                            </li>
-                        </ul>
-
-                        <div class="mb-3">
-                            <label for="modalStudentNotes" class="form-label fw-semibold small text-muted">Προσωπικές παρατηρήσεις διδάσκουσας:</label>
-                            <textarea class="form-control rounded-3 small" id="modalStudentNotes" name="personalComments" rows="3"></textarea>
-                        </div>
-
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-ballet rounded-pill fw-semibold">
-                                Αποθήκευση σημειώσεων
-                            </button>
+                        <div>
+                            <h5 class="fw-bold mb-0" id="modalStudentName">—</h5>
+                            <span class="text-muted small" id="modalStudentId">ID: —</span>
                         </div>
                     </div>
-                </form>
+                    <ul class="list-group list-group-flush small mb-3">
+                        <li class="list-group-item d-flex justify-content-between px-0">
+                            <span class="text-muted">Παρουσίες μαθήτριας:</span>
+                            <strong id="modalStudentAttendance">—</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                            <span class="text-muted">Τεχνική επάρκεια:</span>
+                            <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect">
+                                <option value="Αρχάρια">Αρχάρια</option>
+                                <option value="Υπό εξέλιξη">Υπό εξέλιξη</option>
+                                <option value="Προχωρημένη">Προχωρημένη</option>
+                            </select>
+                        </li>
+                    </ul>
+
+                    <div class="mb-3">
+                        <label for="modalStudentNotes" class="form-label fw-semibold small text-muted">Προσωπικές παρατηρήσεις διδάσκουσας:</label>
+                        <textarea class="form-control rounded-3 small" id="modalStudentNotes" rows="3"></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-ballet rounded-pill fw-semibold">
+                            Εφαρμογή αλλαγών
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
