@@ -255,7 +255,7 @@ if (request.getAttribute("student_data") == null) {
                     </div>
 
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-ballet rounded-pill fw-semibold">
+                        <button type="button" class="btn btn-ballet rounded-pill fw-semibold" onclick="applyStudentModalChanges()">
                             Εφαρμογή αλλαγών
                         </button>
                     </div>
