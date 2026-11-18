@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%-- Unhandled JSP exceptions are forwarded internally to this common error page. --%>
-<%@ page import="balletnet.models.User, balletnet.models.Teacher, balletnet.models.Student, balletnet.models.StudentProgress, balletnet.models.CourseGroup, java.util.List" %>
+<%@ page import="balletnet.models.User, balletnet.models.Teacher, balletnet.models.Student, balletnet.models.StudentProgress, balletnet.models.CourseGroup, java.util.List, java.text.SimpleDateFormat" %>
 <%@ page errorPage="../error.jsp" %>
 
 <%
@@ -96,6 +96,7 @@ if (request.getAttribute("student_data") == null) {
                                 <tbody>
                                 <%
                                 if (studentsProgress != null && !studentsProgress.isEmpty()) {
+                                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                                     int counter = 0;
                                     for (StudentProgress stProgress : studentsProgress) {
                                         counter++;
@@ -106,7 +107,9 @@ if (request.getAttribute("student_data") == null) {
                                         String fullName = firstName + " " + lastName;
                                         String initials = "" + firstName.charAt(0) + lastName.charAt(0);
 
-                                        int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
+                                        Double attendanceRate = stProgress.getAttendanceRate();
+                                        int attendance = (attendanceRate != null) ? attendanceRate.intValue() : 0;
+                                        String attendanceDisplay = (attendanceRate != null) ? "(" + attendance + "%)" : "—";
                                         String bg = "bg-success";
                                         String textColor = "text-success";
                                         if (attendance < 50) {
@@ -117,7 +120,9 @@ if (request.getAttribute("student_data") == null) {
                                             textColor = "text-warning-emphasis";
                                         }
 
-                                        String readinessLevel = (stProgress.getReadinessLevel() != null) ? stProgress.getReadinessLevel() : "Υπό εξέλιξη";
+                                        String readinessLevel = stProgress.getReadinessLevel();
+                                        boolean isAssessed = (readinessLevel != null && !readinessLevel.isEmpty());
+                                        String hiddenLevelValue = isAssessed ? readinessLevel : "";
                                         String badgeColor = "primary";
                                         if ("Αρχάρια".equals(readinessLevel)) {
                                             badgeColor = "danger";
@@ -131,6 +136,12 @@ if (request.getAttribute("student_data") == null) {
                                                                     .replace("<", "&lt;")
                                                                     .replace(">", "&gt;");
 
+                                        Teacher evalTeacher = stProgress.getTeacher();
+                                        java.sql.Date evalDate = stProgress.getEvaluationDate();
+                                        String evalMeta = (evalTeacher != null && evalDate != null)
+                                                ? "(" + evalTeacher.getFirstName() + " " + evalTeacher.getLastName() + " • " + sdf.format(evalDate) + ")"
+                                                : "(Δεν έχει αξιολογηθεί ακόμα)";
+
                                         boolean isExamReady = stProgress.isExamReady();
                                         String textOutput = isExamReady ? "Exam Ready" : "Pending Review";
                                         String textClass = isExamReady ? "fw-semibold text-success" : "text-muted";
@@ -139,7 +150,7 @@ if (request.getAttribute("student_data") == null) {
                                     <tr>
                                         <td class="ps-3">
                                             <input type="hidden" name="studentIDs" value="<%= studentId %>">
-                                            <input type="hidden" name="readinessLevel_<%= studentId %>" id="hiddenLevel_<%= studentId %>" value="<%= readinessLevel %>">
+                                            <input type="hidden" name="readinessLevel_<%= studentId %>" id="hiddenLevel_<%= studentId %>" value="<%= hiddenLevelValue %>">
                                             <input type="hidden" name="personalComments_<%= studentId %>" id="hiddenNotes_<%= studentId %>" value="<%= escapedNotes %>">
                                             <div class="d-flex align-items-center gap-3">
                                                 <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold"><%= initials %></div>
@@ -150,15 +161,23 @@ if (request.getAttribute("student_data") == null) {
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="d-flex align-items-center gap-2">
-                                                <div class="progress attendance-bar">
-                                                    <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
+                                            <% if (attendanceRate != null) { %>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <div class="progress attendance-bar">
+                                                        <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
+                                                    </div>
+                                                    <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
                                                 </div>
-                                                <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
-                                            </div>
+                                            <% } else { %>
+                                                <span class="text-muted">—</span>
+                                            <% } %>
                                         </td>
                                         <td>
-                                            <span id="badgeLevel_<%= studentId %>" class="badge rounded-pill bg-<%= badgeColor %>-subtle text-<%= badgeColor %> border border-<%= badgeColor %>-subtle px-3 py-2"><%= readinessLevel %></span>
+                                            <% if (isAssessed) { %>
+                                                <span id="badgeLevel_<%= studentId %>" class="badge rounded-pill bg-<%= badgeColor %>-subtle text-<%= badgeColor %> border border-<%= badgeColor %>-subtle px-3 py-2"><%= readinessLevel %></span>
+                                            <% } else { %>
+                                                <span id="badgeLevel_<%= studentId %>" class="text-muted">—</span>
+                                            <% } %>
                                         </td>
                                         <td>
                                             <div class="form-check form-switch">
@@ -168,9 +187,11 @@ if (request.getAttribute("student_data") == null) {
                                         </td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-outline-ballet btn-sm rounded-circle"
+                                                    id="editBtn_<%= studentId %>"
                                                     data-student-id="<%= studentId %>"
                                                     data-student-name="<%= fullName %>"
-                                                    data-attendance="(<%= attendance %>%)"
+                                                    data-attendance="<%= attendanceDisplay %>"
+                                                    data-eval-meta="<%= evalMeta %>"
                                                     onclick="openStudentModal(this)"
                                                     title="Προβολή καρτέλας">
                                                 <i class="bi bi-pencil-square"></i>
@@ -182,7 +203,7 @@ if (request.getAttribute("student_data") == null) {
                                 }
                                 %>
                                 </tbody>
-                            </table>
+                                                            </table>
                         </div>
 
                         <% if (studentsProgress != null && !studentsProgress.isEmpty()) { %>
@@ -244,18 +265,22 @@ if (request.getAttribute("student_data") == null) {
                             <strong id="modalStudentAttendance">—</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                            <span class="text-muted">Τεχνική επάρκεια:</span>
-                            <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect">
-                                <option value="Αρχάρια">Αρχάρια</option>
-                                <option value="Υπό εξέλιξη">Υπό εξέλιξη</option>
-                                <option value="Προχωρημένη">Προχωρημένη</option>
-                            </select>
-                        </li>
+                        <span class="text-muted">Τεχνική επάρκεια:</span>
+                        <select class="form-select form-select-sm w-auto rounded-3 fw-semibold" id="modalStudentLevelSelect">
+                            <option value="" disabled selected>Επιλέξτε επίπεδο...</option>
+                            <option value="Αρχάρια">Αρχάρια</option>
+                            <option value="Υπό εξέλιξη">Υπό εξέλιξη</option>
+                            <option value="Προχωρημένη">Προχωρημένη</option>
+                        </select>
+                    </li>
                     </ul>
 
                     <div class="mb-3">
-                        <label for="modalStudentNotes" class="form-label fw-semibold small text-muted">Προσωπικές παρατηρήσεις διδάσκουσας:</label>
-                        <textarea class="form-control rounded-3 small" id="modalStudentNotes" rows="3"></textarea>
+                        <label for="modalStudentNotes" class="form-label fw-semibold small text-muted">
+                            Προσωπικές παρατηρήσεις διδάσκουσας:
+                            <span class="fw-normal text-muted ms-1" id="modalEvalMeta"></span>
+                        </label>
+                        <textarea class="form-control rounded-3 small" id="modalStudentNotes" rows="3" placeholder="Καταχωρίστε τεχνικές παρατηρήσεις..."></textarea>
                     </div>
 
                     <div class="d-grid">
@@ -274,6 +299,7 @@ if (request.getAttribute("student_data") == null) {
     <script>
         let activeStudentId = null;
         const modifiedStudents = new Set();
+        const loggedInTeacherName = "<%= teacher.getFirstName() + " " + teacher.getLastName() %>";
 
         function toggleReadyLabel(checkbox) {
             const label = checkbox.nextElementSibling;
@@ -298,8 +324,8 @@ if (request.getAttribute("student_data") == null) {
             document.getElementById('modalStudentName').innerText = btn.dataset.studentName;
             document.getElementById('modalStudentId').innerText = 'ID: #' + activeStudentId;
             document.getElementById('modalStudentAttendance').innerText = btn.dataset.attendance;
+            document.getElementById('modalEvalMeta').innerText = btn.dataset.evalMeta || '';
 
-            // Ανάκτηση από τα hidden inputs της γραμμής (ώστε να διατηρούνται και τυχόν μη-οριστικοποιημένες αλλαγές)
             const currentLevel = document.getElementById('hiddenLevel_' + activeStudentId).value;
             const currentNotes = document.getElementById('hiddenNotes_' + activeStudentId).value;
 
@@ -315,14 +341,21 @@ if (request.getAttribute("student_data") == null) {
         function applyStudentModalChanges() {
             if (!activeStudentId) return;
 
-            const selectedLevel = document.getElementById('modalStudentLevelSelect').value;
+            const levelSelect = document.getElementById('modalStudentLevelSelect');
+            const selectedLevel = levelSelect.value;
             const enteredNotes = document.getElementById('modalStudentNotes').value;
 
-            // 1. Ενημέρωση των hidden inputs της φόρμας για τη μαθήτρια
+            // Αν η μαθήτρια δεν έχει αξιολογηθεί ακόμα, απαιτείται επιλογή επιπέδου
+            if (!selectedLevel) {
+                levelSelect.focus();
+                return;
+            }
+
+            // 1. Ενημέρωση των hidden inputs της φόρμας
             document.getElementById('hiddenLevel_' + activeStudentId).value = selectedLevel;
             document.getElementById('hiddenNotes_' + activeStudentId).value = enteredNotes;
 
-            // 2. Ζωντανή ενημέρωση του badge «Τεχνική επάρκεια» στον πίνακα
+            // 2. Ζωντανή ενημέρωση του badge «Τεχνική επάρκεια» στον πίνακα (μετατρέπει και το «—» σε κανονικό badge)
             const badge = document.getElementById('badgeLevel_' + activeStudentId);
             if (badge) {
                 let badgeColor = 'primary';
@@ -335,10 +368,20 @@ if (request.getAttribute("student_data") == null) {
                 badge.className = 'badge rounded-pill bg-' + badgeColor + '-subtle text-' + badgeColor + ' border border-' + badgeColor + '-subtle px-3 py-2';
             }
 
-            // 3. Μήνυμα
+            // 3. Ενημέρωση των μεταδεδομένων (συνδεδεμένη διδάσκουσα + σημερινή ημερομηνία) στο κουμπί της γραμμής
+            const today = new Date();
+            const formattedDate = String(today.getDate()).padStart(2, '0') + '/'
+                                + String(today.getMonth() + 1).padStart(2, '0') + '/'
+                                + today.getFullYear();
+            const editBtn = document.getElementById('editBtn_' + activeStudentId);
+            if (editBtn) {
+                editBtn.dataset.evalMeta = '(' + loggedInTeacherName + ' • ' + formattedDate + ')';
+            }
+
+            // 4. Εμφάνιση/ανανέωση του μηνύματος προσωρινής αποθήκευσης
             showStagingAlert(activeStudentId);
 
-            // 4. Κλείσιμο του modal χωρίς reload της σελίδας
+            // 5. Κλείσιμο του modal
             const modalEl = document.getElementById('studentDetailModal');
             const modalInstance = bootstrap.Modal.getInstance(modalEl);
             if (modalInstance) {
