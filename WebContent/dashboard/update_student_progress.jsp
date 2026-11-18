@@ -268,6 +268,8 @@ if (request.getAttribute("student_data") == null) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        let activeStudentId = null;
+
         function toggleReadyLabel(checkbox) {
             const label = checkbox.nextElementSibling;
             if (checkbox.checked) {
@@ -286,19 +288,53 @@ if (request.getAttribute("student_data") == null) {
         }
 
         function openStudentModal(btn) {
-            const id = btn.dataset.studentId;
-            document.getElementById('modalHiddenStudentId').value = id;
+            activeStudentId = btn.dataset.studentId;
             document.getElementById('modalStudentName').innerText = btn.dataset.studentName;
-            document.getElementById('modalStudentId').innerText = 'ID: #' + id;
+            document.getElementById('modalStudentId').innerText = 'ID: #' + activeStudentId;
             document.getElementById('modalStudentAttendance').innerText = btn.dataset.attendance;
+
+            // Ανάκτηση από τα hidden inputs της γραμμής (ώστε να διατηρούνται και τυχόν μη-οριστικοποιημένες αλλαγές)
+            const currentLevel = document.getElementById('hiddenLevel_' + activeStudentId).value;
+            const currentNotes = document.getElementById('hiddenNotes_' + activeStudentId).value;
 
             const levelSelect = document.getElementById('modalStudentLevelSelect');
             if (levelSelect) {
-                levelSelect.value = btn.dataset.level;
+                levelSelect.value = currentLevel;
             }
 
-            document.getElementById('modalStudentNotes').value = btn.dataset.notes || '';
+            document.getElementById('modalStudentNotes').value = currentNotes;
             bootstrap.Modal.getOrCreateInstance(document.getElementById('studentDetailModal')).show();
+        }
+
+        function applyStudentModalChanges() {
+            if (!activeStudentId) return;
+
+            const selectedLevel = document.getElementById('modalStudentLevelSelect').value;
+            const enteredNotes = document.getElementById('modalStudentNotes').value;
+
+            // 1. Ενημέρωση των hidden inputs της φόρμας για τη μαθήτρια
+            document.getElementById('hiddenLevel_' + activeStudentId).value = selectedLevel;
+            document.getElementById('hiddenNotes_' + activeStudentId).value = enteredNotes;
+
+            // 2. Ζωντανή ενημέρωση του badge «Τεχνική επάρκεια» στον πίνακα
+            const badge = document.getElementById('badgeLevel_' + activeStudentId);
+            if (badge) {
+                let badgeColor = 'primary';
+                if (selectedLevel === 'Αρχάρια') {
+                    badgeColor = 'danger';
+                } else if (selectedLevel === 'Υπό εξέλιξη') {
+                    badgeColor = 'secondary';
+                }
+                badge.innerText = selectedLevel;
+                badge.className = 'badge rounded-pill bg-' + badgeColor + '-subtle text-' + badgeColor + ' border border-' + badgeColor + '-subtle px-3 py-2';
+            }
+
+            // 3. Κλείσιμο του modal χωρίς reload της σελίδας
+            const modalEl = document.getElementById('studentDetailModal');
+            const modalInstance = bootstrap.Modal.getInstance(modalEl);
+            if (modalInstance) {
+                modalInstance.hide();
+            }
         }
 
         // Αυτόματη απόκρυψη του alert επιτυχίας μετά από 5 δευτερόλεπτα
