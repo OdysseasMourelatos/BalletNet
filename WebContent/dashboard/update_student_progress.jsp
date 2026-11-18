@@ -82,7 +82,6 @@ if (request.getAttribute("student_data") == null) {
 
                     <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.StudentProgressServlet" method="POST" class="m-0">
                         <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
-                        <input type="hidden" name="action" value="updateExamReadiness">
                         <div class="table-responsive border rounded-3">
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light">
@@ -178,7 +177,7 @@ if (request.getAttribute("student_data") == null) {
                         <% if (studentsProgress != null && !studentsProgress.isEmpty()) { %>
                         <div class="mt-4">
                             <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
-                                <i class="bi bi-check2-circle me-1"></i> Αποθήκευση ετοιμότητας εξετάσεων
+                                <i class="bi bi-check2-circle me-1"></i> Οριστικοποίηση αξιολόγησης
                             </button>
                         </div>
                         <% } %>
@@ -196,9 +195,7 @@ if (request.getAttribute("student_data") == null) {
                         <div id="alertTab2" class="alert alert-success d-flex align-items-center rounded-3 py-2 px-3 mt-4 mb-0 border-0 shadow-sm" role="alert">
                             <i class="bi bi-check-circle-fill me-2 fs-5"></i>
                             <span>
-                                <%= "details".equals(success)
-                                    ? "Η τεχνική επάρκεια και οι προσωπικές παρατηρήσεις της μαθήτριας αποθηκεύτηκαν!"
-                                    : "Η λίστα ετοιμότητας εξετάσεων του τμήματος αποθηκεύτηκε!" %>
+                                Η ατομική αξιολόγηση και η λίστα ετοιμότητας εξετάσεων ενημερώθηκαν!
                             </span>
                         </div>
                     <% } %>
