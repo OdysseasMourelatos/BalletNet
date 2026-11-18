@@ -99,67 +99,78 @@ if (request.getAttribute("student_data") == null) {
                                     int counter = 0;
                                     for (StudentProgress stProgress : studentsProgress) {
                                         counter++;
+                                        Student st = stProgress.getStudent();
+                                        String studentId = st.getStudentID();
+                                        String firstName = st.getFirstName();
+                                        String lastName = st.getLastName();
+                                        String fullName = firstName + " " + lastName;
+                                        String initials = "" + firstName.charAt(0) + lastName.charAt(0);
+
+                                        int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
+                                        String bg = "bg-success";
+                                        String textColor = "text-success";
+                                        if (attendance < 50) {
+                                            bg = "bg-danger";
+                                            textColor = "text-danger";
+                                        } else if (attendance < 75) {
+                                            bg = "bg-warning";
+                                            textColor = "text-warning-emphasis";
+                                        }
+
+                                        String readinessLevel = (stProgress.getReadinessLevel() != null) ? stProgress.getReadinessLevel() : "Υπό εξέλιξη";
+                                        String badgeColor = "primary";
+                                        if ("Αρχάρια".equals(readinessLevel)) {
+                                            badgeColor = "danger";
+                                        } else if ("Υπό εξέλιξη".equals(readinessLevel)) {
+                                            badgeColor = "secondary";
+                                        }
+
+                                        String rawNotes = (stProgress.getPersonalComments() != null) ? stProgress.getPersonalComments() : "";
+                                        String escapedNotes = rawNotes.replace("&", "&amp;")
+                                                                    .replace("\"", "&quot;")
+                                                                    .replace("<", "&lt;")
+                                                                    .replace(">", "&gt;");
+
+                                        boolean isExamReady = stProgress.isExamReady();
+                                        String textOutput = isExamReady ? "Exam Ready" : "Pending Review";
+                                        String textClass = isExamReady ? "fw-semibold text-success" : "text-muted";
+                                        String switchId = "readySwitch_" + counter;
                                 %>
                                     <tr>
                                         <td class="ps-3">
+                                            <input type="hidden" name="studentIDs" value="<%= studentId %>">
+                                            <input type="hidden" name="readinessLevel_<%= studentId %>" id="hiddenLevel_<%= studentId %>" value="<%= readinessLevel %>">
+                                            <input type="hidden" name="personalComments_<%= studentId %>" id="hiddenNotes_<%= studentId %>" value="<%= escapedNotes %>">
                                             <div class="d-flex align-items-center gap-3">
-                                                <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold"><%=stProgress.getStudent().getFirstName().charAt(0) + "" + stProgress.getStudent().getLastName().charAt(0)%></div>
+                                                <div class="student-avatar rounded-circle d-flex align-items-center justify-content-center fw-bold"><%= initials %></div>
                                                 <div>
-                                                    <div class="fw-bold"><%=stProgress.getStudent().getFirstName() + " " + stProgress.getStudent().getLastName()%></div>
-                                                    <span class="text-muted small">ID: #<%=stProgress.getStudent().getStudentID()%></span>
+                                                    <div class="fw-bold"><%= fullName %></div>
+                                                    <span class="text-muted small">ID: #<%= studentId %></span>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
-                                            <%
-                                                int attendance = (stProgress.getAttendanceRate() != null) ? stProgress.getAttendanceRate().intValue() : 0;
-                                                String bg = "bg-success";
-                                                String textColor = "text-success";
-
-                                                if (attendance < 50) {
-                                                    bg = "bg-danger";
-                                                    textColor = "text-danger";
-                                                } else if (attendance < 75) {
-                                                    bg = "bg-warning";
-                                                    textColor = "text-warning-emphasis";
-                                                }
-
-                                                String readinessLevel = stProgress.getReadinessLevel();
-                                                String text = "primary";
-
-                                                if ("Αρχάρια".equals(readinessLevel)) {
-                                                    text = "danger";
-                                                } else if ("Υπό εξέλιξη".equals(readinessLevel)) {
-                                                    text = "secondary";
-                                                }
-                                            %>
                                             <div class="d-flex align-items-center gap-2">
                                                 <div class="progress attendance-bar">
-                                                    <div class="progress-bar <%= bg %>" <%= "style=\"width: " + attendance + "%;\"" %>></div>
+                                                    <div class="progress-bar <%= bg %>" style="width: <%= attendance %>%;"></div>
                                                 </div>
                                                 <span class="small fw-semibold <%= textColor %>">(<%= attendance %>%)</span>
                                             </div>
                                         </td>
-                                        <td><span class="badge rounded-pill bg-<%= text %>-subtle text-<%= text %> border border-<%= text %>-subtle px-3 py-2"><%=readinessLevel%></span></td>
                                         <td>
-                                            <%
-                                                boolean isExamReady = stProgress.isExamReady();
-                                                String textOutput = isExamReady ? "Exam Ready" : "Pending Review";
-                                                String textClass = isExamReady ? "fw-semibold text-success" : "text-muted";
-                                                String switchId = "readySwitch_" + counter;
-                                            %>
+                                            <span id="badgeLevel_<%= studentId %>" class="badge rounded-pill bg-<%= badgeColor %>-subtle text-<%= badgeColor %> border border-<%= badgeColor %>-subtle px-3 py-2"><%= readinessLevel %></span>
+                                        </td>
+                                        <td>
                                             <div class="form-check form-switch">
-                                                <input class="form-check-input" type="checkbox" name="areExamReady" value="<%= stProgress.getStudent().getStudentID() %>" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
+                                                <input class="form-check-input" type="checkbox" name="areExamReady" value="<%= studentId %>" role="switch" id="<%= switchId %>" <%= isExamReady ? "checked" : "" %> onchange="toggleReadyLabel(this)">
                                                 <label class="form-check-label <%= textClass %>" for="<%= switchId %>"><%= textOutput %></label>
                                             </div>
                                         </td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-outline-ballet btn-sm rounded-circle"
-                                                    data-student-id="<%= stProgress.getStudent().getStudentID() %>"
-                                                    data-student-name="<%= stProgress.getStudent().getFirstName() %> <%= stProgress.getStudent().getLastName() %>"
+                                                    data-student-id="<%= studentId %>"
+                                                    data-student-name="<%= fullName %>"
                                                     data-attendance="(<%= attendance %>%)"
-                                                    data-level="<%= readinessLevel %>"
-                                                    data-notes="<%= (stProgress.getPersonalComments() != null) ? stProgress.getPersonalComments().replace("\"", "&quot;") : "" %>"
                                                     onclick="openStudentModal(this)"
                                                     title="Προβολή καρτέλας">
                                                 <i class="bi bi-pencil-square"></i>
