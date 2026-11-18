@@ -17,12 +17,15 @@ public class StudentProgressDAO {
         List<CourseGroup> courseGroups = courseGroupDAO.getCourseGroups();
 
         int progressCounter = 1;
-        Date defaultEvaluationDate = new Date(System.currentTimeMillis());
+        long now = System.currentTimeMillis();
+        Date recentEvaluationDate = new Date(now);
+        Date earlierEvaluationDate = new Date(now - 7L * 24 * 60 * 60 * 1000); // πριν 7 ημέρες
 
         for (CourseGroup group : courseGroups) {
             List<Student> students = group.getEnrolledStudents();
             List<Teacher> teachers = group.getTeachers();
             Teacher primaryTeacher = !teachers.isEmpty() ? teachers.get(0) : null;
+            Teacher secondaryTeacher = teachers.size() > 1 ? teachers.get(1) : primaryTeacher;
 
             int indexInGroup = 0;
             for (Student student : students) {
@@ -31,7 +34,7 @@ public class StudentProgressDAO {
                 String readinessLevel = "Υπό εξέλιξη";
                 String personalComments = "";
                 boolean isExamReady = false;
-                Date evaluationDate = defaultEvaluationDate;
+                Date evaluationDate = recentEvaluationDate;
                 Teacher evaluator = primaryTeacher;
 
                 if ("GRP-01".equals(group.getGroupID())) {
@@ -43,11 +46,13 @@ public class StudentProgressDAO {
                             personalComments = "Εξαιρετική τοποθέτηση κορμού, έτοιμη για την εξέταση.";
                             isExamReady = true;
                             break;
-                        case 1: // Ιωάννα Παπαδοπούλου (#ST-108)
+                        case 1: // Ιωάννα Παπαδοπούλου (#ST-108) - Αξιολόγηση από 2η καθηγήτρια
                             attendanceRate = 72.0;
                             readinessLevel = "Υπό εξέλιξη";
                             personalComments = "Χρειάζεται σταθερότητα στις στροφές και επιπλέον εξάσκηση στο allegro.";
                             isExamReady = false;
+                            evaluator = secondaryTeacher;
+                            evaluationDate = earlierEvaluationDate;
                             break;
                         case 2: // Χριστίνα Οικονόμου (#ST-112)
                             attendanceRate = 96.0;
@@ -61,11 +66,13 @@ public class StudentProgressDAO {
                             personalComments = "Πολύ καλή μουσικότητα και ακρίβεια στις ασκήσεις μπάρας.";
                             isExamReady = true;
                             break;
-                        case 4:
+                        case 4: // Αξιολόγηση από 2η καθηγήτρια
                             attendanceRate = 68.0;
                             readinessLevel = "Υπό εξέλιξη";
                             personalComments = "Χρειάζεται ενδυνάμωση στους αστραγάλους για ασφαλή στήριξη στις pointe.";
                             isExamReady = false;
+                            evaluator = secondaryTeacher;
+                            evaluationDate = earlierEvaluationDate;
                             break;
                         case 5:
                             attendanceRate = 92.0;
@@ -79,11 +86,13 @@ public class StudentProgressDAO {
                             personalComments = "Πολλές απουσίες (κάτω από το όριο), απαιτείται αναπλήρωση βασικής ύλης.";
                             isExamReady = false;
                             break;
-                        case 7:
+                        case 7: // Αξιολόγηση από 2η καθηγήτρια
                             attendanceRate = 84.0;
                             readinessLevel = "Υπό εξέλιξη";
                             personalComments = "Συνεχής πρόοδος, να δοθεί έμφαση στην ταχύτητα του petit allegro.";
                             isExamReady = false;
+                            evaluator = secondaryTeacher;
+                            evaluationDate = earlierEvaluationDate;
                             break;
                         case 8:
                             attendanceRate = 90.0;
@@ -120,6 +129,7 @@ public class StudentProgressDAO {
                             readinessLevel = "Υπό εξέλιξη";
                             personalComments = "Χρειάζεται επανάληψη στις βασικές ασκήσεις κέντρου.";
                             isExamReady = false;
+                            evaluationDate = earlierEvaluationDate;
                             break;
                         case 3:
                             attendanceRate = 88.0;
@@ -132,6 +142,7 @@ public class StudentProgressDAO {
                             readinessLevel = "Υπό εξέλιξη";
                             personalComments = "Αρκετές απουσίες, να εντατικοποιηθεί η εξάσκηση στα άλματα.";
                             isExamReady = false;
+                            evaluationDate = earlierEvaluationDate;
                             break;
                         case 5:
                             attendanceRate = 75.0;
@@ -178,7 +189,7 @@ public class StudentProgressDAO {
             return courseStudentsProgress;
         }
         for (StudentProgress studentProgress : studentsProgress) {
-            if (studentProgress.getCourseGroup() != null && 
+            if (studentProgress.getCourseGroup() != null &&
                 studentProgress.getCourseGroup().getGroupID().equals(courseGroup.getGroupID())) {
                 courseStudentsProgress.add(studentProgress);
             }
