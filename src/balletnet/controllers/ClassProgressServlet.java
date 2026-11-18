@@ -99,6 +99,6 @@ public class ClassProgressServlet extends HttpServlet {
             teacher.updateClassProgress(courseGroup, bP, cP, aP, pP, dailyLog);
         }
 
-        response.sendRedirect(request.getContextPath() + "/servlet/balletnet.controllers.ClassProgressServlet?groupID=" + groupID + "&success=true");
+       response.sendRedirect(request.getContextPath() + "/BalletNet/WebContent/dashboard/update_class_progress.jsp?groupID=" + groupID + "&success=true");
     }
 }
