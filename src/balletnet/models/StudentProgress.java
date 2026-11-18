@@ -109,4 +109,14 @@ public class StudentProgress {
     public void setExamSession(ExamSession examSession) {
         this.examSession = examSession;
     }
+
+    //Method defined in class diagram
+    public void updatePersonalEvaluation(String readinessLevel, String personalComments, boolean isExamReady, Teacher teacher) {
+        this.readinessLevel = readinessLevel;
+        this.personalComments = personalComments;
+        this.isExamReady = isExamReady;
+        this.teacher = teacher;
+
+        this.evaluationDate = new Date(System.currentTimeMillis());
+    }
 }
