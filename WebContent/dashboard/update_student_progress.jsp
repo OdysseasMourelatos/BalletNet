@@ -188,7 +188,7 @@ if (request.getAttribute("student_data") == null) {
                         <% if (studentsProgress != null && !studentsProgress.isEmpty()) { %>
                         <div id="stagingAlert" class="alert alert-info d-none align-items-center rounded-3 py-2 px-3 mt-3 mb-0 border-0 shadow-sm" role="alert">
                             <i class="bi bi-info-circle-fill me-2 fs-5"></i>
-                            <span>Οι αλλαγές αποθηκεύτηκαν προσωρινά. Πατήστε <strong>«Οριστικοποίηση αξιολόγησης»</strong> για οριστική καταχώριση στη βάση.</span>
+                            <span id="stagingAlertText"></span>
                         </div>
                         <div class="mt-4">
                             <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
@@ -273,6 +273,7 @@ if (request.getAttribute("student_data") == null) {
 
     <script>
         let activeStudentId = null;
+        const modifiedStudents = new Set();
 
         function toggleReadyLabel(checkbox) {
             const label = checkbox.nextElementSibling;
@@ -284,6 +285,7 @@ if (request.getAttribute("student_data") == null) {
                 label.className = 'form-check-label text-muted';
             }
             updateReadyCount();
+            showStagingAlert(checkbox.value);
         }
 
         function updateReadyCount() {
@@ -334,11 +336,7 @@ if (request.getAttribute("student_data") == null) {
             }
 
             // 3. Μήνυμα
-            const stagingAlert = document.getElementById('stagingAlert');
-            if (stagingAlert) {
-                stagingAlert.classList.remove('d-none');
-                stagingAlert.classList.add('d-flex');
-            }
+            showStagingAlert(activeStudentId);
 
             // 4. Κλείσιμο του modal χωρίς reload της σελίδας
             const modalEl = document.getElementById('studentDetailModal');
@@ -346,6 +344,31 @@ if (request.getAttribute("student_data") == null) {
             if (modalInstance) {
                 modalInstance.hide();
             }
+        }
+
+        function showStagingAlert(studentId) {
+            if (studentId) {
+                modifiedStudents.add(studentId);
+            }
+
+            const stagingAlert = document.getElementById('stagingAlert');
+            const stagingText = document.getElementById('stagingAlertText');
+            if (!stagingAlert || !stagingText) return;
+
+            const count = modifiedStudents.size;
+            const label = (count === 1) ? '1 μαθήτρια' : count + ' μαθήτριες';
+            stagingText.innerHTML = 'Αποθηκεύτηκαν προσωρινά αλλαγές για <strong>' + label + '</strong>. Πατήστε <strong>«Οριστικοποίηση αξιολόγησης»</strong> για οριστική καταχώριση στη βάση.';
+
+            stagingAlert.classList.remove('d-none');
+            stagingAlert.classList.add('d-flex');
+
+            // Διακριτικό οπτικό refresh σε κάθε νέα αλλαγή
+            stagingAlert.style.transition = 'none';
+            stagingAlert.style.opacity = '0.35';
+            requestAnimationFrame(() => {
+                stagingAlert.style.transition = 'opacity 0.35s ease';
+                stagingAlert.style.opacity = '1';
+            });
         }
 
         // Αυτόματη απόκρυψη του alert επιτυχίας μετά από 5 δευτερόλεπτα
