@@ -89,7 +89,10 @@ public class StudentProgressServlet extends HttpServlet {
 
         if (action.equals("updateExamReadiness")) {
             String [] studentsReady = request.getParameterValues("areExamReady");
-            
+        
+        } else if (action.equals("updateStudentDetails")) {
+            String studentID = request.getParameter("studentID");
+
         }
     }
 }
