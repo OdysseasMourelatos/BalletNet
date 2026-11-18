@@ -186,9 +186,9 @@ if (request.getAttribute("student_data") == null) {
                         </div>
 
                         <% if (studentsProgress != null && !studentsProgress.isEmpty()) { %>
-                        <div id="stagingAlert" class="alert alert-warning d-none align-items-center rounded-3 py-2 px-3 mt-3 mb-0 border-0 shadow-sm" role="alert">
-                            <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i>
-                            <span>Υπάρχουν μη αποθηκευμένες αλλαγές. Πατήστε <strong>«Οριστικοποίηση αξιολόγησης»</strong> για αποθήκευση στη βάση.</span>
+                        <div id="stagingAlert" class="alert alert-info d-none align-items-center rounded-3 py-2 px-3 mt-3 mb-0 border-0 shadow-sm" role="alert">
+                            <i class="bi bi-info-circle-fill me-2 fs-5"></i>
+                            <span>Οι αλλαγές αποθηκεύτηκαν προσωρινά. Πατήστε <strong>«Οριστικοποίηση αξιολόγησης»</strong> για οριστική καταχώριση στη βάση.</span>
                         </div>
                         <div class="mt-4">
                             <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
@@ -339,7 +339,7 @@ if (request.getAttribute("student_data") == null) {
                 stagingAlert.classList.remove('d-none');
                 stagingAlert.classList.add('d-flex');
             }
-            
+
             // 4. Κλείσιμο του modal χωρίς reload της σελίδας
             const modalEl = document.getElementById('studentDetailModal');
             const modalInstance = bootstrap.Modal.getInstance(modalEl);
