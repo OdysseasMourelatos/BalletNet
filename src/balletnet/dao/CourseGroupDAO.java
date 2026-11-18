@@ -2,6 +2,7 @@ package balletnet.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import balletnet.models.CourseGroup;
 import balletnet.models.Student;
@@ -46,6 +47,8 @@ public class CourseGroupDAO {
         courseGroups.get(2).setSyllabus(new Syllabus(
             "SYL-03", "Pre-Primary in Dance Syllabus", 0.0, 0.0, 0.0, 0.0, 0.0, "", "GRP-03"
         ));
+
+        courseGroups.get(1).addStudent(students.get(0));
     }
 
     public List<CourseGroup> getCourseGroups() {
@@ -77,15 +80,17 @@ public class CourseGroupDAO {
 
     public int getTotalStudentsByTeacher(Teacher teacher) {
         List<CourseGroup> groups = getCourseGroupsByTeacher(teacher);
-        int totalStudents = 0;
+        Set<String> uniqueStudentIds = new java.util.HashSet<>();
         if (groups != null && !groups.isEmpty()) {
             for (CourseGroup g : groups) {
                 if (g.getEnrolledStudents() != null) {
-                    totalStudents += g.getEnrolledStudents().size();
+                    for (Student s : g.getEnrolledStudents()) {
+                        uniqueStudentIds.add(s.getStudentID());
+                    }
                 }
             }
         }
-        return totalStudents;
+        return uniqueStudentIds.size();
     }
 
     public int getTotalStudentsOfCourse(CourseGroup courseGroup) {

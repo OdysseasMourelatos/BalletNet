@@ -158,6 +158,12 @@ public class StudentProgressDAO {
                             evaluationDate = null;
                             evaluator = null;
                             break;
+                        case 7: // Μαρία Γεωργίου (κοινή μαθήτρια από GRP-01)
+                            attendanceRate = 82.0;
+                            readinessLevel = "Υπό εξέλιξη";
+                            personalComments = "Εξαιρετική στο Intermediate, στο Grade 3 χρειάζεται εξοικείωση με τη χορογραφία.";
+                            isExamReady = false;
+                            break;
                     }
                 }
 
@@ -210,10 +216,15 @@ public class StudentProgressDAO {
         return totalReady;
     }
     
-    public StudentProgress getStudentProgressByStudentID(String studentID) {
-        for (StudentProgress studentProgress : studentsProgress) {
-            if (studentProgress.getStudent().getStudentID().equals(studentID)) {
-                return studentProgress;
+    public StudentProgress getStudentProgressByStudentAndGroup(String studentID, String groupID) {
+        if (studentID == null || groupID == null) {
+            return null;
+        }
+        for (StudentProgress sp : studentsProgress) {
+            if (sp.getStudent() != null && sp.getCourseGroup() != null &&
+                sp.getStudent().getStudentID().equals(studentID) &&
+                sp.getCourseGroup().getGroupID().equals(groupID)) {
+                return sp;
             }
         }
         return null;
