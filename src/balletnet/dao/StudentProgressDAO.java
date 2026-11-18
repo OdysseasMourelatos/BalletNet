@@ -209,4 +209,13 @@ public class StudentProgressDAO {
         }
         return totalReady;
     }
+    
+    public StudentProgress getStudentProgressByStudentID(String studentID) {
+        for (StudentProgress studentProgress : studentsProgress) {
+            if (studentProgress.getStudent().getStudentID().equals(studentID)) {
+                return studentProgress;
+            }
+        }
+        return null;
+    }
 }
