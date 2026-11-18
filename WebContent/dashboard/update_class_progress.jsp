@@ -35,6 +35,7 @@ if (request.getAttribute("course_data") == null) {
 <head>
     <%@ include file="../includes/header.jsp" %>
     <title>Update Class Progress - Ballet Net</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/BalletNet/WebContent/css/teacher.css">
 </head>
 
 <body>
@@ -43,66 +44,7 @@ if (request.getAttribute("course_data") == null) {
             <%
             if ((Integer) request.getAttribute("teacherGroupsSize") == 0) {
             %>
-            <div class="empty-state text-center py-5 px-3 mx-auto">
-
-                <!-- Εικονίδιο -->
-                <div class="es-badge mb-5">
-                    <i class="bi bi-journal-x" aria-hidden="true"></i>
-                </div>
-
-                <!-- Τίτλος & περιγραφή -->
-                <h3 class="es-title fw-bold mb-3">Δεν βρέθηκαν ενεργά τμήματα</h3>
-                <p class="es-text text-muted mb-4">
-                    Δεν υπάρχουν τμήματα διδασκαλίας ανατεθειμένα στο προφίλ σας για την τρέχουσα περίοδο.
-                    Μόλις γίνει η ανάθεση, θα ενεργοποιηθούν αυτόματα οι παρακάτω λειτουργίες.
-                </p>
-
-                <!-- Τι θα ενεργοποιηθεί -->
-                <div class="row g-3 mb-4 text-start">
-                    <div class="col-sm-6">
-                        <div class="es-feature">
-                            <span class="es-ico"><i class="bi bi-journal-check" aria-hidden="true"></i></span>
-                            <div class="lh-sm">
-                                <div class="fw-semibold small">Πρόοδος ύλης τμήματος</div>
-                                <div class="text-muted" style="font-size: .78rem;">Κάλυψη ανά ενότητα RAD</div>
-                            </div>
-                            <i class="bi bi-lock-fill es-lock" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="es-feature">
-                            <span class="es-ico"><i class="bi bi-people-fill" aria-hidden="true"></i></span>
-                            <div class="lh-sm">
-                                <div class="fw-semibold small">Αξιολόγηση μαθητριών</div>
-                                <div class="text-muted" style="font-size: .78rem;">Προσωπική πρόοδος</div>
-                            </div>
-                            <i class="bi bi-lock-fill es-lock" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Κατάσταση λογαριασμού -->
-                <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-light border border-secondary-subtle small text-muted mb-4 shadow-sm">
-                    <span class="spinner-grow spinner-grow-sm text-ballet" style="width: .6rem; height: .6rem;" aria-hidden="true"></span>
-                    <span>Κατάσταση λογαριασμού: <strong class="text-dark">RAD Certified Instructor</strong> · Αναμονή ανάθεσης</span>
-                </div>
-
-                <!-- Ενέργειες -->
-                <div class="d-flex flex-wrap justify-content-center gap-3 pt-1">
-                    <a href="mailto:secretariat@balletarts.gr?subject=Ανάθεση%20Τμημάτων%20Διδασκαλίας%20-%20BalletNet"
-                    class="btn btn-ballet rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
-                        <i class="bi bi-envelope"></i>
-                        <span>Επικοινωνία με Γραμματεία</span>
-                    </a>
-
-                    <a href="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet"
-                    class="btn btn-outline-secondary rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2">
-                        <i class="bi bi-arrow-clockwise"></i>
-                        <span>Ανανέωση δεδομένων</span>
-                    </a>
-                </div>
-            </div>
-
+                <%@ include file="../includes/teacher_no_classes.jsp" %>
 
             <% } else { %>
             <div class="card-body p-4 p-md-5">
@@ -139,6 +81,19 @@ if (request.getAttribute("course_data") == null) {
                         </span>
                     </div>
 
+                    <%
+                        Integer groupStudentsCount = (Integer) request.getAttribute("groupStudentsCount");
+                        boolean hasStudents = (groupStudentsCount != null && groupStudentsCount > 0);
+                        String disabledAttr = hasStudents ? "" : "disabled";
+                    %>
+
+                    <% if (!hasStudents) { %>
+                        <div class="alert alert-light border d-flex align-items-center rounded-3 py-3 px-4 mb-4 shadow-sm" role="alert">
+                            <i class="bi bi-info-circle-fill text-ballet me-3 fs-5"></i>
+                            <span class="text-muted fw-medium">Δεν υπάρχουν εγγεγραμμένοι μαθητές στο συγκεκριμένο τμήμα. Δεν είναι δυνατή η μεταβολή της προόδου ύλης.</span>
+                        </div>
+                    <% } %>
+
                     <form action="<%=request.getContextPath()%>/servlet/balletnet.controllers.ClassProgressServlet" method="POST" class="m-0">
                         <input type="hidden" name="groupID" value="<%= (currentGroup != null) ? currentGroup.getGroupID() : "" %>">
                         <div class="row g-4 mb-4">
@@ -147,7 +102,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="barreRange" class="form-label fw-semibold mb-0">1. Barre Work <span class="text-muted fw-normal small d-block">Pliés, Battements</span></label>
                                     <span class="fw-bold text-ballet" id="valBarre" ><%= syllabus.getBarreProgress()%></span>
                                 </div>
-                                <input type="range" name="barreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="barreRange">
+                                <input type="range" <%= disabledAttr %> name="barreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getBarreProgress()%>" id="barreRange">
                             </div>
 
                             <div class="col-md-6">
@@ -155,7 +110,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="centreRange" class="form-label fw-semibold mb-0">2. Port de Bras & Centre <span class="text-muted fw-normal small d-block">Κέντρο & ισορροπίες</span></label>
                                     <span class="fw-bold text-ballet" id="valCentre"><%= syllabus.getCentreProgress()%></span>
                                 </div>
-                                <input type="range" name="centreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getCentreProgress()%>" id="centreRange">
+                                <input type="range" <%= disabledAttr %> name="centreProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getCentreProgress()%>" id="centreRange">
                             </div>
 
                             <div class="col-md-6">
@@ -163,7 +118,7 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="allegroRange" class="form-label fw-semibold mb-0">3. Allegro & Pirouettes <span class="text-muted fw-normal small d-block">Άλματα, στροφές & enchaînements</span></label>
                                     <span class="fw-bold text-ballet" id="valAllegro"><%= syllabus.getAllegroProgress()%></span>
                                 </div>
-                                <input type="range" name="allegroProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getAllegroProgress()%>" id="allegroRange">
+                                <input type="range" <%= disabledAttr %> name="allegroProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getAllegroProgress()%>" id="allegroRange">
                             </div>
 
                             <div class="col-md-6">
@@ -171,13 +126,13 @@ if (request.getAttribute("course_data") == null) {
                                     <label for="pointeRange" class="form-label fw-semibold mb-0">4. Pointe Work <span class="text-muted fw-normal small d-block">Εισαγωγή στις πουέντ</span></label>
                                     <span class="fw-bold text-ballet" id="valPointe"><%= syllabus.getPointeProgress()%></span>
                                 </div>
-                                <input type="range" name = "pointeProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getPointeProgress()%>" id="pointeRange">
+                                <input type="range" <%= disabledAttr %> name = "pointeProgress" class="syllabus-slider" min="0" max="100" value="<%= (int) syllabus.getPointeProgress()%>" id="pointeRange">
                             </div>
                         </div>
 
                         <div class="mb-4">
                             <label for="classNotes" class="form-label fw-semibold">Ημερολόγιο διδασκαλίας / παρατηρήσεις τμήματος</label>
-                            <textarea class="form-control rounded-3" id="classNotes" name = "dailyLog" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."><%= (syllabus != null && syllabus.getDailyLog() != null) ? syllabus.getDailyLog() : "" %></textarea>
+                            <textarea <%= disabledAttr %> class="form-control rounded-3" id="classNotes" name = "dailyLog" rows="3" placeholder="π.χ. Ιδιαίτερη έμφαση στο échappé sur les pointes και στις ισορροπίες στο fondu."><%= (syllabus != null && syllabus.getDailyLog() != null) ? syllabus.getDailyLog() : "" %></textarea>
                         </div>
 
                         <% if (request.getParameter("success") != null) { %>
@@ -187,7 +142,7 @@ if (request.getAttribute("course_data") == null) {
                             </div>
                         <% } %>
 
-                        <button type="submit" class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
+                        <button type="submit" <%= disabledAttr %> class="btn btn-ballet rounded-pill px-4 fw-semibold shadow-sm">
                             <i class="bi bi-cloud-arrow-up me-1"></i> Αποθήκευση προόδου ύλης
                         </button>
                     </form>

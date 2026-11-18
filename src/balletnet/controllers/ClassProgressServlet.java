@@ -55,11 +55,14 @@ public class ClassProgressServlet extends HttpServlet {
             session.setAttribute("selectedGroupId", groupID);
         }
 
+        int groupStudentsCount = (courseGroup != null && courseGroup.getStudents() != null) ? courseGroup.getStudents().size() : 0;
+
         request.setAttribute("teacherGroups", groups);
         request.setAttribute("teacherGroupsSize", (groups != null) ? groups.size() : 0);
         request.setAttribute("totalStudents", totalStudents);
         request.setAttribute("currentGroup", courseGroup);
         request.setAttribute("syllabus", syllabus);
+        request.setAttribute("groupStudentsCount", groupStudentsCount);
         request.setAttribute("course_data", true);
 
         request.getRequestDispatcher(APP_BASE + "/dashboard/update_class_progress.jsp").forward(request, response);
@@ -92,10 +95,10 @@ public class ClassProgressServlet extends HttpServlet {
         CourseGroupDAO courseGroupDAO = new CourseGroupDAO();
         CourseGroup courseGroup = courseGroupDAO.getCourseGroupByGroupID(groupID);
 
-        if (courseGroup != null) {
+        if (courseGroup != null && courseGroup.getStudents() != null && !courseGroup.getStudents().isEmpty()) {
             teacher.updateClassProgress(courseGroup, bP, cP, aP, pP, dailyLog);
         }
 
-        response.sendRedirect(request.getContextPath() + "/servlet/balletnet.controllers.ClassProgressServlet?groupID=" + groupID + "&success=true");
+       response.sendRedirect(request.getContextPath() + "/BalletNet/WebContent/dashboard/update_class_progress.jsp?groupID=" + groupID + "&success=true");
     }
 }

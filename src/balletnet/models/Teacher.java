@@ -34,4 +34,8 @@ public class Teacher extends User {
         syllabus.updateClassProgress(barreProgress, centreProgress, allegroProgress, pointeProgress);
         syllabus.updateDailyLog(dailyLog);
     }
+
+    public void updatePersonalStudentProgress(StudentProgress studentProgress, String readinessLevel, String personalComments, boolean isExamReady) {
+        studentProgress.updatePersonalEvaluation(readinessLevel, personalComments, isExamReady, this);
+    }
 }

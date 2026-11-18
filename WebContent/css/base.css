@@ -1,0 +1,225 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+/* ---------- Branding Variables ---------- */
+:root {
+    --ballet: #8B5A83;
+    --ballet-dark: #6f4468;
+    --ballet-soft: #f6eff5;
+    --countdown-accent: #ff5757;
+    --countdown-bg: #18181c;
+}
+
+/* ---------- Base Background and Text Fonts ---------- */
+body {
+    background-image: url('../photos/purple_waves.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-color: #f8f9fa;
+    font-family: 'Montserrat', sans-serif;
+}
+
+p, a, table, input, select, button {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand, .modal-title {
+    font-family: 'Playfair Display', serif;
+}
+
+/* ---------- Colors & Ballet Net Identity ---------- */
+.text-ballet {
+    color: var(--ballet) !important;
+}
+
+.bg-ballet {
+    background-color: var(--ballet) !important;
+    color: #ffffff;
+}
+
+/* ---------- Buttons ---------- */
+.btn-ballet {
+    background-color: var(--ballet);
+    color: #ffffff;
+    border: 2px solid var(--ballet);
+    transition: all 0.25s ease;
+}
+
+.btn-ballet:hover {
+    background-color: var(--ballet-dark);
+    border-color: var(--ballet-dark);
+    color: #ffffff;
+}
+
+.btn-outline-ballet {
+    color: var(--ballet) !important;
+    border: 2px solid var(--ballet) !important;
+    background-color: transparent !important;
+    transition: all 0.25s ease !important;
+}
+
+.btn-outline-ballet:hover, .btn-outline-ballet:hover:focus {
+    background-color: var(--ballet) !important;
+    color: #ffffff !important;
+    border-color: var(--ballet) !important;
+}
+
+.btn-outline-ballet:focus {
+    box-shadow: 0 0 0 0.25rem rgba(139, 90, 131, 0.35) !important;
+}
+
+/* ---------- Typography & Links ---------- */
+.text-link {
+    text-decoration: none;
+    color: #6c757d;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.text-link:hover {
+    color: var(--ballet);
+    text-decoration: underline;
+}
+
+/* ---------- Cards & Tabs ---------- */
+.card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feature-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none !important;
+    background-color: #ffffff;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.card-icon {
+    font-size: 2.5rem;
+    color: var(--ballet);
+}
+
+.custom-tabs .nav-link {
+    color: #6c757d;
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.custom-tabs .nav-link:hover {
+    color: var(--ballet);
+    text-decoration: underline;
+}
+
+.custom-tabs .nav-link.active {
+    color: var(--ballet);
+    border-bottom: 3px solid var(--ballet);
+    font-weight: 700;
+}
+
+/* ---------- Common Dashboard Elements ---------- */
+.profile-band {
+    background: linear-gradient(120deg, var(--ballet-soft) 0%, #ffffff 70%);
+    border-bottom: 1px solid rgba(139, 90, 131, 0.12);
+}
+
+.avatar-lg {
+    width: 72px;
+    height: 72px;
+    font-size: 1.6rem;
+    box-shadow: 0 0 0 4px #fff, 0 0 0 5px rgba(139, 90, 131, 0.25);
+}
+
+.stat-chip {
+    background: #fff;
+    border: 1px solid rgba(139, 90, 131, 0.15);
+    border-radius: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    color: #6c757d;
+    white-space: nowrap;
+}
+
+.stat-chip strong {
+    color: #212529;
+}
+
+.pill-tabs .nav-link {
+    color: #6c757d;
+    font-weight: 600;
+    border-radius: 50rem;
+    padding: 0.55rem 1.25rem;
+    transition: all 0.2s ease;
+}
+
+.pill-tabs .nav-link:hover {
+    color: var(--ballet);
+}
+
+.pill-tabs .nav-link.active {
+    background-color: var(--ballet);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(139, 90, 131, 0.25);
+}
+
+.profile-trigger {
+    cursor: pointer;
+    padding: 4px 10px;
+    border-radius: 50rem;
+    transition: background-color 0.2s ease;
+    border: 0;
+    background: transparent;
+}
+
+.profile-trigger:hover {
+    background-color: rgba(139, 90, 131, 0.08);
+}
+
+.form-check-input:checked {
+    background-color: var(--ballet) !important;
+    border-color: var(--ballet) !important;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(139, 90, 131, 0.25);
+}
+
+@media (max-width: 767.98px) {
+    .navbar {
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+    }
+    .navbar-brand {
+        font-size: 1rem;
+    }
+    .navbar-brand img {
+        height: 24px !important;
+        width: auto;
+    }
+    .profile-trigger {
+        padding: 1px 4px;
+        font-size: 0.72rem;
+    }
+    /* Πιάνει οποιοδήποτε avatar/κύκλο μέσα στο profile-trigger ή navbar */
+    .profile-trigger > div:first-child,
+    .profile-trigger .rounded-circle,
+    .navbar .avatar-sm {
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
+        font-size: 0.68rem !important;
+    }
+    .profile-trigger .fw-semibold,
+    .profile-trigger .small {
+        font-size: 0.7rem !important;
+        line-height: 1.1;
+    }
+}
