@@ -83,5 +83,13 @@ public class StudentProgressServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/BalletNet/WebContent/login_form.jsp?message=login_required");
             return;
         }
+
+        String groupID = request.getParameter("groupID");
+        String action = request.getParameter("action");
+
+        if (action.equals("updateExamReadiness")) {
+            String [] studentsReady = request.getParameterValues("areExamReady");
+            
+        }
     }
 }
